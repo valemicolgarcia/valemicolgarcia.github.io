@@ -2,17 +2,340 @@
 layout: default
 ---
 
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
+<section class="hero-section" id="hero">
+</section>
 
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+<section id="about" class="about-section">
+  <h2 class="section-title">About Me</h2>
+  <div class="about-container">
+    <div class="tech-icons tech-icons-left">
+      <i class="fab fa-python" title="Python"></i>
+      <i class="fas fa-microchip" title="C / Assembly"></i>
+    </div>
 
-      <div class="entry">
-        {{ post.excerpt }}
+    <div class="profile-center">
+      <img src="{{ site.avatar }}" alt="Valeria Micol Garcia" class="profile-img">
+      <h3 class="profile-name">
+        <span class="name-first">Valeria</span> <span class="name-last">Micol Garcia</span>
+      </h3>
+      <div class="social-row">
+        <a href="https://github.com/{{ site.footer-links.github }}" target="_blank" class="social-btn"><i
+            class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/{{ site.footer-links.linkedin }}" target="_blank" class="social-btn"><i
+            class="fab fa-linkedin"></i></a>
+        <a href="mailto:{{ site.footer-links.email }}" class="social-btn"><i class="fas fa-envelope"></i></a>
+        <a href="/files/cv.pdf" download class="social-btn"><i class="fas fa-file-pdf"></i></a>
       </div>
+    </div>
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endfor %}
+    <div class="tech-icons tech-icons-right">
+      <i class="fab fa-java" title="Java"></i>
+      <i class="fas fa-database" title="SQL"></i>
+    </div>
+  </div>
+
+  <div class="bio-text">
+    <p>Computer Engineering student with a passion for Artificial Intelligence and its applications. Currently building
+      hands-on Machine Learning projects to sharpen my technical skills.</p>
+  </div>
+</section>
+
+<section id="career" class="career-section">
+  <h2 class="section-title">My Career</h2>
+
+  <!-- Academic Progress Bar -->
+  <a href="/curriculum" class="academic-progress-link">
+    <div class="academic-progress">
+      <div class="progress-info">
+        <span class="progress-label">Computer Engineering (UNLP)</span>
+        <span class="progress-percentage">98%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" style="width: 98%"></div>
+      </div>
+      <p class="progress-text">Only one course left to graduate</p>
+    </div>
+  </a>
+
+  <div class="timeline">
+    <!-- 2026 - Projected Graduation -->
+    <div class="timeline-item left">
+      <a href="/curriculum" class="content-link">
+        <div class="content">
+          <h3>Computer Engineering Graduation</h3>
+          <p><strong>Universidad Nacional de La Plata (UNLP)</strong></p>
+          <p>Bachelor's Degree in Computer Engineering</p>
+        </div>
+      </a>
+      <div class="dot dot-graduation"><i class="fas fa-graduation-cap"></i></div>
+      <div class="date">Jul 2026 (Projected)</div>
+    </div>
+
+    <!-- 2025 - Research & Certifications -->
+    <div class="timeline-item right">
+      <div class="date">May 2025</div>
+      <div class="dot dot-education"><i class="fas fa-flask"></i></div>
+      <div class="content">
+        <h3>Research Fellow - LEICI Institute (UNLP)</h3>
+        <p>Analysis of physiological signals during exercise and stress episodes in people with type 1 diabetes</p>
+      </div>
+    </div>
+
+    <!-- 2025 - Certifications -->
+    <div class="timeline-item left">
+      <a href="/certificates/toefl-2025" class="content-link">
+        <div class="content">
+          <h3>TOEFL iBT (Home Edition)</h3>
+          <p>Total Score: 82/120 (B2 Level)</p>
+          <a href="/files/certificates/toefl-2025.pdf" download class="cert-download-btn" title="Download certificate"
+            onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <div class="date">Dec 16, 2025</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">Mar 26, 2025</div>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <a href="/certificates/backend-ii-2025" class="content-link">
+        <div class="content">
+          <h3>Backend Programming II: Backend Design & Architecture</h3>
+          <p>Coderhouse</p>
+          <a href="/files/certificates/backend-ii-2025.png" download class="cert-download-btn"
+            title="Download certificate" onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+    </div>
+
+    <div class="timeline-item left">
+      <a href="/certificates/backend-i-2025" class="content-link">
+        <div class="content">
+          <h3>Backend Programming I: Advanced Backend Development</h3>
+          <p>Coderhouse </p>
+          <a href="/files/certificates/backend-i.png" download class="cert-download-btn" title="Download certificate"
+            onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <div class="date">Jan 27, 2025</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">Jan 25, 2025</div>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <a href="/certificates/sql-2025" class="content-link">
+        <div class="content">
+          <h3>SQL</h3>
+          <p>Coderhouse</p>
+          <a href="/files/certificates/sql.png" download class="cert-download-btn" title="Download certificate"
+            onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+    </div>
+
+    <!-- 2024 - Certifications -->
+    <div class="timeline-item left">
+      <a href="/certificates/cloud-computing-2024" class="content-link">
+        <div class="content">
+          <h3>Cloud Computing (AWS)</h3>
+          <p>Coderhouse</p>
+          <a href="/files/certificates/aws-2024.png" download class="cert-download-btn" title="Download certificate"
+            onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <div class="date">Oct 30, 2024</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">Sep 4, 2024</div>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <a href="/certificates/data-science-iii-2024" class="content-link">
+        <div class="content">
+          <h3>Data Science III: NLP & Deep Learning</h3>
+          <p>Coderhouse</p>
+          <a href="/files/certificates/data-science-iii-2024.png" download class="cert-download-btn"
+            title="Download certificate" onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+    </div>
+
+    <div class="timeline-item left">
+      <a href="/certificates/data-science-ii-2024" class="content-link">
+        <div class="content">
+          <h3>Data Science II: Machine Learning</h3>
+          <p>Coderhouse</p>
+          <a href="/files/certificates/data-science-ii-2024.png" download class="cert-download-btn"
+            title="Download certificate" onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <div class="date">Aug 12, 2024</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">Jul 2024</div>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <a href="/certificates/machine-learning-python-2024" class="content-link">
+        <div class="content">
+          <h3>Machine Learning with Python</h3>
+          <p>freeCodeCamp</p>
+          <a href="/files/certificates/ml-freecodecamp.png" download class="cert-download-btn"
+            title="Download certificate" onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+    </div>
+
+    <div class="timeline-item left">
+      <a href="/certificates/data-science-i-2024" class="content-link">
+        <div class="content">
+          <h3>Data Science I: Fundamentals for Data Science</h3>
+          <p>Coderhouse </p>
+          <a href="/files/certificates/data-science-i-2024.png" download class="cert-download-btn"
+            title="Download certificate" onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <div class="date">Mar 21, 2024</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">Mar 2, 2024</div>
+      <div class="dot dot-certificate"><i class="fas fa-certificate"></i></div>
+      <a href="/certificates/fce-2024" class="content-link">
+        <div class="content">
+          <h3>First Certificate in English (FCE)</h3>
+          <p>Cambridge University - Score: 176 (B2 Level)</p>
+          <a href="/files/certificates/fce-2024.pdf" download class="cert-download-btn" title="Download certificate"
+            onclick="event.stopPropagation()"><i class="fas fa-download"></i></a>
+        </div>
+      </a>
+    </div>
+
+    <!-- 2023 - Teaching Assistant -->
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>Ayudante de Cátedra - Programación 2</h3>
+        <p><strong>Facultad de Ingeniería, UNLP</strong></p>
+      </div>
+      <div class="dot dot-education"><i class="fas fa-chalkboard-teacher"></i></div>
+      <div class="date">2023</div>
+    </div>
+
+    <!-- 2022 - University Start -->
+    <div class="timeline-item right">
+      <div class="date">2022</div>
+      <div class="dot dot-education"><i class="fas fa-graduation-cap"></i></div>
+      <div class="content">
+        <h3>Computer Engineering</h3>
+        <p><strong>Universidad Nacional de La Plata (UNLP)</strong></p>
+        <p>Started studies. Distinguished Freshman recognition.</p>
+      </div>
+    </div>
+
+    <!-- 2021 - Skating Achievement -->
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>Argentine Artistic Skating Runner-Up</h3>
+        <p>Second place in Argentine Artistic Skating Championship</p>
+      </div>
+      <div class="dot dot-award"><i class="fas fa-medal"></i></div>
+      <div class="date">2021</div>
+    </div>
+
+    <!-- 2019 - Skating Achievement -->
+    <div class="timeline-item right">
+      <div class="date">2019</div>
+      <div class="dot dot-award"><i class="fas fa-trophy"></i></div>
+      <div class="content">
+        <h3>Argentine Artistic Skating Champion</h3>
+        <p>First place in Argentine Artistic Skating Championship</p>
+      </div>
+    </div>
+
+    <!-- 2017 - Skating Achievement -->
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>3rd Place in Argentine Artistic Skating Championship</h3>
+        <p>Third place in national competition</p>
+      </div>
+      <div class="dot dot-award"><i class="fas fa-medal"></i></div>
+      <div class="date">2017</div>
+    </div>
+
+    <!-- 2016 - Secondary Education & Achievement -->
+    <div class="timeline-item right">
+      <div class="date">Sep 2016</div>
+      <div class="dot dot-award"><i class="fas fa-medal"></i></div>
+      <div class="content">
+        <h3>Special Mention in Ñandú Math Olympiad</h3>
+        <p>Recognition for outstanding performance</p>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>Secondary Education</h3>
+        <p><strong>Colegio Fray Mamerto Esquiú</strong></p>
+      </div>
+      <div class="dot dot-education"><i class="fas fa-graduation-cap"></i></div>
+      <div class="date">2016 - 2021</div>
+    </div>
+
+    <!-- 2015 - Primary Education Achievements -->
+    <div class="timeline-item right">
+      <div class="date">Dec 2015</div>
+      <div class="dot dot-award"><i class="fas fa-trophy"></i></div>
+      <div class="content">
+        <h3>René Favaloro Award</h3>
+        <p>Best GPA of the institution</p>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>Provincial Runner-Up in Ñandú Math Olympiad</h3>
+        <p>Second place in provincial mathematics competition</p>
+      </div>
+      <div class="dot dot-award"><i class="fas fa-medal"></i></div>
+      <div class="date">Oct 2015</div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="date">2010 - 2015</div>
+      <div class="dot dot-education"><i class="fas fa-graduation-cap"></i></div>
+      <div class="content">
+        <h3>Primary Education</h3>
+        <p><strong>Colegio San Blas, City Bell</strong></p>
+      </div>
+    </div>
+
+    <!-- 2007-2009 - Early Education -->
+    <div class="timeline-item left">
+      <div class="content">
+        <h3>Early Education</h3>
+        <p>Kindergarten</p>
+      </div>
+      <div class="dot dot-education"><i class="fas fa-graduation-cap"></i></div>
+      <div class="date">2007 - 2009</div>
+    </div>
+
+    <!-- 2004 - Birth -->
+    <div class="timeline-item right">
+      <div class="date">Feb 13, 2004</div>
+      <div class="dot dot-birth"><i class="fas fa-user"></i></div>
+      <div class="content">
+        <h3>Birth</h3>
+        <p>February 13, 2004</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="blog-footer">
+  <a href="/blog.html" class="blog-btn">My Blog</a>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

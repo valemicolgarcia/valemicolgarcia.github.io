@@ -15,12 +15,14 @@
 
 html {
   font-size: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
 	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
+  padding-top: 0;
 }
 
 .container {
@@ -28,6 +30,14 @@ body {
   max-width: 740px;
   padding: 0 10px;
   width: 100%;
+}
+
+#main {
+  padding-top: 0;
+  
+  .container {
+    padding-top: 0;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -287,3 +297,646 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "svg-icons";
+
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 20px 0;
+  
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    @include mobile {
+      padding: 0 20px;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  
+  .navbar-name {
+    font-family: $helveticaNeue;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 30px;
+    
+    @include mobile {
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    a {
+      font-family: $helveticaNeue;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  
+  // Transparent state (over hero)
+  &.navbar-transparent {
+    background-color: transparent;
+    
+    .navbar-name {
+      background: #4a90e2;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 4px;
+    }
+    
+    .navbar-links a {
+      color: white;
+    }
+  }
+  
+  // Solid state (scrolled)
+  &.navbar-solid {
+    background-color: $white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    .navbar-name {
+      color: $darkGray;
+      padding: 0;
+      background: transparent;
+    }
+    
+    .navbar-links a {
+      color: $darkGray;
+      
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  height: 55vh;
+  width: 100vw;
+  background: url('/images/background.jpg') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* About Section */
+.about-section { 
+  text-align: center; 
+  padding: 60px 0; 
+  background: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .section-title {
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 15px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background-color: #4a90e2;
+    }
+  }
+}
+
+.about-container { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 80px; 
+  margin-bottom: 30px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 60px;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+  }
+}
+
+.tech-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex: 1;
+  
+  i { 
+    font-size: 45px; 
+    color: #e0e0e0; 
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #c0c0c0;
+    }
+  }
+}
+
+.tech-icons-left {
+  align-items: flex-start;
+}
+
+.tech-icons-right {
+  align-items: flex-end;
+}
+
+.profile-center {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-img { 
+  width: 160px; 
+  border-radius: 50%; 
+  border: 6px solid #f8f9fa; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 15px 0;
+  
+  .name-first {
+    color: #4a90e2;
+  }
+  
+  .name-last {
+    color: #333;
+  }
+}
+
+.social-row { 
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #4a90e2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  
+  i {
+    font-size: 1.1rem;
+    color: white;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    background-color: #357abd;
+  }
+}
+
+/* Career Section */
+.career-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: #fff;
+  
+  .section-title {
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background-color: #4a90e2;
+    }
+  }
+}
+
+/* Academic Progress Bar Link */
+.academic-progress-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  
+  &:hover {
+    transform: translateY(-2px);
+    
+    .academic-progress {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+  }
+}
+
+/* Academic Progress Bar */
+.academic-progress {
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+  
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    
+    .progress-label {
+      font-weight: 500;
+      color: #333;
+      font-size: 1rem;
+    }
+    
+    .progress-percentage {
+      font-weight: 600;
+      color: #4a90e2;
+      font-size: 1.1rem;
+    }
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4a90e2 0%, #357abd 100%);
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+  }
+  
+  .progress-text {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+/* Timeline */
+.timeline { 
+  position: relative; 
+  max-width: 900px; 
+  margin: 40px auto; 
+  padding: 20px 0; 
+  
+  &::after { 
+    content: ''; 
+    position: absolute; 
+    width: 2px; 
+    background: #e0e0e0; 
+    top: 0; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+}
+
+.timeline-item { 
+  width: 50%; 
+  padding: 20px 40px; 
+  position: relative; 
+  box-sizing: border-box;
+  
+  .date {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+    
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.5;
+      
+      strong {
+        color: #333;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.timeline-item.left { 
+  left: 0; 
+  text-align: right; 
+  padding-right: 60px;
+  
+  .content {
+    text-align: right;
+  }
+}
+
+.timeline-item.right { 
+  left: 50%; 
+  text-align: left; 
+  padding-left: 60px;
+  
+  .content {
+    text-align: left;
+  }
+}
+
+.dot { 
+  position: absolute; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  color: white; 
+  text-align: center; 
+  line-height: 40px; 
+  font-size: 16px;
+  top: 25px; 
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  
+  i {
+    font-size: 18px;
+  }
+}
+
+.dot-birth { 
+  background: #9b59b6; 
+}
+
+.dot-education { 
+  background: #3498db; 
+}
+
+.dot-award { 
+  background: #f39c12; 
+}
+
+.dot-certificate { 
+  background: #2ecc71; 
+}
+
+.dot-graduation { 
+  background: #27ae60; 
+}
+
+.left .dot { 
+  right: -20px; 
+}
+
+.right .dot { 
+  left: -20px; 
+}
+
+/* Certificate Content Link */
+.content-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  .content {
+    transition: box-shadow 0.2s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    
+    .content {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+  }
+}
+
+/* Certificate Download Button */
+.cert-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  margin-left: 8px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  vertical-align: middle;
+  
+  i {
+    font-size: 11px;
+    color: white;
+  }
+  
+  &:hover {
+    transform: scale(1.1);
+    background-color: #357abd;
+  }
+}
+
+@include mobile {
+  .hero-section {
+    height: 40vh;
+  }
+  
+  .about-section {
+    padding: 40px 0;
+  }
+  
+  .about-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px;
+  }
+  
+  .tech-icons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  .profile-img {
+    width: 120px;
+  }
+  
+  .career-section {
+    padding: 40px 15px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .timeline {
+    &::after {
+      left: 30px;
+    }
+  }
+  
+  .timeline-item {
+    width: 100%;
+    left: 0 !important;
+    padding-left: 70px !important;
+    padding-right: 20px !important;
+    
+    .content {
+      text-align: left !important;
+      padding: 15px;
+    }
+    
+    .dot {
+      left: 10px !important;
+      right: auto !important;
+    }
+  }
+  
+  .academic-progress {
+    padding: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .academic-progress-link {
+    margin-bottom: 40px;
+  }
+  
+  .certificate-page {
+    padding: 60px 15px 30px;
+  }
+  
+  .certificate-container h1 {
+    font-size: 1.8rem;
+  }
+  
+  .certificate-image canvas {
+    width: 100%;
+  }
+  
+  .curriculum-page {
+    padding: 60px 15px 30px;
+  }
+  
+  .year-section {
+    padding: 20px;
+  }
+  
+  .subjects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-page {
+    padding: 60px 15px 30px;
+  }
+  
+  .blog-page h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Blog Button */
+.blog-footer { 
+  text-align: center; 
+  padding: 50px; 
+  background: #4a90e2; 
+  margin-top: 50px;
+  max-width: 100%;
+}
+.blog-btn { 
+  border: 2px solid white; 
+  color: white; 
+  padding: 12px 40px; 
+  border-radius: 30px; 
+  text-decoration: none; 
+  font-weight: bold; 
+  transition: 0.3s;
+  display: inline-block;
+}
+.blog-btn:hover { 
+  background: white; 
+  color: #4a90e2; 
+}
+
+

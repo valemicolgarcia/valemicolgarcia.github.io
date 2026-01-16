@@ -1,0 +1,92 @@
+---
+layout: default
+title: Blog
+permalink: /blog.html
+---
+
+<div class="blog-page">
+  <h1>Blog</h1>
+  
+  <div class="posts-container">
+    {% for post in site.posts %}
+      <article class="post-preview">
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <div class="post-date">{{ post.date | date: "%B %e, %Y" }}</div>
+        <div class="post-excerpt">
+          {{ post.excerpt | default: post.content | strip_html | truncatewords: 50 }}
+        </div>
+        <a href="{{ post.url }}" class="read-more">Read more →</a>
+      </article>
+    {% endfor %}
+    
+    {% if site.posts.size == 0 %}
+      <p>No posts yet. Check back soon!</p>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.blog-page {
+  max-width: 800px;
+  margin: 80px auto 0;
+  padding: 40px 20px;
+}
+
+.blog-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.post-preview {
+  padding: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.post-preview:last-child {
+  border-bottom: none;
+}
+
+.post-preview h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.post-preview h2 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.post-preview h2 a:hover {
+  color: #4183C4;
+}
+
+.post-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.post-excerpt {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.read-more {
+  color: #4183C4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+</style>
+
