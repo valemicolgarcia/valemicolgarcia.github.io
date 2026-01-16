@@ -131,7 +131,7 @@ title: Song Popularity Prediction
         <div class="eda-question">
           <h3>¿Hay alguna relación entre la duración de la canción y la cantidad de likes?</h3>
           <div class="eda-image eda-image-small">
-            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/duracionvslikes.png" alt="Relación entre duración y likes" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/duracionvslikes.png" alt="Relación entre duración y likes" />
           </div>
         </div>
         
@@ -139,10 +139,10 @@ title: Song Popularity Prediction
           <h3>¿Hay relación entre likes, comentarios y visualizaciones?</h3>
           <div class="eda-images-grid">
             <div class="eda-image">
-              <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/likes-comentarios-visualizaciones.png" alt="Relación entre likes, comentarios y visualizaciones" />
+              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/likes-comentarios-visualizaciones.png" alt="Relación entre likes, comentarios y visualizaciones" />
             </div>
             <div class="eda-image">
-              <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/visualizaciones-comentarios-likes.png" alt="Visualizaciones, comentarios y likes" />
+              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/visualizaciones-comentarios-likes.png" alt="Visualizaciones, comentarios y likes" />
             </div>
           </div>
         </div>
@@ -151,7 +151,7 @@ title: Song Popularity Prediction
           <h3>¿Influye la licencia en la cantidad de likes?</h3>
           <p class="eda-note">Se analizó la relación entre el estado de licencia de los videos y su cantidad de likes para identificar si este factor influye en la popularidad.</p>
           <div class="eda-image eda-image-small">
-            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/licencia.png" alt="Influencia de la licencia en los likes" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/licencia.png" alt="Influencia de la licencia en los likes" />
           </div>
         </div>
       </div>
@@ -161,7 +161,7 @@ title: Song Popularity Prediction
       <h2>3. Análisis de Normalidad de Variables Numéricas</h2>
       <p class="section-description">Se analizó la distribución de las variables numéricas para determinar si seguían una distribución normal, lo cual es crucial para decidir qué técnicas de imputación y escalado utilizar.</p>
       <div class="analysis-image">
-        <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/normalidad.png" alt="Análisis de normalidad" />
+        <img src="{{ site.baseurl }}/projects/spotify-popularity-data/normalidad.png" alt="Análisis de normalidad" />
       </div>
     </div>
 
@@ -228,11 +228,11 @@ print(missing_count)</code></pre>
         <div class="boxplot-comparison">
           <div class="boxplot-item">
             <h4>Con Outliers</h4>
-            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/danceabilityCONoutliers.png" alt="Danceability con outliers" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilityCONoutliers.png" alt="Danceability con outliers" />
           </div>
           <div class="boxplot-item">
             <h4>Sin Outliers</h4>
-            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/danceabilitySINoutliers.png" alt="Danceability sin outliers" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilitySINoutliers.png" alt="Danceability sin outliers" />
           </div>
         </div>
       </div>
@@ -321,7 +321,7 @@ print(missing_count)</code></pre>
         <h3>6.3 Análisis de Correlaciones</h3>
         <p>Se analizó el mapa de correlaciones para identificar variables altamente correlacionadas y eliminar dependencias, evitando que el modelo tenga información redundante.</p>
         <div class="correlation-map">
-          <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/mapacorrelaciones.png" alt="Mapa de correlaciones" class="correlation-image" />
+          <img src="{{ site.baseurl }}/projects/spotify-popularity-data/mapacorrelaciones.png" alt="Mapa de correlaciones" class="correlation-image" />
         </div>
         <p class="correlation-note">Las variables con alta correlación fueron eliminadas para evitar multicolinealidad en el modelo de regresión lineal.</p>
       </div>
