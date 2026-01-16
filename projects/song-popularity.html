@@ -1,0 +1,396 @@
+---
+layout: default
+title: Song Popularity Prediction
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <h1 class="project-detail-title">Song Popularity Prediction</h1>
+    <p class="project-detail-subtitle">Análisis de Datos y Feature Engineering</p>
+    <div class="project-tags">
+      <span class="tag">Python</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">Feature Engineering</span>
+      <span class="tag">Linear Regression</span>
+      <span class="tag">EDA</span>
+    </div>
+    <div class="github-link">
+      <a href="https://github.com/valemicolgarcia/Song-Popularity-Prediction" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> Ver código en GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problema a Resolver</h2>
+      <p>Este proyecto identifica los factores que influyen en el número de likes que recibe un video de canción en YouTube, permitiendo predecir la popularidad basándose en características musicales y métricas de engagement. El análisis utiliza un dataset con 28 variables que combinan información de Spotify, YouTube y propiedades de la composición musical.</p>
+      <p><strong>Modelo utilizado:</strong> Regresión Lineal</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. Información del Dataset</h2>
+      <p class="section-description">El dataset contiene información sobre canciones de Spotify y sus videos correspondientes en YouTube, con 28 variables que incluyen características musicales, métricas de engagement y metadatos.</p>
+      
+      <div class="variables-info">
+        <div class="variables-category">
+          <h3>Variables Categóricas (object)</h3>
+          <ul>
+            <li><strong>Artist:</strong> Nombre del artista</li>
+            <li><strong>Url_spotify:</strong> URL del artista en Spotify</li>
+            <li><strong>Track:</strong> Nombre de la canción como está contenida en Spotify</li>
+            <li><strong>Album:</strong> Álbum que contiene la canción</li>
+            <li><strong>Album_type:</strong> Tipo de álbum (solista o compilado)</li>
+            <li><strong>Uri:</strong> Link de Spotify para encontrar la canción en la API</li>
+            <li><strong>Url_youtube:</strong> URL del video de la canción en YouTube</li>
+            <li><strong>Title:</strong> Título del video en YouTube</li>
+            <li><strong>Channel:</strong> Nombre del canal que publicó el video</li>
+            <li><strong>official_video:</strong> Variable booleana que indica si el video es oficial</li>
+            <li><strong>Description:</strong> Descripción del video en YouTube</li>
+            <li><strong>Licensed:</strong> Indica si el video tiene licencia</li>
+          </ul>
+        </div>
+        
+        <div class="variables-category">
+          <h3>Variables Numéricas (float64)</h3>
+          <ul>
+            <li><strong>Danceability:</strong> Qué tan adecuada es la canción para ser bailada</li>
+            <li><strong>Energy:</strong> Medida de la intensidad y actividad</li>
+            <li><strong>Key:</strong> La clave en la que se encuentra la pista</li>
+            <li><strong>Loudness:</strong> El volumen general de la pista en decibeles (dB)</li>
+            <li><strong>Speechiness:</strong> Detecta la presencia de palabras habladas en la pista</li>
+            <li><strong>Acousticness:</strong> Medida de confianza para saber si la pista es acústica</li>
+            <li><strong>Instrumentalness:</strong> Indica si una pista no contiene voces</li>
+            <li><strong>Liveness:</strong> Detecta la presencia de una audiencia en la grabación</li>
+            <li><strong>Valence:</strong> Describe la positividad musical que transmite una pista</li>
+            <li><strong>Tempo:</strong> El tempo general estimado en pulsaciones por minuto (BPM)</li>
+            <li><strong>Duration_ms:</strong> Duración de la canción en milisegundos</li>
+            <li><strong>Views:</strong> Visualizaciones en YouTube</li>
+            <li><strong>Likes:</strong> Likes en YouTube</li>
+            <li><strong>Comments:</strong> Comentarios en YouTube</li>
+            <li><strong>Stream:</strong> Número de reproducciones de la canción en Spotify</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dataset-example">
+        <h3>Ejemplo del Dataset</h3>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Artist</th>
+                <th>Track</th>
+                <th>Album</th>
+                <th>Album_type</th>
+                <th>Danceability</th>
+                <th>Energy</th>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Comments</th>
+                <th>Stream</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gorillaz</td>
+                <td>Feel Good Inc.</td>
+                <td>Demon Days</td>
+                <td>album</td>
+                <td>0.818</td>
+                <td>0.705</td>
+                <td>693,555,221</td>
+                <td>6,220,896</td>
+                <td>169,907</td>
+                <td>1.04e+09</td>
+              </tr>
+              <tr>
+                <td>Gorillaz</td>
+                <td>Rhinestone Eyes</td>
+                <td>Plastic Beach</td>
+                <td>album</td>
+                <td>0.676</td>
+                <td>0.703</td>
+                <td>72,011,645</td>
+                <td>1,079,128</td>
+                <td>31,003</td>
+                <td>3.10e+08</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="eda-section">
+      <h2>2. Análisis Exploratorio de Datos (EDA)</h2>
+      <p class="section-description">Se realizó un análisis exploratorio enfocado en responder tres preguntas principales sobre los factores que influyen en la popularidad de las canciones.</p>
+      
+      <div class="eda-questions">
+        <div class="eda-question">
+          <h3>¿Hay alguna relación entre la duración de la canción y la cantidad de likes?</h3>
+          <div class="eda-image eda-image-small">
+            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/duracionvslikes.png" alt="Relación entre duración y likes" />
+          </div>
+        </div>
+        
+        <div class="eda-question">
+          <h3>¿Hay relación entre likes, comentarios y visualizaciones?</h3>
+          <div class="eda-images-grid">
+            <div class="eda-image">
+              <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/likes-comentarios-visualizaciones.png" alt="Relación entre likes, comentarios y visualizaciones" />
+            </div>
+            <div class="eda-image">
+              <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/visualizaciones-comentarios-likes.png" alt="Visualizaciones, comentarios y likes" />
+            </div>
+          </div>
+        </div>
+        
+        <div class="eda-question">
+          <h3>¿Influye la licencia en la cantidad de likes?</h3>
+          <p class="eda-note">Se analizó la relación entre el estado de licencia de los videos y su cantidad de likes para identificar si este factor influye en la popularidad.</p>
+          <div class="eda-image eda-image-small">
+            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/licencia.png" alt="Influencia de la licencia en los likes" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="normality-section">
+      <h2>3. Análisis de Normalidad de Variables Numéricas</h2>
+      <p class="section-description">Se analizó la distribución de las variables numéricas para determinar si seguían una distribución normal, lo cual es crucial para decidir qué técnicas de imputación y escalado utilizar.</p>
+      <div class="analysis-image">
+        <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/normalidad.png" alt="Análisis de normalidad" />
+      </div>
+    </div>
+
+    <div class="missing-data-section">
+      <h2>4. Tratamiento de Datos Nulos</h2>
+      <p class="section-description">Se aplicaron diferentes estrategias de imputación según el tipo de variable y su distribución:</p>
+      
+      <div class="imputation-strategies">
+        <div class="strategy-card">
+          <h3>Variables Normales</h3>
+          <p>Los datos nulos se reemplazan con la <strong>media</strong></p>
+        </div>
+        <div class="strategy-card">
+          <h3>Variables No Normales</h3>
+          <p>Los datos nulos se reemplazan con la <strong>mediana</strong></p>
+        </div>
+        <div class="strategy-card">
+          <h3>Variables Categóricas</h3>
+          <p>Los datos nulos se reemplazan con la <strong>moda</strong></p>
+        </div>
+      </div>
+
+      <div class="code-example">
+        <h3>Ejemplo de Implementación - Variables No Normales</h3>
+        <pre><code>imputador = SimpleImputer(missing_values=np.nan, strategy='median')
+# las variables no normales se reemplazan con la mediana
+
+transformados = imputador.fit_transform(variables_NOnormales)
+# transformación del dataset
+
+missing_count = pd.DataFrame(transformados).isnull().sum()
+print('El número de nulos en cada columna es:')
+print(missing_count)</code></pre>
+      </div>
+    </div>
+
+    <div class="outliers-section">
+      <h2>5. Tratamiento de Outliers</h2>
+      <p class="section-description">Se identificaron y trataron los valores atípicos usando diferentes métodos según la distribución de las variables.</p>
+      
+      <div class="outliers-methods">
+        <div class="method-card">
+          <h3>Variables Normales - Z-Score</h3>
+          <p>Para variables con distribución normal, se utilizó el método de <strong>Z-Score</strong> para identificar outliers. Los valores que se encuentran a más de 3 desviaciones estándar de la media se consideran outliers y se reemplazan con la <strong>media</strong>.</p>
+          <div class="formula">
+            <p><strong>Z-Score:</strong> z = (x - μ) / σ</p>
+            <p>Si |z| > 3, entonces x es un outlier</p>
+          </div>
+        </div>
+        
+        <div class="method-card">
+          <h3>Variables No Normales - IQR (Rango Intercuartílico)</h3>
+          <p>Para variables sin distribución normal, se utilizó el método de <strong>IQR</strong> (Interquartile Range). Sin embargo, debido a la gran cantidad de outliers encontrados, se decidió mantenerlos en el dataset para preservar la información.</p>
+          <div class="formula">
+            <p><strong>IQR:</strong> IQR = Q3 - Q1</p>
+            <p><strong>Límites:</strong> Límite inferior = Q1 - 1.5×IQR</p>
+            <p>Límite superior = Q3 + 1.5×IQR</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="outliers-visualization">
+        <h3>Ejemplo Visual - Variable Danceability</h3>
+        <div class="boxplot-comparison">
+          <div class="boxplot-item">
+            <h4>Con Outliers</h4>
+            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/danceabilityCONoutliers.png" alt="Danceability con outliers" />
+          </div>
+          <div class="boxplot-item">
+            <h4>Sin Outliers</h4>
+            <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/danceabilitySINoutliers.png" alt="Danceability sin outliers" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>6. Procesamiento de Datos</h2>
+      
+      <div class="preprocessing-step">
+        <h3>6.1 Encoding de Variables Categóricas</h3>
+        <p>Se utilizó <strong>LabelEncoder</strong> de scikit-learn para convertir las variables categóricas en valores numéricos, permitiendo que el modelo pueda procesarlas.</p>
+        <div class="encoding-example">
+          <div class="encoding-table">
+            <h4>Antes del Encoding</h4>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Artist</th>
+                  <th>Album_type</th>
+                  <th>Licensed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gorillaz</td>
+                  <td>album</td>
+                  <td>True</td>
+                </tr>
+                <tr>
+                  <td>SICK LEGEND</td>
+                  <td>single</td>
+                  <td>True</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="encoding-table">
+            <h4>Después del Encoding</h4>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Artist</th>
+                  <th>Album_type</th>
+                  <th>Licensed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>687</td>
+                  <td>0</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>1234</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>6.2 Escalado de Variables</h3>
+        <p>Se aplicaron diferentes técnicas de escalado según la distribución de las variables:</p>
+        <div class="scaling-strategies">
+          <div class="strategy-card">
+            <h4>Standard Scaler</h4>
+            <p>Para <strong>variables normales</strong>. Normaliza los datos restando la media y dividiendo por la desviación estándar.</p>
+            <div class="formula">
+              <p>z = (x - μ) / σ</p>
+            </div>
+          </div>
+          <div class="strategy-card">
+            <h4>Robust Scaler</h4>
+            <p>Para <strong>variables no normales</strong>. Utiliza la mediana y el IQR, siendo más robusto a outliers.</p>
+            <div class="formula">
+              <p>x_scaled = (x - median) / IQR</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>6.3 Análisis de Correlaciones</h3>
+        <p>Se analizó el mapa de correlaciones para identificar variables altamente correlacionadas y eliminar dependencias, evitando que el modelo tenga información redundante.</p>
+        <div class="correlation-map">
+          <img src="{{ site.baseurl }}/projects/Spotify-Popularity-Prediction/mapacorrelaciones.png" alt="Mapa de correlaciones" class="correlation-image" />
+        </div>
+        <p class="correlation-note">Las variables con alta correlación fueron eliminadas para evitar multicolinealidad en el modelo de regresión lineal.</p>
+      </div>
+    </div>
+
+    <div class="model-results-section">
+      <h2>7. Resultados del Modelo</h2>
+      <p class="section-description">Se entrenó un modelo de Regresión Lineal y se evaluó su rendimiento usando múltiples métricas.</p>
+      
+      <div class="important-variables">
+        <h3>Variables Más Importantes</h3>
+        <p class="variables-intro">Se llegó a que las siguientes variables son las más importantes a la hora de la predicción de likes:</p>
+        <div class="variables-list">
+          <span class="variable-badge">Album_type</span>
+          <span class="variable-badge">Valence</span>
+          <span class="variable-badge">Views</span>
+          <span class="variable-badge">Comments</span>
+        </div>
+      </div>
+
+      <div class="metrics-display-new">
+        <div class="metric-card-new">
+          <div class="metric-header">
+            <div class="metric-icon">R²</div>
+            <div class="metric-title">R-squared</div>
+          </div>
+          <div class="metric-value-new">0.87</div>
+          <div class="metric-desc-new">El modelo explica el 87% de la varianza en los likes</div>
+        </div>
+        
+        <div class="metric-card-new">
+          <div class="metric-header">
+            <div class="metric-icon">MAE</div>
+            <div class="metric-title">Mean Absolute Error</div>
+          </div>
+          <div class="metric-value-new">0.51</div>
+          <div class="metric-desc-new">Error absoluto promedio de 0.51 unidades</div>
+        </div>
+        
+        <div class="metric-card-new">
+          <div class="metric-header">
+            <div class="metric-icon">MSE</div>
+            <div class="metric-title">Mean Squared Error</div>
+          </div>
+          <div class="metric-value-new">1.66</div>
+          <div class="metric-desc-new">Error cuadrático medio</div>
+        </div>
+        
+        <div class="metric-card-new">
+          <div class="metric-header">
+            <div class="metric-icon">RMSE</div>
+            <div class="metric-title">Root Mean Squared Error</div>
+          </div>
+          <div class="metric-value-new">1.29</div>
+          <div class="metric-desc-new">Raíz del error cuadrático medio</div>
+        </div>
+      </div>
+
+      <div class="results-summary">
+        <h3>Interpretación de Resultados</h3>
+        <p>El modelo de Regresión Lineal logró un <strong>R² de 0.87</strong>, lo que indica que el 87% de la variabilidad en el número de likes puede ser explicada por las características musicales y de engagement incluidas en el modelo. Esto demuestra que:</p>
+        <ul>
+          <li>Las características musicales (danceability, energy, tempo, etc.) tienen una influencia significativa en la popularidad de los videos</li>
+          <li>Las métricas de engagement (views, comments, streams) están fuertemente relacionadas con los likes</li>
+          <li>El modelo es capaz de predecir con buena precisión el número de likes que recibirá un video basándose en estas características</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

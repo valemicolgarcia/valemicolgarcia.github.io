@@ -1,0 +1,203 @@
+---
+layout: default
+title: Probar Modelo de Detección de Estrés
+---
+
+<section class="test-stress-section">
+  <div class="test-stress-header">
+    <a href="/projects/stress-detection.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Proyecto</a>
+    <h1 class="test-stress-title">Prueba el Modelo de Detección de Estrés</h1>
+    <p class="test-stress-subtitle">Ingresa un texto y descubre si el modelo detecta estrés</p>
+  </div>
+
+  <div class="test-stress-container">
+    <div class="test-form-card">
+      <h2>Ingresa tu texto</h2>
+      <form id="stressForm" class="stress-form">
+        <textarea 
+          id="textInput" 
+          class="text-input" 
+          placeholder="Escribe aquí tu texto en inglés...&#10;Ejemplo: I am really stressed and anxious"
+          rows="6"
+          required
+        ></textarea>
+        <button type="submit" class="predict-btn" id="predictBtn">
+          <i class="fas fa-brain"></i> Analizar Texto
+        </button>
+      </form>
+    </div>
+
+    <div id="resultCard" class="result-card hidden">
+      <div class="result-header">
+        <h3>Resultado del Análisis</h3>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      
+      <div class="result-content">
+        <div class="prediction-badge" id="predictionBadge">
+          <span class="badge-label">Predicción:</span>
+          <span class="badge-value" id="badgeValue">-</span>
+        </div>
+        
+        <div class="probability-bars">
+          <div class="prob-item">
+            <div class="prob-label">
+              <span>No Estrés</span>
+              <span class="prob-percent" id="noStressProb">0%</span>
+            </div>
+            <div class="prob-bar">
+              <div class="prob-fill no-stress-fill" id="noStressBar"></div>
+            </div>
+          </div>
+          
+          <div class="prob-item">
+            <div class="prob-label">
+              <span>Estrés</span>
+              <span class="prob-percent" id="stressProb">0%</span>
+            </div>
+            <div class="prob-bar">
+              <div class="prob-fill stress-fill" id="stressBar"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="result-text">
+          <p><strong>Texto analizado:</strong></p>
+          <p class="analyzed-text" id="analyzedText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="loadingCard" class="loading-card hidden">
+      <div class="loading-spinner"></div>
+      <p>Analizando texto...</p>
+    </div>
+
+    <div id="errorCard" class="error-card hidden">
+      <div class="error-icon">⚠️</div>
+      <h3>Error</h3>
+      <p id="errorMessage"></p>
+      <button class="retry-btn" onclick="document.getElementById('errorCard').classList.add('hidden')">Cerrar</button>
+    </div>
+
+    <div class="examples-section">
+      <h3>Ejemplos para probar</h3>
+      <div class="examples-grid">
+        <button class="example-btn" onclick="setExample('I am really stressed and anxious')">
+          "I am really stressed and anxious"
+        </button>
+        <button class="example-btn" onclick="setExample('I am relaxed')">
+          "I am relaxed"
+        </button>
+        <button class="example-btn" onclick="setExample('I feel overwhelmed and cannot stop worrying')">
+          "I feel overwhelmed and cannot stop worrying"
+        </button>
+        <button class="example-btn" onclick="setExample('I had a great day today')">
+          "I had a great day today"
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// URL de la API - Detecta automáticamente si está en localhost o producción
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_URL = isLocalhost 
+  ? 'http://localhost:5000/predict'  // Para desarrollo local
+  : 'https://stress-detection-api.onrender.com/predict';  // Para producción (actualizar con tu URL de Render)
+
+function setExample(text) {
+  document.getElementById('textInput').value = text;
+}
+
+async function predictStress(event) {
+  event.preventDefault();
+  
+  const text = document.getElementById('textInput').value.trim();
+  
+  if (!text) {
+    alert('Por favor ingresa un texto');
+    return;
+  }
+  
+  // Mostrar loading
+  document.getElementById('loadingCard').classList.remove('hidden');
+  document.getElementById('resultCard').classList.add('hidden');
+  document.getElementById('errorCard').classList.add('hidden');
+  document.getElementById('predictBtn').disabled = true;
+  
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: text })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Error en la respuesta del servidor');
+    }
+    
+    const data = await response.json();
+    
+    // Mostrar resultado
+    displayResult(data);
+    
+  } catch (error) {
+    console.error('Error:', error);
+    showError('No se pudo conectar con el servidor. Asegúrate de que la API esté desplegada.');
+  } finally {
+    document.getElementById('loadingCard').classList.add('hidden');
+    document.getElementById('predictBtn').disabled = false;
+  }
+}
+
+function displayResult(data) {
+  const resultCard = document.getElementById('resultCard');
+  const badgeValue = document.getElementById('badgeValue');
+  const noStressProb = document.getElementById('noStressProb');
+  const stressProb = document.getElementById('stressProb');
+  const noStressBar = document.getElementById('noStressBar');
+  const stressBar = document.getElementById('stressBar');
+  const analyzedText = document.getElementById('analyzedText');
+  
+  // Actualizar badge
+  badgeValue.textContent = data.label;
+  badgeValue.className = 'badge-value ' + (data.prediction === 1 ? 'stress' : 'no-stress');
+  
+  // Actualizar probabilidades
+  const noStressPercent = (data.probability.no_stress * 100).toFixed(1);
+  const stressPercent = (data.probability.stress * 100).toFixed(1);
+  
+  noStressProb.textContent = noStressPercent + '%';
+  stressProb.textContent = stressPercent + '%';
+  
+  noStressBar.style.width = noStressPercent + '%';
+  stressBar.style.width = stressPercent + '%';
+  
+  // Actualizar texto analizado
+  analyzedText.textContent = data.text;
+  
+  // Mostrar resultado
+  resultCard.classList.remove('hidden');
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showError(message) {
+  const errorCard = document.getElementById('errorCard');
+  const errorMessage = document.getElementById('errorMessage');
+  errorMessage.textContent = message;
+  errorCard.classList.remove('hidden');
+}
+
+// Event listeners
+document.getElementById('stressForm').addEventListener('submit', predictStress);
+
+document.getElementById('closeBtn').addEventListener('click', function() {
+  document.getElementById('resultCard').classList.add('hidden');
+});
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

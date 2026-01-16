@@ -8,3 +8,20 @@ Gemfile
 Gemfile.lock
 node_modules
 package.json
+
+# Datasets pesados en proyectos
+projects/**/*.csv
+projects/**/*.tsv
+projects/**/*.xlsx
+projects/**/*.xls
+
+# Modelos entrenados
+projects/**/*.pkl
+
+# Imágenes de datasets
+projects/CatsAndDogs/cats_and_dogs/
+projects/CatsAndDogs/__MACOSX/
+projects/**/__MACOSX/
+
+# Mantener solo notebooks
+!projects/**/*.ipynb

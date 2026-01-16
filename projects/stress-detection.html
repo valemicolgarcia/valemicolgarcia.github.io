@@ -1,0 +1,372 @@
+---
+layout: default
+title: Stress Detection from Text
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <h1 class="project-detail-title">Stress Detection from Text</h1>
+    <p class="project-detail-subtitle">Procesamiento de Lenguaje Natural (NLP)</p>
+    <div class="project-tags">
+      <span class="tag">NLP</span>
+      <span class="tag">Logistic Regression</span>
+      <span class="tag">WordCloud</span>
+      <span class="tag">Text Classification</span>
+      <span class="tag">NLTK</span>
+    </div>
+    <div class="github-link">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/Estres/nlp-regresionLogistica.ipynb" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> Ver código en GitHub
+      </a>
+      <a href="/projects/Estres/test-stress.html" class="test-btn">
+        <i class="fas fa-flask"></i> QUIERO PROBARLO!
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problema a Resolver</h2>
+      <p>Este proyecto utiliza técnicas de procesamiento de lenguaje natural (NLP) y machine learning para detectar niveles de estrés en textos escritos. El sistema toma como entrada texto no estructurado, lo preprocesa y aplica modelos de clasificación para determinar la probabilidad de que el texto refleje estrés. Visualizaciones interactivas ayudan a explorar los patrones de datos y los resultados del modelo.</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. Información del Dataset</h2>
+      <p class="section-description">El dataset contiene textos extraídos de diferentes subreddits de Reddit, con información sobre el nivel de estrés detectado en cada texto.</p>
+      
+      <div class="variables-info">
+        <div class="variables-category">
+          <h3>Columnas del Dataset</h3>
+          <ul>
+            <li><strong>subreddit:</strong> Comunidad o foro específico de Reddit</li>
+            <li><strong>post_id:</strong> Identificador único del post</li>
+            <li><strong>sentence_range:</strong> Índice de oraciones dentro del post</li>
+            <li><strong>text:</strong> Texto usado para detectar estrés</li>
+            <li><strong>label:</strong> 0 significa "sin estrés", 1 significa "estrés"</li>
+            <li><strong>confidence:</strong> Nivel de confianza de la persona en el texto</li>
+            <li><strong>social_timestamp:</strong> Marca de tiempo que registra cuándo se publicó el post</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dataset-example">
+        <h3>Ejemplo del Dataset</h3>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>subreddit</th>
+                <th>post_id</th>
+                <th>sentence_range</th>
+                <th>text</th>
+                <th>label</th>
+                <th>confidence</th>
+                <th>social_timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ptsd</td>
+                <td>8601tu</td>
+                <td>(15, 20)</td>
+                <td>He said he had not felt that way before, sugge...</td>
+                <td>1</td>
+                <td>0.8</td>
+                <td>1521614353</td>
+              </tr>
+              <tr>
+                <td>assistance</td>
+                <td>8lbrx9</td>
+                <td>(0, 5)</td>
+                <td>Hey there r/assistance, Not sure if this is th...</td>
+                <td>0</td>
+                <td>1.0</td>
+                <td>1527009817</td>
+              </tr>
+              <tr>
+                <td>ptsd</td>
+                <td>9ch1zh</td>
+                <td>(15, 20)</td>
+                <td>My mom then hit me with the newspaper and it s...</td>
+                <td>1</td>
+                <td>0.8</td>
+                <td>1535935605</td>
+              </tr>
+              <tr>
+                <td>relationships</td>
+                <td>7rorpp</td>
+                <td>[5, 10]</td>
+                <td>until i met my new boyfriend, he is amazing, h...</td>
+                <td>1</td>
+                <td>0.6</td>
+                <td>1516429555</td>
+              </tr>
+              <tr>
+                <td>survivorsofabuse</td>
+                <td>9p2gbc</td>
+                <td>[0, 5]</td>
+                <td>October is Domestic Violence Awareness Month a...</td>
+                <td>1</td>
+                <td>0.8</td>
+                <td>1539809005</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-analysis-section">
+      <h2>2. Análisis de los Textos</h2>
+      <p class="section-description">Se realizó un análisis exploratorio de los textos para entender sus características y distribuciones. La media de palabras por texto es de <strong>85 palabras</strong>.</p>
+      
+      <div class="analysis-images-grid">
+        <div class="analysis-image-item">
+          <h3>Palabras por Revisión</h3>
+          <img src="{{ site.baseurl }}/projects/Estres/palabrasporrevision.png" alt="Distribución de palabras por texto" />
+        </div>
+        <div class="analysis-image-item">
+          <h3>Distribución de Strings</h3>
+          <img src="{{ site.baseurl }}/projects/Estres/distribucionStrings.png" alt="Distribución de strings" />
+        </div>
+        <div class="analysis-image-item">
+          <h3>WordCloud General</h3>
+          <img src="{{ site.baseurl }}/projects/Estres/wordcloudGeneral.png" alt="WordCloud general del dataset" />
+        </div>
+      </div>
+    </div>
+
+    <div class="nltk-section">
+      <h2>3. Procesamiento con NLTK</h2>
+      <p class="section-description">NLTK (Natural Language Toolkit) es una biblioteca de Python que proporciona herramientas para trabajar con datos de lenguaje natural. Se utilizó para preprocesar y normalizar los textos antes del entrenamiento del modelo.</p>
+      
+      <div class="preprocessing-step">
+        <h3>3.1 Normalización y Tokenización</h3>
+        <p>Se convirtieron todas las palabras a minúsculas y se tokenizaron los textos (se dividieron en palabras individuales). Al eliminar duplicados, el número de tokens únicos se redujo en un <strong>10%</strong> con la normalización.</p>
+        
+        <div class="code-example">
+          <pre><code>from nltk import word_tokenize
+
+token_lists = [word_tokenize(each) for each in df['text']]
+tokens = [item for sublist in token_lists for item in sublist]
+
+print("Tokens únicos antes: ", len(set(tokens)))
+
+token_lists_lower = [word_tokenize(each) for each in df['text_new']]
+tokens_lower = [item for sublist in token_lists_lower for item in sublist]
+print("Tokens únicos nuevos: ", len(set(tokens_lower)))</code></pre>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.2 Eliminación de Caracteres Especiales</h3>
+        <p>Se eliminaron caracteres especiales que no aportan información para la clasificación, como emojis, símbolos y caracteres de puntuación excesivos.</p>
+        <div class="special-chars-list">
+          <p><strong>Caracteres eliminados:</strong> {'"', '🐰', ''', '💕', '>', '\u200d', '+', '_', '\\', '➡', '\t', '\u200e', '🙂', ''', '·', '…', '#', '●', '🎓', '€', '(', "'", '<', '"', '^', '´', '🥕', '😔', '😦', ':', '"', '/', '?', '❤', '–', '%', '👩', '@', '️', '😇', '[', '—', '-', '!', '💸', '$', '¯', '.', ')', '&', ',', '£', '=', '•', ';', '~', ']', '*'}</p>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.3 Lematización</h3>
+        <p>La lematización es el proceso de reducir una palabra a su forma base o lema. Por ejemplo, "running", "runs" y "ran" se convierten en "run". Esto ayuda a normalizar las variaciones de una misma palabra.</p>
+        
+        <div class="lemmatization-example">
+          <div class="example-before">
+            <h4>Antes:</h4>
+            <p class="example-text">"I am feeling anxious and worried. My heart is racing and I cannot stop thinking about problems."</p>
+          </div>
+          <div class="example-after">
+            <h4>Después:</h4>
+            <p class="example-text">"I be feel anxious and worry. My heart be race and I cannot stop think about problem."</p>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <pre><code>from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+
+lemmatizer = WordNetLemmatizer()
+
+def lemmatize_text(text):
+    words = word_tokenize(text)
+    lemmatized_words = [lemmatizer.lemmatize(word, wordnet.VERB) for word in words]
+    return ' '.join(lemmatized_words)
+
+X_lema = X.apply(lemmatize_text)</code></pre>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.4 Eliminación de Stopwords y Palabras de Alta/Baja Frecuencia</h3>
+        <p>Se eliminaron palabras que no aportan información para la clasificación:</p>
+        
+        <div class="frequency-analysis">
+          <div class="frequency-card">
+            <h4>Palabras de Alta Frecuencia (eliminadas)</h4>
+            <p>Estas palabras aparecen muy frecuentemente pero no aportan información:</p>
+            <ul class="frequency-list">
+              <li><strong>('i', 13907)</strong> - aparece 13,907 veces</li>
+              <li><strong>('to', 8315)</strong> - aparece 8,315 veces</li>
+              <li><strong>('and', 7954)</strong> - aparece 7,954 veces</li>
+              <li><strong>('the', 6236)</strong> - aparece 6,236 veces</li>
+              <li><strong>('a', 5339)</strong> - aparece 5,339 veces</li>
+              <li><strong>('my', 4471)</strong> - aparece 4,471 veces</li>
+              <li><strong>('of', 3634)</strong> - aparece 3,634 veces</li>
+              <li><strong>('it', 3521)</strong> - aparece 3,521 veces</li>
+              <li><strong>('that', 3038)</strong> - aparece 3,038 veces</li>
+              <li><strong>('me', 3036)</strong> - aparece 3,036 veces</li>
+            </ul>
+          </div>
+          
+          <div class="frequency-card">
+            <h4>Palabras de Baja Frecuencia (eliminadas)</h4>
+            <p>Estas palabras aparecen solo una vez y tampoco aportan información:</p>
+            <ul class="frequency-list">
+              <li>('labyrinth', 1)</li>
+              <li>('bureaucracy', 1)</li>
+              <li>('squeeze', 1)</li>
+              <li>('wayne', 1)</li>
+              <li>('guzzler', 1)</li>
+              <li>('lightheadedness', 1)</li>
+              <li>('extremities', 1)</li>
+              <li>('radiates', 1)</li>
+              <li>('disassociation', 1)</li>
+              <li>('usd', 1)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="code-example">
+          <pre><code>import nltk
+nltk.download('stopwords')
+
+eng_stop_words = nltk.corpus.stopwords.words('english')
+noise_words = list(eng_stop_words)
+
+processed_stopwords = [word.lower() for stopword in noise_words 
+                       for word in word_tokenize(stopword)]</code></pre>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.5 División en Datos de Entrenamiento y Prueba</h3>
+        <p>Se dividió el dataset antes de vectorizar para poder comparar más fácilmente los textos originales con los preprocesados. Esto permite mantener una referencia clara de los datos originales.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.6 Vectorización (Bag of Words)</h3>
+        <p>La vectorización es el proceso de convertir texto en números que el modelo de machine learning puede procesar. <strong>Bag of Words (BOW)</strong> representa cada texto como un vector donde cada posición corresponde a una palabra del vocabulario, y el valor indica cuántas veces aparece esa palabra en el texto.</p>
+        
+        <div class="code-example">
+          <pre><code>bow_counts = CountVectorizer(
+    tokenizer=word_tokenize,
+    stop_words=processed_stopwords,
+    ngram_range=(1, 2)  # bigramas
+)
+
+X_train_bow = bow_counts.fit_transform(X_train)
+X_test_bow = bow_counts.transform(X_test)</code></pre>
+        </div>
+        
+        <div class="vectorization-explanation">
+          <p><strong>¿Por qué bigramas?</strong> Los bigramas capturan pares de palabras consecutivas (como "I am", "am stressed"), lo que ayuda a capturar contexto y relaciones entre palabras que son importantes para detectar estrés.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wordcloud-section">
+      <h2>4. Wordclouds Antes del Entrenamiento</h2>
+      <p class="section-description">Los wordclouds muestran las palabras más frecuentes en cada categoría, revelando patrones lingüísticos distintivos entre textos estresados y no estresados.</p>
+      
+      <div class="wordcloud-container">
+        <div class="wordcloud-item wordcloud-full">
+          <h3>Comparación: Personas Estresadas vs No Estresadas</h3>
+          <div class="wordcloud-image">
+            <img src="{{ site.baseurl }}/projects/Estres/stressvsNotstressed.png" alt="WordCloud personas estresadas vs no estresadas" />
+            <p class="wordcloud-note">La comparación visual muestra las diferencias en los patrones de palabras. En textos de personas estresadas, palabras como <strong>"anxiety"</strong>, <strong>"friend"</strong>, <strong>"work"</strong>, <strong>"need"</strong>, <strong>"back"</strong>, <strong>"time"</strong>, y <strong>"know"</strong> aparecen con mayor frecuencia y en contextos diferentes a los textos de personas no estresadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model-section">
+      <h2>5. Entrenamiento del Modelo</h2>
+      <p class="section-description">Se entrenó un modelo de Regresión Logística usando validación cruzada estratificada (StratifiedKFold) para evaluar el rendimiento de manera robusta.</p>
+      
+      <div class="model-results-section">
+        <h3>Resultados del Modelo</h3>
+        <div class="metrics-display-new">
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">Acc</div>
+              <div class="metric-title">Accuracy</div>
+            </div>
+            <div class="metric-value-new">0.71</div>
+            <div class="metric-desc-new">Precisión promedio del modelo</div>
+          </div>
+          
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">Pre</div>
+              <div class="metric-title">Precision</div>
+            </div>
+            <div class="metric-value-new">0.71</div>
+            <div class="metric-desc-new">Precisión promedio (StratifiedKFold)</div>
+          </div>
+          
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">Rec</div>
+              <div class="metric-title">Recall</div>
+            </div>
+            <div class="metric-value-new">0.71</div>
+            <div class="metric-desc-new">Recall promedio (StratifiedKFold)</div>
+          </div>
+          
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">F1</div>
+              <div class="metric-title">F1 Score</div>
+            </div>
+            <div class="metric-value-new">0.71</div>
+            <div class="metric-desc-new">F1 Score promedio (StratifiedKFold)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>6. Pruebas del Modelo</h2>
+      <p class="section-description">El modelo fue probado con ejemplos reales para verificar su funcionamiento:</p>
+      
+      <div class="test-examples">
+        <div class="test-item test-stressed">
+          <div class="test-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>"I am really stressed and anxious"</h3>
+          <div class="test-result">
+            <span class="prediction-label">Predicción:</span>
+            <span class="prediction-stress">1 (Estresado)</span>
+          </div>
+          <p class="test-explanation">El modelo correctamente identifica que esta frase indica presencia de estrés.</p>
+        </div>
+        
+        <div class="test-item test-relaxed">
+          <div class="test-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <h3>"I am relaxed"</h3>
+          <div class="test-result">
+            <span class="prediction-label">Predicción:</span>
+            <span class="prediction-no-stress">0 (No estresado)</span>
+          </div>
+          <p class="test-explanation">El modelo correctamente identifica que esta frase indica ausencia de estrés.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

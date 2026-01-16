@@ -1,0 +1,143 @@
+---
+layout: default
+title: Cats vs Dogs Image Classifier
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <h1 class="project-detail-title">Cats vs Dogs Image Classifier</h1>
+    <p class="project-detail-subtitle">Deep Learning y Computer Vision</p>
+    <div class="project-tags">
+      <span class="tag">TensorFlow</span>
+      <span class="tag">Keras</span>
+      <span class="tag">CNN</span>
+      <span class="tag">Computer Vision</span>
+      <span class="tag">Image Classification</span>
+    </div>
+    <div class="github-link">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/CatsAndDogs/fcc_cat_dog.ipynb" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> Ver código en GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Resumen del Proyecto</h2>
+      <p>Este proyecto implementa un clasificador de imágenes que distingue entre gatos y perros usando redes neuronales convolucionales (CNN). El modelo se entrena con miles de imágenes y aprende a identificar características visuales distintivas de cada animal.</p>
+    </div>
+
+    <div class="process-section">
+      <h2>Proceso de Desarrollo</h2>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Preprocesamiento de Imágenes</h3>
+            <p>Normalización de píxeles (0-255 a 0-1), redimensionamiento a 150x150 píxeles, y organización en directorios de entrenamiento, validación y prueba.</p>
+            <div class="process-image">
+              <div class="image-placeholder">
+                <i class="fas fa-images" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
+                <p>Imágenes normalizadas y redimensionadas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Data Augmentation</h3>
+            <p>Aplicación de transformaciones aleatorias: rotación (40°), desplazamiento horizontal/vertical (20%), shear (20%), zoom (0.2), y flip horizontal para aumentar la variabilidad del dataset.</p>
+            <div class="process-image">
+              <div class="image-placeholder">
+                <i class="fas fa-sync-alt" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
+                <p>Ejemplos de imágenes con data augmentation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Arquitectura CNN</h3>
+            <p>Construcción de la red con capas convolucionales, MaxPooling, Dropout y capas densas. El modelo aprende características jerárquicas desde bordes hasta formas complejas.</p>
+            <div class="architecture-diagram">
+              <div class="layer">Input (150x150x3)</div>
+              <div class="layer-arrow">↓</div>
+              <div class="layer">Conv2D + MaxPooling</div>
+              <div class="layer-arrow">↓</div>
+              <div class="layer">Conv2D + MaxPooling</div>
+              <div class="layer-arrow">↓</div>
+              <div class="layer">Flatten</div>
+              <div class="layer-arrow">↓</div>
+              <div class="layer">Dense + Dropout</div>
+              <div class="layer-arrow">↓</div>
+              <div class="layer">Output (1 neuron)</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Entrenamiento</h3>
+            <p>Entrenamiento durante 15 épocas con batch size de 128. Monitoreo de accuracy y loss en entrenamiento y validación para prevenir overfitting.</p>
+            <div class="process-image">
+              <div class="image-placeholder">
+                <i class="fas fa-chart-line" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
+                <p>Gráficos de accuracy y loss durante el entrenamiento</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Evaluación y Predicciones</h3>
+            <p>Evaluación en conjunto de prueba con 50 imágenes. Visualización de predicciones con porcentajes de confianza para cada imagen.</p>
+            <div class="process-image">
+              <div class="image-placeholder">
+                <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; opacity: 0.3;"></i>
+                <p>Grid de 50 imágenes de prueba con predicciones</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-section">
+      <h2>Resultados</h2>
+      <div class="results-grid">
+        <div class="result-card">
+          <h3>Dataset</h3>
+          <ul>
+            <li><strong>Entrenamiento:</strong> 2000 imágenes (1000 gatos, 1000 perros)</li>
+            <li><strong>Validación:</strong> 1000 imágenes (500 gatos, 500 perros)</li>
+            <li><strong>Prueba:</strong> 50 imágenes</li>
+          </ul>
+        </div>
+        <div class="result-card">
+          <h3>Modelo</h3>
+          <ul>
+            <li><strong>Arquitectura:</strong> CNN con múltiples capas convolucionales</li>
+            <li><strong>Épocas:</strong> 15</li>
+            <li><strong>Batch Size:</strong> 128</li>
+            <li><strong>Data Augmentation:</strong> Sí</li>
+          </ul>
+        </div>
+        <div class="result-card">
+          <h3>Características</h3>
+          <ul>
+            <li>Preprocesamiento automático de imágenes</li>
+            <li>Data augmentation para mejorar generalización</li>
+            <li>Visualización de predicciones con confianza</li>
+            <li>Modelo escalable para más clases</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

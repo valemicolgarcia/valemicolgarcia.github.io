@@ -1,0 +1,97 @@
+---
+layout: default
+title: Book Recommendation System
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <h1 class="project-detail-title">Book Recommendation System (KNN)</h1>
+    <p class="project-detail-subtitle">Sistemas de Recomendación y Modelos por Similitud</p>
+    <div class="project-tags">
+      <span class="tag">KNN</span>
+      <span class="tag">Recommendation Systems</span>
+      <span class="tag">Collaborative Filtering</span>
+    </div>
+    <div class="github-link">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/Book%20recomendation/KNNNUEVOOOO.ipynb" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> Ver código en GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Resumen del Proyecto</h2>
+      <p>Este proyecto implementa un sistema de recomendación de libros usando el algoritmo K-Nearest Neighbors (KNN) y técnicas de filtrado colaborativo. El sistema analiza las calificaciones de usuarios y encuentra libros similares basándose en las preferencias de usuarios con gustos similares.</p>
+    </div>
+
+    <div class="process-section">
+      <h2>Proceso de Desarrollo</h2>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Análisis del Dataset</h3>
+            <p>Exploración del dataset Book-Crossings que contiene información sobre usuarios, libros y calificaciones.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Preprocesamiento</h3>
+            <p>Limpieza de datos, manejo de valores faltantes, y construcción de matrices usuario-libro para el análisis de similitud.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Implementación de KNN</h3>
+            <p>Uso del algoritmo K-Nearest Neighbors para encontrar usuarios con preferencias similares basándose en sus calificaciones.</p>
+            <div class="knn-explanation">
+              <p><strong>¿Cómo funciona?</strong></p>
+              <p>El algoritmo encuentra los K usuarios más similares a un usuario objetivo y recomienda libros que esos usuarios similares han calificado positivamente.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Filtrado Colaborativo</h3>
+            <p>Implementación de técnicas de filtrado colaborativo para generar recomendaciones personalizadas basadas en el comportamiento de usuarios similares.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Evaluación</h3>
+            <p>Evaluación del sistema de recomendación usando métricas apropiadas para sistemas de recomendación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Conceptos Clave</h2>
+      <div class="concepts-grid">
+        <div class="concept-card">
+          <i class="fas fa-users"></i>
+          <h3>Filtrado Colaborativo</h3>
+          <p>Método que predice las preferencias de un usuario basándose en las preferencias de usuarios similares.</p>
+        </div>
+        <div class="concept-card">
+          <i class="fas fa-search"></i>
+          <h3>K-Nearest Neighbors</h3>
+          <p>Algoritmo que encuentra los K usuarios más similares basándose en métricas de distancia o similitud.</p>
+        </div>
+        <div class="concept-card">
+          <i class="fas fa-star"></i>
+          <h3>Matriz de Calificaciones</h3>
+          <p>Representación de las interacciones usuario-libro que permite calcular similitudes y generar recomendaciones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
