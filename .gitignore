@@ -15,8 +15,9 @@ projects/**/*.tsv
 projects/**/*.xlsx
 projects/**/*.xls
 
-# Modelos entrenados
+# Modelos entrenados (excepto los trackeados con Git LFS)
 projects/**/*.pkl
+!projects/Estres/*.pkl
 
 # Imágenes de datasets
 projects/CatsAndDogs/cats_and_dogs/
