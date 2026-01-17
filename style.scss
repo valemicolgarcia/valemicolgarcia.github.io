@@ -392,8 +392,8 @@ footer {
   
   // Transparent state (over hero)
   &.navbar-transparent {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
+    background-color: transparent;
+    backdrop-filter: none;
     
     .navbar-name {
       background: rgba(74, 144, 226, 0.85);
@@ -417,10 +417,10 @@ footer {
     
     .navbar-links a {
       color: white;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.7);
       
       &:hover {
-        opacity: 0.8;
+        opacity: 0.9;
       }
     }
   }
@@ -457,19 +457,6 @@ footer {
   position: relative;
   margin: 0;
   padding: 0;
-  
-  // Overlay oscuro para mejorar contraste del navbar
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
 }
 
 /* About Section */
