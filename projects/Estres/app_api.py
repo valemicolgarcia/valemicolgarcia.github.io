@@ -21,6 +21,12 @@ try:
 except LookupError:
     nltk.download('punkt', quiet=True)
 
+# Descargar punkt_tab (requerido en versiones recientes de NLTK)
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab', quiet=True)
+
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
