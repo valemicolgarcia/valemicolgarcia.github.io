@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: stress-detection-api
-    env: python
-    buildCommand: pip install --upgrade pip setuptools wheel cython numpy && pip install -r requirements_render.txt
-    startCommand: python app_render.py
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0

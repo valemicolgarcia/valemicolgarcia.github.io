@@ -101,16 +101,182 @@ title: Probar Modelo de Detección de Estrés
 </section>
 
 <script>
-// URL de la API - Detecta automáticamente si está en localhost o producción
-const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const API_URL = isLocalhost 
-  ? 'http://localhost:5000/predict'  // Para desarrollo local
-  : 'https://stress-detection-api-6jo5.onrender.com/predict';  // Para producción - API en Render
+// ============================================
+// CONFIGURACIÓN - COMPLETAR CON TUS DATOS
+// ============================================
+// Token de Hugging Face (obtener en https://huggingface.co/settings/tokens)
+const HF_TOKEN = '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';  // ✅ Configurado
 
+// ID del modelo en Hugging Face (formato: usuario/modelo)
+const MODEL_ID = 'valemicolgarcia/stress-detection';  // ✅ Configurado
+
+// ============================================
+// CONFIGURACIÓN DE API
+// ============================================
+// Detecta automáticamente si está en localhost o producción
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const LOCAL_API_URL = 'http://localhost:5000/predict';  // API local Flask
+const HF_API_URL = `https://api-inference.huggingface.co/models/${MODEL_ID}`;
+
+// ============================================
+// FUNCIONES AUXILIARES
+// ============================================
 function setExample(text) {
   document.getElementById('textInput').value = text;
 }
 
+// ============================================
+// FUNCIÓN PRINCIPAL: ANALIZAR ESTRÉS
+// ============================================
+async function analizarEstres(text) {
+  if (isLocalhost) {
+    // Modo local: usar API Flask local
+    return await analizarEstresLocal(text);
+  } else {
+    // Modo producción: usar Hugging Face Inference API
+    return await analizarEstresHuggingFace(text);
+  }
+}
+
+// Función para análisis local (Flask API)
+async function analizarEstresLocal(text) {
+  const response = await fetch(LOCAL_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ text: text })
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Error ${response.status}: ${response.statusText}`);
+  }
+  
+  return await response.json();
+}
+
+// Función para análisis con Hugging Face Inference API
+async function analizarEstresHuggingFace(text, retryCount = 0) {
+  // Verificar que el token esté configurado
+  if (HF_TOKEN === 'TU_HF_TOKEN_AQUI' || MODEL_ID === 'TU_USUARIO/TU_MODELO') {
+    throw new Error('Por favor configura HF_TOKEN y MODEL_ID en el código JavaScript');
+  }
+  
+  const response = await fetch(HF_API_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${HF_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ inputs: text })
+  });
+  
+  if (!response.ok) {
+    // Manejar errores específicos de Hugging Face
+    if (response.status === 503) {
+      const errorData = await response.json().catch(() => ({}));
+      const isModelLoading = errorData.error && (
+        errorData.error.includes('loading') || 
+        errorData.error.includes('model is currently loading')
+      );
+      
+      if (isModelLoading) {
+        // Intentar retry automático hasta 3 veces con espera progresiva
+        if (retryCount < 3) {
+          const waitTime = (retryCount + 1) * 5; // 5s, 10s, 15s
+          await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
+          return await analizarEstresHuggingFace(text, retryCount + 1);
+        } else {
+          throw new Error('El modelo está cargando. Por favor espera unos segundos e intenta de nuevo.');
+        }
+      }
+    }
+    
+    // Otros errores
+    const errorData = await response.json().catch(() => ({}));
+    let errorMessage = errorData.error || `Error ${response.status}: ${response.statusText}`;
+    
+    if (response.status === 401) {
+      errorMessage = 'Token de Hugging Face inválido. Por favor verifica tu configuración.';
+    } else if (response.status === 404) {
+      errorMessage = 'Modelo no encontrado. Verifica que el MODEL_ID sea correcto.';
+    }
+    
+    throw new Error(errorMessage);
+  }
+  
+  const hfData = await response.json();
+  
+  // Convertir formato de Hugging Face al formato esperado
+  // HF devuelve: [{label: "LABEL", score: 0.XX}, ...]
+  // Necesitamos: {label: "Estrés"|"No Estrés", prediction: 0|1, probability: {no_stress: X, stress: Y}}
+  
+  // Buscar las etiquetas en la respuesta
+  let noStressScore = 0;
+  let stressScore = 0;
+  let prediction = 0;
+  let label = 'No Estrés';
+  
+  if (Array.isArray(hfData) && hfData.length > 0) {
+    // La respuesta es un array de objetos con label y score
+    hfData.forEach(item => {
+      const itemLabel = item.label ? item.label.toLowerCase() : '';
+      const score = item.score || 0;
+      
+      if (itemLabel.includes('stress') || itemLabel.includes('estrés') || itemLabel === '1' || itemLabel === 'positive') {
+        stressScore = score;
+      } else {
+        noStressScore = score;
+      }
+    });
+    
+    // Determinar predicción
+    prediction = stressScore > noStressScore ? 1 : 0;
+    label = prediction === 1 ? 'Estrés' : 'No Estrés';
+    
+    // Normalizar probabilidades (asegurar que sumen 1)
+    const total = noStressScore + stressScore;
+    if (total > 0) {
+      noStressScore = noStressScore / total;
+      stressScore = stressScore / total;
+    } else {
+      // Si no hay scores, usar 50/50
+      noStressScore = 0.5;
+      stressScore = 0.5;
+    }
+  } else if (hfData.label && hfData.score !== undefined) {
+    // Formato alternativo: objeto único con label y score
+    const itemLabel = hfData.label.toLowerCase();
+    if (itemLabel.includes('stress') || itemLabel.includes('estrés') || itemLabel === '1' || itemLabel === 'positive') {
+      stressScore = hfData.score;
+      noStressScore = 1 - stressScore;
+      prediction = 1;
+      label = 'Estrés';
+    } else {
+      noStressScore = hfData.score;
+      stressScore = 1 - noStressScore;
+      prediction = 0;
+      label = 'No Estrés';
+    }
+  } else {
+    throw new Error('Formato de respuesta inesperado de Hugging Face API');
+  }
+  
+  return {
+    text: text,
+    prediction: prediction,
+    label: label,
+    probability: {
+      no_stress: noStressScore,
+      stress: stressScore
+    }
+  };
+}
+
+// ============================================
+// MANEJO DEL FORMULARIO
+// ============================================
 async function predictStress(event) {
   event.preventDefault();
   
@@ -128,41 +294,29 @@ async function predictStress(event) {
   document.getElementById('predictBtn').disabled = true;
   
   try {
-    // Timeout más largo para dar tiempo a que Render "despierte" el servicio (plan gratuito)
+    // Timeout de 60 segundos (HF puede tardar si el modelo está cargando)
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 90000); // 90 segundos
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
     
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: text }),
-      signal: controller.signal
-    });
+    const data = await analizarEstres(text);
     
     clearTimeout(timeoutId);
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `Error ${response.status}: ${response.statusText}`);
-    }
-    
-    const data = await response.json();
     
     // Mostrar resultado
     displayResult(data);
     
   } catch (error) {
     console.error('Error:', error);
-    let errorMessage = 'No se pudo conectar con el servidor. ';
+    let errorMessage = 'No se pudo analizar el texto. ';
+    
     if (error.name === 'AbortError') {
-      errorMessage += 'El servidor tardó demasiado en responder. Esto puede ocurrir si el servicio está "despertando" (plan gratuito de Render). Por favor, intenta de nuevo en unos segundos.';
+      errorMessage += 'La solicitud tardó demasiado en responder. Por favor, intenta de nuevo.';
     } else if (error.message) {
       errorMessage += error.message;
     } else {
-      errorMessage += 'Asegúrate de que la API esté desplegada y funcionando.';
+      errorMessage += 'Asegúrate de que la configuración sea correcta.';
     }
+    
     showError(errorMessage);
   } finally {
     document.getElementById('loadingCard').classList.add('hidden');
@@ -170,6 +324,9 @@ async function predictStress(event) {
   }
 }
 
+// ============================================
+// MOSTRAR RESULTADOS
+// ============================================
 function displayResult(data) {
   const resultCard = document.getElementById('resultCard');
   const badgeValue = document.getElementById('badgeValue');
@@ -201,14 +358,20 @@ function displayResult(data) {
   resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+// ============================================
+// MANEJO DE ERRORES
+// ============================================
 function showError(message) {
   const errorCard = document.getElementById('errorCard');
   const errorMessage = document.getElementById('errorMessage');
   errorMessage.textContent = message;
   errorCard.classList.remove('hidden');
+  errorCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Event listeners
+// ============================================
+// EVENT LISTENERS
+// ============================================
 document.getElementById('stressForm').addEventListener('submit', predictStress);
 
 document.getElementById('closeBtn').addEventListener('click', function() {
