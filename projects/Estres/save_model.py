@@ -97,7 +97,7 @@ joblib.dump(model, 'stress_model.pkl')
 joblib.dump(bow_counts, 'stress_vectorizer.pkl')
 pickle.dump(processed_stopwords, open('processed_stopwords.pkl', 'wb'))
 
-print("✅ Modelo y vectorizador guardados exitosamente!")
+print("Modelo y vectorizador guardados exitosamente!")
 print("Archivos creados:")
 print("  - stress_model.pkl")
 print("  - stress_vectorizer.pkl")

@@ -1,25 +1,40 @@
 """
-API Flask para el modelo de detección de estrés
-Desplegar en Render, Railway, o similar
+Aplicación Gradio para detección de estrés
+Desplegada en Hugging Face Spaces
 """
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 import re
 import joblib
 import nltk
 from nltk import word_tokenize
+import gradio as gr
 
-app = Flask(__name__)
-CORS(app)  # Permitir requests desde cualquier origen
+# Descargar recursos de NLTK si no están disponibles
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', quiet=True)
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords', quiet=True)
+
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet', quiet=True)
 
 # Cargar modelo y vectorizador
+print("Cargando modelo y vectorizador...")
 try:
     model = joblib.load('stress_model.pkl')
     vectorizer = joblib.load('stress_vectorizer.pkl')
-    print("✅ Modelo y vectorizador cargados exitosamente")
+    print("Modelo y vectorizador cargados exitosamente")
 except Exception as e:
-    print(f"❌ Error cargando modelo: {e}")
+    print(f"Error cargando modelo: {type(e).__name__}: {e}")
+    import traceback
+    traceback.print_exc()
     model = None
     vectorizer = None
 
@@ -29,34 +44,15 @@ def preprocess_text(text):
     text = re.sub('[^A-Za-z0-9 ]+', ' ', text)  # Eliminar caracteres especiales
     return text
 
-@app.route('/')
-def home():
-    return jsonify({
-        "message": "API de Detección de Estrés",
-        "endpoint": "/predict",
-        "method": "POST",
-        "example": {
-            "text": "I am really stressed and anxious"
-        }
-    })
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    """Endpoint para predecir estrés en un texto"""
+def predict_stress(text):
+    """Predice si un texto indica estrés o no"""
     if model is None or vectorizer is None:
-        return jsonify({
-            "error": "Modelo no disponible"
-        }), 500
+        return "## Error\n\n**Modelo no disponible.** Por favor, verifica que los archivos del modelo estén cargados."
+    
+    if not text or not text.strip():
+        return "## Error\n\n**Por favor, ingresa un texto para analizar.**"
     
     try:
-        data = request.get_json()
-        text = data.get('text', '')
-        
-        if not text:
-            return jsonify({
-                "error": "El texto no puede estar vacío"
-            }), 400
-        
         # Preprocesar texto
         preprocessed_text = preprocess_text(text)
         
@@ -67,31 +63,68 @@ def predict():
         prediction = model.predict(text_bow)[0]
         probability = model.predict_proba(text_bow)[0]
         
-        result = {
-            "text": text,
-            "prediction": int(prediction),
-            "label": "Estrés" if prediction == 1 else "No Estrés",
-            "probability": {
-                "no_stress": float(probability[0]),
-                "stress": float(probability[1])
-            }
-        }
+        # Determinar resultado
+        label = "Estrés" if prediction == 1 else "No Estrés"
+        stress_prob = float(probability[1]) * 100
+        no_stress_prob = float(probability[0]) * 100
         
-        return jsonify(result)
+        # Crear resultado formateado
+        result = f"""
+## Resultado: **{label}**
+
+### Probabilidades:
+- **Estrés**: {stress_prob:.2f}%
+- **No Estrés**: {no_stress_prob:.2f}%
+
+### Texto analizado:
+"{text}"
+        """
+        
+        return result
     
     except Exception as e:
-        return jsonify({
-            "error": str(e)
-        }), 500
+        return f"Error al procesar el texto: {str(e)}"
 
-@app.route('/health', methods=['GET'])
-def health():
-    """Endpoint de salud para verificar que la API está funcionando"""
-    return jsonify({
-        "status": "healthy",
-        "model_loaded": model is not None,
-        "vectorizer_loaded": vectorizer is not None
-    })
+# Crear interfaz Gradio
+title = "🔍 Detector de Estrés con NLP"
+description = """
+Esta aplicación utiliza un modelo de Machine Learning (Regresión Logística) entrenado con NLP 
+para detectar si un texto indica estrés o no.
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+**Cómo usar:**
+1. Escribe o pega un texto en inglés en el cuadro de texto
+2. Haz clic en "Analizar"
+3. Obtendrás la predicción y las probabilidades
+
+**Ejemplos de texto con estrés:**
+- "I am really stressed and anxious about my exams"
+- "I feel overwhelmed and can't sleep"
+
+**Ejemplos de texto sin estrés:**
+- "I had a great day today"
+- "Everything is going well"
+"""
+
+examples = [
+    ["I am really stressed and anxious about my upcoming exams"],
+    ["I feel overwhelmed and can't sleep at night"],
+    ["I had a wonderful day today"],
+    ["Everything is going well in my life"],
+    ["I'm worried about the future and feel constant pressure"]
+]
+
+demo = gr.Interface(
+    fn=predict_stress,
+    inputs=gr.Textbox(
+        label="Ingresa el texto a analizar",
+        placeholder="Escribe aquí tu texto en inglés...",
+        lines=5
+    ),
+    outputs=gr.Markdown(label="Resultado del análisis"),
+    title=title,
+    description=description,
+    examples=examples
+)
+
+if __name__ == "__main__":
+    demo.launch()
