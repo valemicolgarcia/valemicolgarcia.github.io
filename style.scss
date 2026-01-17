@@ -308,9 +308,12 @@ footer {
   z-index: 1000;
   transition: background-color 0.3s ease, color 0.3s ease, backdrop-filter 0.3s ease;
   padding: 12px 0;
+  box-sizing: border-box;
+  overflow: visible;
   
   @include mobile {
     padding: 10px 0;
+    overflow: visible;
   }
   
   .navbar-container {
@@ -322,9 +325,11 @@ footer {
     align-items: center;
     
     @include mobile {
-      padding: 0 15px;
+      padding: 0 10px;
       flex-direction: column;
       gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
     }
   }
   
@@ -351,14 +356,19 @@ footer {
     margin-right: -70px;
     
     @include mobile {
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
       margin-right: 0;
+      width: 100%;
+      padding: 0 5px;
+      box-sizing: border-box;
       
       a {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         letter-spacing: 1px;
+        white-space: nowrap;
+        padding: 4px 8px;
       }
     }
     
