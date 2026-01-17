@@ -325,12 +325,11 @@ footer {
     align-items: center;
     
     @include mobile {
-      padding: 0 8px;
-      flex-direction: row;
+      padding: 0 10px;
+      flex-direction: column;
       gap: 8px;
       width: 100%;
       box-sizing: border-box;
-      justify-content: space-between;
       align-items: center;
     }
   }
@@ -348,8 +347,9 @@ footer {
     
     @include mobile {
       margin-left: 0;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       padding: 6px 12px;
+      align-self: center;
     }
   }
   
@@ -359,19 +359,19 @@ footer {
     margin-right: -70px;
     
     @include mobile {
-      gap: 6px;
+      gap: 4px;
       flex-wrap: nowrap;
-      justify-content: flex-end;
+      justify-content: center;
       margin-right: 0;
-      width: auto;
+      width: 100%;
       padding: 0;
       box-sizing: border-box;
       
       a {
-        font-size: 0.65rem;
-        letter-spacing: 0.5px;
+        font-size: 0.6rem;
+        letter-spacing: 0.3px;
         white-space: nowrap;
-        padding: 4px 6px;
+        padding: 3px 5px;
       }
     }
     
@@ -405,7 +405,7 @@ footer {
       
       @include mobile {
         padding: 6px 12px;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
       }
       
       &:hover {
