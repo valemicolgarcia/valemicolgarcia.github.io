@@ -12,7 +12,14 @@ from nltk import word_tokenize
 import os
 
 app = Flask(__name__)
-CORS(app)  # Permitir requests desde cualquier origen
+# Configurar CORS para permitir requests desde GitHub Pages
+CORS(app, resources={
+    r"/*": {
+        "origins": ["https://valemicolgarcia.github.io", "http://localhost:4000", "http://127.0.0.1:4000"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Descargar recursos de NLTK si no están disponibles
 try:

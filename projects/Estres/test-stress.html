@@ -128,16 +128,24 @@ async function predictStress(event) {
   document.getElementById('predictBtn').disabled = true;
   
   try {
+    // Timeout más largo para dar tiempo a que Render "despierte" el servicio (plan gratuito)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 90000); // 90 segundos
+    
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ text: text })
+      body: JSON.stringify({ text: text }),
+      signal: controller.signal
     });
     
+    clearTimeout(timeoutId);
+    
     if (!response.ok) {
-      throw new Error('Error en la respuesta del servidor');
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Error ${response.status}: ${response.statusText}`);
     }
     
     const data = await response.json();
@@ -147,7 +155,15 @@ async function predictStress(event) {
     
   } catch (error) {
     console.error('Error:', error);
-    showError('No se pudo conectar con el servidor. Asegúrate de que la API esté desplegada.');
+    let errorMessage = 'No se pudo conectar con el servidor. ';
+    if (error.name === 'AbortError') {
+      errorMessage += 'El servidor tardó demasiado en responder. Esto puede ocurrir si el servicio está "despertando" (plan gratuito de Render). Por favor, intenta de nuevo en unos segundos.';
+    } else if (error.message) {
+      errorMessage += error.message;
+    } else {
+      errorMessage += 'Asegúrate de que la API esté desplegada y funcionando.';
+    }
+    showError(errorMessage);
   } finally {
     document.getElementById('loadingCard').classList.add('hidden');
     document.getElementById('predictBtn').disabled = false;
