@@ -5,9 +5,9 @@ title: Cats vs Dogs Image Classifier
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
     <h1 class="project-detail-title">Cats vs Dogs Image Classifier</h1>
-    <p class="project-detail-subtitle">Deep Learning y Computer Vision</p>
+    <p class="project-detail-subtitle">Deep Learning and Computer Vision</p>
     <div class="project-tags">
       <span class="tag">TensorFlow</span>
       <span class="tag">Keras</span>
@@ -24,22 +24,22 @@ title: Cats vs Dogs Image Classifier
 
   <div class="project-content">
     <div class="project-overview">
-      <h2>Resumen del Proyecto</h2>
-      <p>Este proyecto implementa un clasificador de imágenes que distingue entre gatos y perros usando redes neuronales convolucionales (CNN). El modelo se entrena con miles de imágenes y aprende a identificar características visuales distintivas de cada animal.</p>
+      <h2>Project Summary</h2>
+      <p>This project implements an image classifier that distinguishes between cats and dogs using convolutional neural networks (CNN). The model is trained with thousands of images and learns to identify distinctive visual features of each animal.</p>
     </div>
 
     <div class="process-section">
-      <h2>Proceso de Desarrollo</h2>
+      <h2>Development Process</h2>
       <div class="process-steps">
         <div class="step">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h3>Preprocesamiento de Imágenes</h3>
-            <p>Normalización de píxeles (0-255 a 0-1), redimensionamiento a 150x150 píxeles, y organización en directorios de entrenamiento, validación y prueba.</p>
+            <h3>Image Preprocessing</h3>
+            <p>Pixel normalization (0-255 to 0-1), resizing to 150x150 pixels, and organization into training, validation, and test directories.</p>
             <div class="process-image">
               <div class="image-placeholder">
                 <i class="fas fa-images" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
-                <p>Imágenes normalizadas y redimensionadas</p>
+                <p>Normalized and resized images</p>
               </div>
             </div>
           </div>
@@ -48,11 +48,11 @@ title: Cats vs Dogs Image Classifier
           <div class="step-number">2</div>
           <div class="step-content">
             <h3>Data Augmentation</h3>
-            <p>Aplicación de transformaciones aleatorias: rotación (40°), desplazamiento horizontal/vertical (20%), shear (20%), zoom (0.2), y flip horizontal para aumentar la variabilidad del dataset.</p>
+            <p>Application of random transformations: rotation (40°), horizontal/vertical shift (20%), shear (20%), zoom (0.2), and horizontal flip to increase dataset variability.</p>
             <div class="process-image">
               <div class="image-placeholder">
                 <i class="fas fa-sync-alt" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
-                <p>Ejemplos de imágenes con data augmentation</p>
+                <p>Examples of images with data augmentation</p>
               </div>
             </div>
           </div>
@@ -60,8 +60,8 @@ title: Cats vs Dogs Image Classifier
         <div class="step">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h3>Arquitectura CNN</h3>
-            <p>Construcción de la red con capas convolucionales, MaxPooling, Dropout y capas densas. El modelo aprende características jerárquicas desde bordes hasta formas complejas.</p>
+            <h3>CNN Architecture</h3>
+            <p>Network construction with convolutional layers, MaxPooling, Dropout, and dense layers. The model learns hierarchical features from edges to complex shapes.</p>
             <div class="architecture-diagram">
               <div class="layer">Input (150x150x3)</div>
               <div class="layer-arrow">↓</div>
@@ -80,12 +80,12 @@ title: Cats vs Dogs Image Classifier
         <div class="step">
           <div class="step-number">4</div>
           <div class="step-content">
-            <h3>Entrenamiento</h3>
-            <p>Entrenamiento durante 15 épocas con batch size de 128. Monitoreo de accuracy y loss en entrenamiento y validación para prevenir overfitting.</p>
+            <h3>Training</h3>
+            <p>Training for 15 epochs with batch size of 128. Monitoring accuracy and loss in training and validation to prevent overfitting.</p>
             <div class="process-image">
               <div class="image-placeholder">
                 <i class="fas fa-chart-line" style="font-size: 3rem; color: #4a90e2; opacity: 0.3;"></i>
-                <p>Gráficos de accuracy y loss durante el entrenamiento</p>
+                <p>Accuracy and loss graphs during training</p>
               </div>
             </div>
           </div>
@@ -93,12 +93,12 @@ title: Cats vs Dogs Image Classifier
         <div class="step">
           <div class="step-number">5</div>
           <div class="step-content">
-            <h3>Evaluación y Predicciones</h3>
-            <p>Evaluación en conjunto de prueba con 50 imágenes. Visualización de predicciones con porcentajes de confianza para cada imagen.</p>
+            <h3>Evaluation and Predictions</h3>
+            <p>Evaluation on test set with 50 images. Visualization of predictions with confidence percentages for each image.</p>
             <div class="process-image">
               <div class="image-placeholder">
                 <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; opacity: 0.3;"></i>
-                <p>Grid de 50 imágenes de prueba con predicciones</p>
+                <p>Grid of 50 test images with predictions</p>
               </div>
             </div>
           </div>
@@ -107,32 +107,32 @@ title: Cats vs Dogs Image Classifier
     </div>
 
     <div class="results-section">
-      <h2>Resultados</h2>
+      <h2>Results</h2>
       <div class="results-grid">
         <div class="result-card">
           <h3>Dataset</h3>
           <ul>
-            <li><strong>Entrenamiento:</strong> 2000 imágenes (1000 gatos, 1000 perros)</li>
-            <li><strong>Validación:</strong> 1000 imágenes (500 gatos, 500 perros)</li>
-            <li><strong>Prueba:</strong> 50 imágenes</li>
+            <li><strong>Training:</strong> 2000 images (1000 cats, 1000 dogs)</li>
+            <li><strong>Validation:</strong> 1000 images (500 cats, 500 dogs)</li>
+            <li><strong>Test:</strong> 50 images</li>
           </ul>
         </div>
         <div class="result-card">
-          <h3>Modelo</h3>
+          <h3>Model</h3>
           <ul>
-            <li><strong>Arquitectura:</strong> CNN con múltiples capas convolucionales</li>
-            <li><strong>Épocas:</strong> 15</li>
+            <li><strong>Architecture:</strong> CNN with multiple convolutional layers</li>
+            <li><strong>Epochs:</strong> 15</li>
             <li><strong>Batch Size:</strong> 128</li>
-            <li><strong>Data Augmentation:</strong> Sí</li>
+            <li><strong>Data Augmentation:</strong> Yes</li>
           </ul>
         </div>
         <div class="result-card">
-          <h3>Características</h3>
+          <h3>Features</h3>
           <ul>
-            <li>Preprocesamiento automático de imágenes</li>
-            <li>Data augmentation para mejorar generalización</li>
-            <li>Visualización de predicciones con confianza</li>
-            <li>Modelo escalable para más clases</li>
+            <li>Automatic image preprocessing</li>
+            <li>Data augmentation to improve generalization</li>
+            <li>Prediction visualization with confidence</li>
+            <li>Scalable model for more classes</li>
           </ul>
         </div>
       </div>

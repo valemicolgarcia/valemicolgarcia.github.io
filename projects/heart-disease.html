@@ -5,9 +5,9 @@ title: Heart Disease Prediction
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Roadmap</a>
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
     <h1 class="project-detail-title">Heart Disease Prediction</h1>
-    <p class="project-detail-subtitle">Machine Learning Supervisado</p>
+    <p class="project-detail-subtitle">Supervised Machine Learning</p>
     <div class="project-tags">
       <span class="tag">Scikit-learn</span>
       <span class="tag">Random Forest</span>
@@ -24,14 +24,14 @@ title: Heart Disease Prediction
 
   <div class="project-content">
     <div class="project-overview">
-      <h2>Problema a Resolver</h2>
-      <p>Las enfermedades cardiovasculares son la primera causa de muerte en el mundo, siendo responsables de la pérdida de millones de vidas cada año. Este proyecto busca detectar y predecir las variables determinantes que nos ponen en riesgo de padecer enfermedades cardíacas, permitiendo tomar conciencia y medidas preventivas.</p>
-      <p>El objetivo es identificar qué factores de riesgo (edad, presión arterial, colesterol, hábitos de vida, etc.) tienen mayor impacto en la probabilidad de desarrollar enfermedades cardíacas, utilizando técnicas avanzadas de machine learning para crear un modelo predictivo robusto.</p>
+      <h2>Problem to Solve</h2>
+      <p>Cardiovascular diseases are the leading cause of death worldwide, responsible for the loss of millions of lives each year. This project seeks to detect and predict the determining variables that put us at risk of heart disease, allowing awareness and preventive measures.</p>
+      <p>The objective is to identify which risk factors (age, blood pressure, cholesterol, lifestyle habits, etc.) have the greatest impact on the probability of developing heart disease, using advanced machine learning techniques to create a robust predictive model.</p>
     </div>
 
     <div class="dataset-section">
-      <h2>1. Información de los Datasets</h2>
-      <p class="section-description">Se utilizaron dos datasets complementarios que contienen información sobre factores de riesgo cardiovascular y condiciones de salud de pacientes.</p>
+      <h2>1. Dataset Information</h2>
+      <p class="section-description">Two complementary datasets were used that contain information about cardiovascular risk factors and patient health conditions.</p>
       
       <div class="datasets-info">
         <div class="dataset-card">
@@ -39,22 +39,22 @@ title: Heart Disease Prediction
           <p class="dataset-size"><strong>Tamaño:</strong> 3,674 filas × 16 columnas</p>
           <div class="variables-list-compact">
             <ul>
-              <li><strong>sex:</strong> Género masculino o femenino</li>
-              <li><strong>age:</strong> Edad de la persona</li>
-              <li><strong>education:</strong> Nivel de educación</li>
-              <li><strong>smokingStatus:</strong> Indica si la persona fuma</li>
-              <li><strong>cigsPerDay:</strong> Número de cigarrillos que fuma una persona en un día</li>
-              <li><strong>BPMeds:</strong> Indica si la persona toma medicaciones (1: toma, 2: no toma)</li>
-              <li><strong>prevalentStroke:</strong> Persona que tuvo un derrame cerebral (1: sí, 0: no)</li>
-              <li><strong>prevalentHyp:</strong> Persona que tiene hipertensión</li>
-              <li><strong>diabetes:</strong> Persona que tiene diabetes</li>
-              <li><strong>totChol:</strong> Nivel total de colesterol de una persona</li>
-              <li><strong>sysBP:</strong> Presión arterial sistólica de la persona</li>
-              <li><strong>diaBP:</strong> Presión arterial diastólica de la persona</li>
-              <li><strong>BMI:</strong> Índice de masa corporal</li>
-              <li><strong>heartRate:</strong> Frecuencia cardíaca en reposo de la persona</li>
-              <li><strong>glucose:</strong> Nivel de glucosa en sangre de la persona</li>
-              <li><strong>CHDRisk:</strong> Indica si la persona presenta riesgo de padecer enfermedad cardíaca</li>
+              <li><strong>sex:</strong> Male or female gender</li>
+              <li><strong>age:</strong> Person's age</li>
+              <li><strong>education:</strong> Education level</li>
+              <li><strong>smokingStatus:</strong> Indicates if the person smokes</li>
+              <li><strong>cigsPerDay:</strong> Number of cigarettes a person smokes per day</li>
+              <li><strong>BPMeds:</strong> Indicates if the person takes medications (1: yes, 2: no)</li>
+              <li><strong>prevalentStroke:</strong> Person who had a stroke (1: yes, 0: no)</li>
+              <li><strong>prevalentHyp:</strong> Person who has hypertension</li>
+              <li><strong>diabetes:</strong> Person who has diabetes</li>
+              <li><strong>totChol:</strong> Person's total cholesterol level</li>
+              <li><strong>sysBP:</strong> Person's systolic blood pressure</li>
+              <li><strong>diaBP:</strong> Person's diastolic blood pressure</li>
+              <li><strong>BMI:</strong> Body mass index</li>
+              <li><strong>heartRate:</strong> Person's resting heart rate</li>
+              <li><strong>glucose:</strong> Person's blood glucose level</li>
+              <li><strong>CHDRisk:</strong> Indicates if the person is at risk of heart disease</li>
             </ul>
           </div>
         </div>
@@ -64,31 +64,31 @@ title: Heart Disease Prediction
           <p class="dataset-size"><strong>Tamaño:</strong> 319,795 filas × 18 columnas</p>
           <div class="variables-list-compact">
             <ul>
-              <li><strong>HeartDisease:</strong> Indica si la persona presenta riesgo de padecer enfermedad cardíaca</li>
-              <li><strong>BMI:</strong> Índice de masa corporal</li>
-              <li><strong>Smoking:</strong> Persona que fuma</li>
-              <li><strong>AlcoholDrinking:</strong> Persona que toma mucho alcohol (hombres + de 14 bebidas por semana, mujeres + de 7 bebidas por semana)</li>
-              <li><strong>Stroke:</strong> Persona que sufrió un derrame cerebral</li>
-              <li><strong>PhysicalHealth:</strong> Cuántos de los últimos 30 días la persona hizo ejercicio</li>
-              <li><strong>MentalHealth:</strong> Cuántos de los últimos 30 días la persona no estuvo bien mentalmente</li>
-              <li><strong>DiffWalking:</strong> Persona que tiene dificultades para caminar o subir escaleras</li>
-              <li><strong>Sex:</strong> Sexo femenino o masculino</li>
-              <li><strong>AgeCategory:</strong> Categoría de edad</li>
-              <li><strong>Race:</strong> Valor de etnicidad imputado</li>
-              <li><strong>Diabetic:</strong> Persona que fue informada de tener diabetes</li>
-              <li><strong>PhysicalActivity:</strong> Adulto que informó haber realizado actividad física durante los últimos 30 días fuera de su trabajo habitual</li>
-              <li><strong>GenHealth:</strong> Genética</li>
-              <li><strong>SleepTime:</strong> Horas de sueño</li>
-              <li><strong>Asthma:</strong> Persona que tuvo asma</li>
-              <li><strong>KidneyDisease:</strong> Persona que tuvo enfermedad renal, sin contar incontinencia</li>
-              <li><strong>SkinCancer:</strong> Persona que tuvo cáncer de piel</li>
+              <li><strong>HeartDisease:</strong> Indicates if the person is at risk of heart disease</li>
+              <li><strong>BMI:</strong> Body mass index</li>
+              <li><strong>Smoking:</strong> Person who smokes</li>
+              <li><strong>AlcoholDrinking:</strong> Person who drinks a lot of alcohol (men +14 drinks per week, women +7 drinks per week)</li>
+              <li><strong>Stroke:</strong> Person who suffered a stroke</li>
+              <li><strong>PhysicalHealth:</strong> How many of the last 30 days the person exercised</li>
+              <li><strong>MentalHealth:</strong> How many of the last 30 days the person was not mentally well</li>
+              <li><strong>DiffWalking:</strong> Person who has difficulty walking or climbing stairs</li>
+              <li><strong>Sex:</strong> Female or male sex</li>
+              <li><strong>AgeCategory:</strong> Age category</li>
+              <li><strong>Race:</strong> Imputed ethnicity value</li>
+              <li><strong>Diabetic:</strong> Person who was informed they have diabetes</li>
+              <li><strong>PhysicalActivity:</strong> Adult who reported having performed physical activity during the last 30 days outside their usual work</li>
+              <li><strong>GenHealth:</strong> Genetics</li>
+              <li><strong>SleepTime:</strong> Hours of sleep</li>
+              <li><strong>Asthma:</strong> Person who had asthma</li>
+              <li><strong>KidneyDisease:</strong> Person who had kidney disease, excluding incontinence</li>
+              <li><strong>SkinCancer:</strong> Person who had skin cancer</li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="dataset-example">
-        <h3>Ejemplos de los Datasets</h3>
+        <h3>Dataset Examples</h3>
         <div class="dataset-tables">
           <div class="dataset-table-item">
             <h4>Dataset 1 - HEARTDISEASE (Primeras filas)</h4>
@@ -184,12 +184,12 @@ title: Heart Disease Prediction
     </div>
 
     <div class="data-wrangling-section">
-      <h2>2. Data Wrangling - Concatenación de Datasets</h2>
-      <p class="section-description">Se concatenaron ambos datasets para obtener un dataset unificado más completo. Este proceso genera algunas transformaciones adicionales en los datos y crea valores nulos en columnas que no están en común entre ambos datasets.</p>
+      <h2>2. Data Wrangling - Dataset Concatenation</h2>
+      <p class="section-description">Both datasets were concatenated to obtain a more complete unified dataset. This process generates some additional transformations in the data and creates null values in columns that are not common between both datasets.</p>
       
       <div class="merged-dataset">
-        <h3>Dataset Unificado</h3>
-        <p class="dataset-size"><strong>Tamaño final:</strong> 323,469 filas × 20 columnas</p>
+        <h3>Unified Dataset</h3>
+        <p class="dataset-size"><strong>Final size:</strong> 323,469 rows × 20 columns</p>
         <div class="table-container">
           <table class="data-table">
             <thead>
@@ -234,12 +234,12 @@ title: Heart Disease Prediction
             </tbody>
           </table>
         </div>
-        <p class="note">Nota: Los valores NaN aparecen en columnas que solo existen en uno de los datasets originales.</p>
+        <p class="note">Note: NaN values appear in columns that only exist in one of the original datasets.</p>
       </div>
 
       <div class="histograms-section">
-        <h3>Análisis de Histogramas</h3>
-        <p>Tras la concatenación, se analizaron los histogramas de las variables para entender sus distribuciones y detectar posibles problemas en los datos.</p>
+        <h3>Histogram Analysis</h3>
+        <p>After concatenation, variable histograms were analyzed to understand their distributions and detect possible data problems.</p>
         <div class="analysis-image">
           <img src="{{ site.baseurl }}/projects/heart-disease-data/histogramas.png" alt="Histogramas de variables" />
         </div>
@@ -247,33 +247,33 @@ title: Heart Disease Prediction
     </div>
 
     <div class="preprocessing-section">
-      <h2>3. Procesamiento de Datos</h2>
+      <h2>3. Data Processing</h2>
       
       <div class="preprocessing-step">
-        <h3>3.1 Tratamiento de Valores Nulos</h3>
-        <p>Se aplicaron diferentes estrategias de imputación según el tipo de variable y su distribución:</p>
+        <h3>3.1 Missing Value Treatment</h3>
+        <p>Different imputation strategies were applied according to variable type and distribution:</p>
         <div class="imputation-strategies">
           <div class="strategy-card">
-            <h4>Variables Normales</h4>
-            <p>Los datos nulos se reemplazan con la <strong>media</strong></p>
+            <h4>Normal Variables</h4>
+            <p>Missing data is replaced with the <strong>mean</strong></p>
           </div>
           <div class="strategy-card">
-            <h4>Variables No Normales</h4>
-            <p>Los datos nulos se reemplazan con la <strong>mediana</strong></p>
+            <h4>Non-Normal Variables</h4>
+            <p>Missing data is replaced with the <strong>median</strong></p>
           </div>
           <div class="strategy-card">
-            <h4>Variables Categóricas</h4>
-            <p>Los datos nulos se reemplazan con la <strong>moda</strong></p>
+            <h4>Categorical Variables</h4>
+            <p>Missing data is replaced with the <strong>mode</strong></p>
           </div>
         </div>
       </div>
 
       <div class="preprocessing-step">
-        <h3>3.2 Encoding de Variables Categóricas</h3>
-        <p>Se utilizó <strong>LabelEncoder</strong> de scikit-learn para convertir las variables categóricas en valores numéricos.</p>
+        <h3>3.2 Categorical Variable Encoding</h3>
+        <p><strong>LabelEncoder</strong> from scikit-learn was used to convert categorical variables into numeric values.</p>
         <div class="encoding-example">
           <div class="encoding-table">
-            <h4>Antes del Encoding</h4>
+            <h4>Before Encoding</h4>
             <div class="table-container">
               <table class="data-table">
                 <thead>
@@ -316,7 +316,7 @@ title: Heart Disease Prediction
             </div>
           </div>
           <div class="encoding-table">
-            <h4>Después del Encoding</h4>
+            <h4>After Encoding</h4>
             <div class="table-container">
               <table class="data-table">
                 <thead>
@@ -362,19 +362,19 @@ title: Heart Disease Prediction
       </div>
 
       <div class="preprocessing-step">
-        <h3>3.3 Escalado de Variables</h3>
-        <p>Se aplicaron diferentes técnicas de escalado según la distribución de las variables:</p>
+        <h3>3.3 Variable Scaling</h3>
+        <p>Different scaling techniques were applied according to variable distribution:</p>
         <div class="scaling-strategies">
           <div class="strategy-card">
             <h4>Standard Scaler</h4>
-            <p>Para <strong>variables normales</strong>. Normaliza los datos restando la media y dividiendo por la desviación estándar.</p>
+            <p>For <strong>normal variables</strong>. Normalizes data by subtracting the mean and dividing by the standard deviation.</p>
             <div class="formula">
               <p>z = (x - μ) / σ</p>
             </div>
           </div>
           <div class="strategy-card">
             <h4>Robust Scaler</h4>
-            <p>Para <strong>variables no normales</strong>. Utiliza la mediana y el IQR, siendo más robusto a outliers.</p>
+            <p>For <strong>non-normal variables</strong>. Uses the median and IQR, being more robust to outliers.</p>
             <div class="formula">
               <p>x_scaled = (x - median) / IQR</p>
             </div>
@@ -383,125 +383,125 @@ title: Heart Disease Prediction
       </div>
 
       <div class="preprocessing-step">
-        <h3>3.4 Tratamiento de Outliers</h3>
-        <p>Se identificaron y trataron los valores atípicos. Para variables normales, los outliers se reemplazaron con la media usando el método Z-Score.</p>
+        <h3>3.4 Outlier Treatment</h3>
+        <p>Atypical values were identified and treated. For normal variables, outliers were replaced with the mean using the Z-Score method.</p>
         <div class="outliers-visualization">
-          <h4>Ejemplo Visual - Variable SleepTime</h4>
+          <h4>Visual Example - SleepTime Variable</h4>
           <div class="boxplot-comparison">
             <div class="boxplot-item">
-              <h5>Con Outliers</h5>
-              <img src="{{ site.baseurl }}/projects/heart-disease-data/outliers.png" alt="Variables con outliers" />
+              <h5>With Outliers</h5>
+              <img src="{{ site.baseurl }}/projects/heart-disease-data/outliers.png" alt="Variables with outliers" />
             </div>
             <div class="boxplot-item">
-              <h5>Sin Outliers</h5>
-              <img src="{{ site.baseurl }}/projects/heart-disease-data/sinOutliers.png" alt="Variables sin outliers" />
+              <h5>Without Outliers</h5>
+              <img src="{{ site.baseurl }}/projects/heart-disease-data/sinOutliers.png" alt="Variables without outliers" />
             </div>
           </div>
         </div>
       </div>
 
       <div class="preprocessing-step">
-        <h3>3.5 Análisis de Correlaciones</h3>
-        <p>Se analizó el mapa de correlaciones para identificar variables altamente correlacionadas y eliminar dependencias, evitando multicolinealidad en los modelos.</p>
+        <h3>3.5 Correlation Analysis</h3>
+        <p>The correlation map was analyzed to identify highly correlated variables and eliminate dependencies, avoiding multicollinearity in the models.</p>
         <div class="correlation-map">
-          <img src="{{ site.baseurl }}/projects/heart-disease-data/correlaciones.png" alt="Mapa de correlaciones" class="correlation-image" />
+          <img src="{{ site.baseurl }}/projects/heart-disease-data/correlaciones.png" alt="Correlation map" class="correlation-image" />
         </div>
-        <p class="correlation-note">Las variables con alta correlación fueron eliminadas para evitar que el modelo tenga información redundante.</p>
+        <p class="correlation-note">Variables with high correlation were eliminated to avoid the model having redundant information.</p>
       </div>
     </div>
 
     <div class="eda-section">
-      <h2>4. Análisis Exploratorio de Datos (EDA)</h2>
-      <p class="section-description">Se realizaron análisis exploratorios para responder preguntas clave sobre los factores de riesgo cardiovascular.</p>
+      <h2>4. Exploratory Data Analysis (EDA)</h2>
+      <p class="section-description">Exploratory analyses were performed to answer key questions about cardiovascular risk factors.</p>
       
       <div class="eda-questions">
         <div class="eda-question">
-          <h3>¿Influye la edad en la posibilidad de contraer una enfermedad cardíaca?</h3>
+          <h3>Does age influence the possibility of developing heart disease?</h3>
           <div class="eda-image eda-image-small eda-image-compact">
-            <img src="{{ site.baseurl }}/projects/heart-disease-data/age.png" alt="Influencia de la edad en enfermedades cardíacas" />
+            <img src="{{ site.baseurl }}/projects/heart-disease-data/age.png" alt="Age influence on heart disease" />
           </div>
         </div>
         
         <div class="eda-question">
-          <h3>¿Si una persona fuma es más propensa a padecer una enfermedad del corazón?</h3>
+          <h3>Is a person who smokes more prone to heart disease?</h3>
           <div class="eda-image eda-image-small eda-image-compact">
-            <img src="{{ site.baseurl }}/projects/heart-disease-data/fuma.png" alt="Influencia del tabaquismo en enfermedades cardíacas" />
+            <img src="{{ site.baseurl }}/projects/heart-disease-data/fuma.png" alt="Smoking influence on heart disease" />
           </div>
         </div>
       </div>
     </div>
 
     <div class="balancing-section">
-      <h2>5. Balanceo de la Variable Target</h2>
-      <p class="section-description">El dataset presentaba un desbalance significativo en la variable target. Se aplicó la técnica de <strong>Oversampling</strong> para crear muestras nuevas sintéticas de la clase minoritaria y equilibrar las clases.</p>
+      <h2>5. Target Variable Balancing</h2>
+      <p class="section-description">The dataset had a significant imbalance in the target variable. <strong>Oversampling</strong> technique was applied to create new synthetic samples of the minority class and balance the classes.</p>
       
       <div class="balancing-visualization">
         <div class="balance-item">
-          <h3>Antes del Balanceo</h3>
-          <img src="{{ site.baseurl }}/projects/heart-disease-data/desbalance.png" alt="Desbalance de clases" />
+          <h3>Before Balancing</h3>
+          <img src="{{ site.baseurl }}/projects/heart-disease-data/desbalance.png" alt="Class imbalance" />
         </div>
         <div class="balance-item">
-          <h3>Después del Balanceo</h3>
-          <img src="{{ site.baseurl }}/projects/heart-disease-data/balanceo.png" alt="Balanceo de clases" />
+          <h3>After Balancing</h3>
+          <img src="{{ site.baseurl }}/projects/heart-disease-data/balanceo.png" alt="Class balancing" />
         </div>
       </div>
     </div>
 
     <div class="pca-section">
-      <h2>6. Análisis de Componentes Principales (PCA)</h2>
-      <p class="section-description">Se aplicó PCA (Principal Component Analysis) para reducir la dimensionalidad del dataset y eliminar redundancias, manteniendo la mayor cantidad de información posible con menos variables.</p>
+      <h2>6. Principal Component Analysis (PCA)</h2>
+      <p class="section-description">PCA (Principal Component Analysis) was applied to reduce dataset dimensionality and eliminate redundancies, maintaining as much information as possible with fewer variables.</p>
       
       <div class="pca-explanation">
-        <h3>¿Qué es PCA?</h3>
-        <p>PCA es una técnica de reducción de dimensionalidad que transforma las variables originales en componentes principales (nuevas variables no correlacionadas) que capturan la mayor varianza posible. Esto ayuda a:</p>
+        <h3>What is PCA?</h3>
+        <p>PCA is a dimensionality reduction technique that transforms original variables into principal components (new uncorrelated variables) that capture the maximum possible variance. This helps to:</p>
         <ul>
-          <li>Reducir el número de features manteniendo la información relevante</li>
-          <li>Eliminar redundancias y correlaciones entre variables</li>
-          <li>Mejorar el rendimiento del modelo al trabajar con menos dimensiones</li>
+          <li>Reduce the number of features while maintaining relevant information</li>
+          <li>Eliminate redundancies and correlations between variables</li>
+          <li>Improve model performance when working with fewer dimensions</li>
         </ul>
         
-        <h3>Varianza Explicada Acumulada vs Componentes</h3>
-        <p>La varianza explicada acumulada muestra cuánta información de los datos originales se conserva al usar un número determinado de componentes principales. Un valor alto indica que se está preservando la mayor parte de la información.</p>
+        <h3>Cumulative Explained Variance vs Components</h3>
+        <p>Cumulative explained variance shows how much information from the original data is preserved when using a certain number of principal components. A high value indicates that most of the information is being preserved.</p>
       </div>
 
       <div class="pca-visualization">
-        <img src="{{ site.baseurl }}/projects/heart-disease-data/Varianza.png" alt="Varianza explicada acumulada" class="pca-image-small" />
-        <p class="pca-note">Con el método del codo, se observa que a partir del componente 15, la varianza se incrementa de forma mínima. Por lo tanto, se seleccionaron 15 componentes principales para aplicar PCA.</p>
+        <img src="{{ site.baseurl }}/projects/heart-disease-data/Varianza.png" alt="Cumulative explained variance" class="pca-image-small" />
+        <p class="pca-note">Using the elbow method, it is observed that from component 15 onwards, the variance increases minimally. Therefore, 15 principal components were selected to apply PCA.</p>
       </div>
     </div>
 
     <div class="models-section">
-      <h2>7. Entrenamiento de Modelos</h2>
-      <p class="section-description">Se entrenaron y compararon 4 algoritmos diferentes de machine learning, aplicando técnicas avanzadas de validación y optimización para cada uno.</p>
+      <h2>7. Model Training</h2>
+      <p class="section-description">4 different machine learning algorithms were trained and compared, applying advanced validation and optimization techniques for each.</p>
       
       <div class="validation-techniques">
-        <h3>Técnicas de Validación y Optimización Utilizadas</h3>
+        <h3>Validation and Optimization Techniques Used</h3>
         <div class="techniques-grid">
           <div class="technique-card">
-            <h4>Validación Simple</h4>
-            <p>División del dataset en entrenamiento y prueba para evaluar el rendimiento inicial del modelo.</p>
+            <h4>Simple Validation</h4>
+            <p>Division of the dataset into training and test sets to evaluate the model's initial performance.</p>
           </div>
           <div class="technique-card">
-            <h4>Validación Cruzada</h4>
-            <p>Estrategia que divide los datos en k subconjuntos (folds) y entrena el modelo k veces, cada vez usando un fold diferente como conjunto de prueba. Esto ayuda a evitar el overfitting y proporciona una estimación más robusta del rendimiento.</p>
+            <h4>Cross Validation</h4>
+            <p>Strategy that divides data into k subsets (folds) and trains the model k times, each time using a different fold as the test set. This helps avoid overfitting and provides a more robust performance estimate.</p>
           </div>
           <div class="technique-card">
             <h4>HalvingGridSearchCV</h4>
-            <p>Optimización de hiperparámetros que combina GridSearch con una estrategia de "halving" (reducción progresiva). Comienza evaluando muchos parámetros con pocos recursos y gradualmente enfoca los recursos en las combinaciones más prometedoras, siendo más eficiente que GridSearch tradicional.</p>
+            <p>Hyperparameter optimization that combines GridSearch with a "halving" strategy (progressive reduction). It starts by evaluating many parameters with few resources and gradually focuses resources on the most promising combinations, being more efficient than traditional GridSearch.</p>
           </div>
         </div>
       </div>
 
       <div class="models-comparison">
-        <h3>Comparación de Modelos</h3>
+        <h3>Model Comparison</h3>
         <div class="table-container">
           <table class="data-table comparison-table">
             <thead>
               <tr>
-                <th>Métrica</th>
+                <th>Metric</th>
                 <th>Decision Tree</th>
                 <th>Random Forest</th>
-                <th>Regresión Logística</th>
+                <th>Logistic Regression</th>
                 <th>XGBoost</th>
               </tr>
             </thead>
@@ -539,11 +539,11 @@ title: Heart Disease Prediction
         </div>
 
         <div class="conclusion-box">
-          <h4>Conclusión</h4>
-          <p>Comparando todos los modelos, se observa que la precisión es bastante alta, alcanzando un 90%, con el DecisionTree y el XGBoosting llegando incluso al 91%. Sin embargo, en términos de recall, accuracy y F1 Score, el RandomForest y el modelo de Regresión Logística muestran métricas más sólidas. Aunque las diferencias son mínimas, la elección final se inclina hacia el modelo de <strong>Regresión Logística</strong>, que supera ligeramente al RandomForest en rendimiento general.</p>
+          <h4>Conclusion</h4>
+          <p>Comparing all models, it is observed that precision is quite high, reaching 90%, with DecisionTree and XGBoosting even reaching 91%. However, in terms of recall, accuracy, and F1 Score, RandomForest and the Logistic Regression model show more solid metrics. Although the differences are minimal, the final choice leans towards the <strong>Logistic Regression</strong> model, which slightly outperforms RandomForest in overall performance.</p>
           <div class="final-model-badge">
             <i class="fas fa-trophy"></i>
-            <span>Modelo Final: Regresión Logística</span>
+            <span>Final Model: Logistic Regression</span>
           </div>
         </div>
       </div>

@@ -306,13 +306,13 @@ footer {
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  padding: 20px 0;
+  transition: background-color 0.3s ease, color 0.3s ease, backdrop-filter 0.3s ease;
+  padding: 12px 0;
   
   .navbar-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -333,11 +333,13 @@ footer {
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
+    margin-left: -70px;
   }
   
   .navbar-links {
     display: flex;
-    gap: 30px;
+    gap: 50px;
+    margin-right: -70px;
     
     @include mobile {
       gap: 20px;
@@ -362,17 +364,31 @@ footer {
   
   // Transparent state (over hero)
   &.navbar-transparent {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
     
     .navbar-name {
-      background: #4a90e2;
+      background: rgba(74, 144, 226, 0.85);
       color: white;
       padding: 10px 25px;
       border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(74, 144, 226, 0.95);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
     }
     
     .navbar-links a {
       color: white;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
   
@@ -401,19 +417,32 @@ footer {
 .hero-section {
   height: 55vh;
   width: 100vw;
-  background: url('/images/background.jpg') center/cover no-repeat;
+  background: url('/images/background.png') center/cover no-repeat;
   background-size: cover;
   background-position: center;
   object-fit: cover;
   position: relative;
   margin: 0;
   padding: 0;
+  
+  // Overlay oscuro para mejorar contraste del navbar
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 /* About Section */
 .about-section { 
   text-align: center; 
-  padding: 60px 0; 
+  padding: 10px 0 60px 0; 
   background: #fff;
   max-width: 1200px;
   margin: 0 auto;
@@ -3825,6 +3854,265 @@ footer {
   
   .examples-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Course Modal Styles */
+.course-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.course-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.course-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 2px solid #e0e0e0;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+  }
+}
+
+.course-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #f0f0f0;
+    color: #333;
+  }
+}
+
+.course-modal-body {
+  padding: 30px;
+  
+  h3 {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+  }
+}
+
+.course-topics-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    padding: 12px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+    line-height: 1.6;
+    border-bottom: 1px solid #f0f0f0;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #4a90e2;
+      font-weight: bold;
+    }
+  }
+}
+
+.course-modal-footer {
+  padding: 20px 30px;
+  border-top: 2px solid #e0e0e0;
+  text-align: center;
+}
+
+.course-modal-cert-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+  }
+}
+
+.clickable-experience {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+}
+
+.click-hint {
+  font-size: 0.85rem;
+  color: #4a90e2;
+  margin-top: 8px;
+  font-style: italic;
+  
+  i {
+    margin-right: 5px;
+  }
+}
+
+/* AWS Project Section */
+.aws-project-section {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #e0e0e0;
+  
+  h3 {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+  }
+}
+
+.aws-architecture-image {
+  margin-bottom: 20px;
+  
+  img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+  }
+}
+
+.aws-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+  }
+  
+  i {
+    font-size: 1rem;
+  }
+}
+
+.certificate-image-section {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #e0e0e0;
+  
+  h3 {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+  }
+}
+
+.certificate-image-modal {
+  text-align: center;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+}
+
+@include mobile {
+  .course-modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .course-modal-header {
+    padding: 20px;
+    
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .course-modal-body {
+    padding: 20px;
+  }
+  
+  .course-modal-footer {
+    padding: 15px 20px;
   }
 }
 
