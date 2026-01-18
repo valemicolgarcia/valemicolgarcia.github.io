@@ -6,15 +6,17 @@ title: Book Recommendation System
 <section class="project-detail-section">
   <div class="project-header">
     <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
-    <h1 class="project-detail-title">Book Recommendation System (KNN)</h1>
-    <p class="project-detail-subtitle">Recommendation Systems and Similarity Models</p>
+    <h1 class="project-detail-title">Book Recommendation System</h1>
+    <p class="project-detail-subtitle">K-Nearest Neighbors and Collaborative Filtering</p>
     <div class="project-tags">
       <span class="tag">KNN</span>
       <span class="tag">Recommendation Systems</span>
       <span class="tag">Collaborative Filtering</span>
+      <span class="tag">scikit-learn</span>
+      <span class="tag">Pandas</span>
     </div>
     <div class="github-link">
-      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/Book%20recomendation/KNNNUEVOOOO.ipynb" target="_blank" class="github-btn">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/book-recommendation/KNNNUEVOOOO.ipynb" target="_blank" class="github-btn">
         <i class="fab fa-github"></i> Ver código en GitHub
       </a>
     </div>
@@ -22,72 +24,481 @@ title: Book Recommendation System
 
   <div class="project-content">
     <div class="project-overview">
-      <h2>Project Summary</h2>
-      <p>This project implements a book recommendation system using the K-Nearest Neighbors (KNN) algorithm and collaborative filtering techniques. The system analyzes user ratings and finds similar books based on the preferences of users with similar tastes.</p>
+      <h2>Problem to Solve</h2>
+      <p>This project implements a book recommendation system that, given a specific book, suggests 5 similar books based on user rating patterns. The system uses the Book-Crossings dataset, which contains over 1.1 million ratings (scale 1-10) of 270,000 books by 90,000 users.</p>
+      <p>The objective is to develop a recommendation system using the <strong>NearestNeighbors</strong> algorithm from scikit-learn, which measures distance to determine the "closeness" between instances. The system works through collaborative filtering, analyzing how users have rated different books to find similarity patterns.</p>
+      <p><strong>Model used:</strong> NearestNeighbors with cosine similarity</p>
     </div>
 
-    <div class="process-section">
-      <h2>Development Process</h2>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Dataset Analysis</h3>
-            <p>Exploration of the Book-Crossings dataset that contains information about users, books, and ratings.</p>
+    <div class="dataset-section">
+      <h2>1. Dataset Information</h2>
+      <p class="section-description">Two CSV datasets were imported from the Book-Crossings dataset, containing information about books and user ratings.</p>
+      
+      <div class="datasets-info">
+        <div class="dataset-card">
+          <h3>Dataset 1: BX-Books.csv</h3>
+          <p class="dataset-size"><strong>Contains:</strong> Book information</p>
+          <div class="variables-list-compact">
+            <ul>
+              <li><strong>isbn:</strong> International Standard Book Number (unique identifier)</li>
+              <li><strong>title:</strong> Book title</li>
+              <li><strong>author:</strong> Book author</li>
+            </ul>
           </div>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Preprocessing</h3>
-            <p>Data cleaning, handling missing values, and construction of user-book matrices for similarity analysis.</p>
+
+        <div class="dataset-card">
+          <h3>Dataset 2: BX-Book-Ratings.csv</h3>
+          <p class="dataset-size"><strong>Contains:</strong> 1,149,780 ratings</p>
+          <div class="variables-list-compact">
+            <ul>
+              <li><strong>user:</strong> User identifier</li>
+              <li><strong>isbn:</strong> Book identifier</li>
+              <li><strong>rating:</strong> User rating (scale 1-10)</li>
+            </ul>
           </div>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>KNN Implementation</h3>
-            <p>Use of the K-Nearest Neighbors algorithm to find users with similar preferences based on their ratings.</p>
-            <div class="knn-explanation">
-              <p><strong>How does it work?</strong></p>
-              <p>The algorithm finds the K most similar users to a target user and recommends books that those similar users have rated positively.</p>
+      </div>
+
+      <div class="dataset-example">
+        <h3>Dataset Examples</h3>
+        <div class="dataset-tables">
+          <div class="dataset-table-item">
+            <h4>Books Dataset (Primeras filas)</h4>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>isbn</th>
+                    <th>title</th>
+                    <th>author</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0195153448</td>
+                    <td>Classical Mythology</td>
+                    <td>Mark P. O. Morford</td>
+                  </tr>
+                  <tr>
+                    <td>0002005018</td>
+                    <td>Clara Callan</td>
+                    <td>Richard Bruce Wright</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Collaborative Filtering</h3>
-            <p>Implementation of collaborative filtering techniques to generate personalized recommendations based on the behavior of similar users.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">5</div>
-          <div class="step-content">
-            <h3>Evaluation</h3>
-            <p>Evaluation of the recommendation system using appropriate metrics for recommendation systems.</p>
+
+          <div class="dataset-table-item">
+            <h4>Ratings Dataset (Primeras filas)</h4>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>user</th>
+                    <th>isbn</th>
+                    <th>rating</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>276725</td>
+                    <td>034545104X</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>276726</td>
+                    <td>0155061224</td>
+                    <td>5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="data-wrangling-section">
+      <h2>2. Data Wrangling - Dataset Union</h2>
+      <p class="section-description">Both datasets were imported and merged to obtain a complete view of books and their ratings. The books dataset was joined with the ratings dataset using ISBN as the key.</p>
+      
+      <div class="code-example">
+        <h3>Dataset Import</h3>
+        <pre><code>df_books = pd.read_csv(
+    books_filename,
+    encoding = "ISO-8859-1",
+    sep=";",
+    header=0,
+    names=['isbn', 'title', 'author'],
+    usecols=['isbn', 'title', 'author'],
+    dtype={'isbn': 'str', 'title': 'str', 'author': 'str'})
+
+df_ratings = pd.read_csv(
+    ratings_filename,
+    encoding = "ISO-8859-1",
+    sep=";",
+    header=0,
+    names=['user', 'isbn', 'rating'],
+    usecols=['user', 'isbn', 'rating'],
+    dtype={'user': 'int32', 'isbn': 'str', 'rating': 'float32'})</code></pre>
+      </div>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>3. Data Processing</h2>
+      
+      <div class="preprocessing-step">
+        <h3>3.1 Missing Value Treatment</h3>
+        <p>Null values were identified and removed from the books dataset to ensure data quality.</p>
+        <div class="code-example">
+          <pre><code>df_books.isnull().sum()
+df_books.dropna(inplace=True)</code></pre>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.2 Data Filtering</h3>
+        <p>To improve recommendation quality and reduce noise in the data, two filters were applied:</p>
+        
+        <div class="filtering-strategies">
+          <div class="strategy-card">
+            <h4>User Filter</h4>
+            <p>Only users with <strong>200 or more ratings</strong> were kept. This ensures recommendations are based on users with sufficient rating history.</p>
+            <div class="code-example">
+              <pre><code>user_counts = df_ratings['user'].value_counts()
+users_to_keep = user_counts[user_counts >= 200].index
+df_filtered_users = df_ratings[df_ratings['user'].isin(users_to_keep)]</code></pre>
+            </div>
+          </div>
+          
+          <div class="strategy-card">
+            <h4>Book Filter</h4>
+            <p>Only books with <strong>100 or more ratings</strong> were kept. This guarantees that recommended books have sufficient information to calculate reliable similarities.</p>
+            <div class="code-example">
+              <pre><code>books_counts = df_ratings['isbn'].value_counts()
+books_to_keep = books_counts[books_counts >= 100].index
+df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.3 Rating Matrix Construction</h3>
+        <p>A pivot matrix was created where rows represent books (indexed by ISBN) and columns represent users. Values are ratings (0 if the user didn't rate the book).</p>
+        <div class="code-example">
+          <pre><code>df = df_filtered.pivot_table(
+    index=['user'],
+    columns=['isbn'],
+    values='rating'
+).fillna(0).T</code></pre>
+        </div>
+        <p class="note">The matrix is transposed (`.T`) so that books are rows and users are columns, making it easier to calculate similarities between books.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.4 Index Replacement</h3>
+        <p>ISBN indices were replaced with book titles to facilitate result interpretation.</p>
+        <div class="code-example">
+          <pre><code>df.index = df.join(df_books.set_index('isbn'))['title']</code></pre>
+        </div>
+        <p class="note">This allows the recommendation function to work directly with book titles instead of ISBN codes.</p>
+      </div>
+    </div>
+
+    <div class="model-section">
+      <h2>4. Model Training - NearestNeighbors</h2>
+      <p class="section-description">A NearestNeighbors model was trained using cosine distance metric, which is ideal for high-dimensional and sparse data like rating matrices. This section explains the mathematical foundations of the algorithm.</p>
+      
+      <div class="model-explanation">
+        <h3>4.1 Understanding the Vector Space Model</h3>
+        <p>In this recommendation system, each book is represented as a <strong>vector in a high-dimensional space</strong>. Each dimension corresponds to a user, and the value in that dimension is the rating that user gave to the book (0 if they didn't rate it).</p>
+        
+        <div class="vector-representation">
+          <h4>Book Vector Representation</h4>
+          <p>For example, if we have 3 users and Book A received ratings [5, 0, 8], this means:</p>
+          <ul>
+            <li>User 1 rated Book A as <strong>5</strong></li>
+            <li>User 2 didn't rate Book A (value is <strong>0</strong>)</li>
+            <li>User 3 rated Book A as <strong>8</strong></li>
+          </ul>
+          <p>In our actual dataset, each book vector has <strong>thousands of dimensions</strong> (one per user), making it a high-dimensional space where most values are 0 (sparse data).</p>
+        </div>
+
+        <h3>4.2 Why Cosine Similarity? The Mathematical Insight</h3>
+        <p>After analyzing different distance metrics, <strong>cosine similarity</strong> was chosen over Euclidean distance.</p>
+        
+        <div class="comparison-box">
+          <h4>Cosine Distance vs Euclidean Distance</h4>
+          
+          <div class="metric-comparison">
+            <div class="metric-card">
+              <h5>Euclidean Distance</h5>
+              <div class="formula-enhanced">d = √[(x₁-y₁)² + (x₂-y₂)² + ... + (xₙ-yₙ)²]</div>
+              <p class="metric-problem"><strong>Problem:</strong> Measures absolute differences. If User A rates books as [8, 9, 8] and User B rates the same books as [3, 4, 3], Euclidean distance would show them as very different, even though their <em>preference patterns</em> are identical!</p>
+            </div>
+            
+            <div class="metric-card metric-card-highlight">
+              <h5>Cosine Similarity ✓</h5>
+              <div class="formula-enhanced">cos(θ) = (A · B) / (||A|| × ||B||)</div>
+              <p class="metric-solution"><strong>Solution:</strong> Measures the <em>angle</em> between vectors, not their magnitude. This captures similarity in preference patterns regardless of rating scale differences between users.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>4.3 Deep Dive into the Cosine Similarity Formula</h3>
+        
+        <div class="formula-breakdown">
+          <div class="formula-box">
+            <h4>The Complete Formula</h4>
+            <div class="formula-large">
+              <p><strong>cos(θ) = (A · B) / (||A|| × ||B||)</strong></p>
+            </div>
+            <p>Where:</p>
+            <ul>
+              <li><strong>A</strong> and <strong>B</strong> are rating vectors of two books</li>
+              <li><strong>A · B</strong> is the dot product (sum of element-wise products)</li>
+              <li><strong>||A||</strong> and <strong>||B||</strong> are the magnitudes (lengths) of the vectors</li>
+              <li><strong>θ</strong> is the angle between the vectors</li>
+            </ul>
+          </div>
+
+          <div class="formula-components">
+            <h4>Breaking Down Each Component</h4>
+            
+            <div class="component-card">
+              <h5>1. Dot Product (A · B)</h5>
+              <p class="formula">A · B = Σ(aᵢ × bᵢ)</p>
+              <p>This measures how much the two books' ratings <strong>align</strong>. Higher values mean more users rated both books similarly. For sparse data (many zeros), this naturally focuses on users who rated <em>both</em> books.</p>
+              <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <p>Book A: [5, 0, 8, 0, 3]</p>
+                <p>Book B: [4, 0, 9, 0, 2]</p>
+                <p>A · B = (5×4) + (0×0) + (8×9) + (0×0) + (3×2) = 20 + 0 + 72 + 0 + 6 = <strong>98</strong></p>
+                <p>Notice how zeros don't contribute - only users who rated both books matter!</p>
+              </div>
+            </div>
+
+            <div class="component-card">
+              <h5>2. Vector Magnitude (||A||)</h5>
+              <p class="formula">||A|| = √(Σaᵢ²) = √(a₁² + a₂² + ... + aₙ²)</p>
+              <p>This is the <strong>length</strong> of the vector, representing the "total rating strength" of the book. It accounts for how many ratings the book received and their values.</p>
+              <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <p>Book A: [5, 0, 8, 0, 3]</p>
+                <p>||A|| = √(5² + 0² + 8² + 0² + 3²) = √(25 + 0 + 64 + 0 + 9) = √98 ≈ <strong>9.90</strong></p>
+              </div>
+            </div>
+
+            <div class="component-card">
+              <h5>3. The Division: Normalization</h5>
+              <p class="formula">cos(θ) = (A · B) / (||A|| × ||B||)</p>
+              <p>Dividing by the product of magnitudes <strong>normalizes</strong> the similarity. This is crucial because:</p>
+              <ul>
+                <li>It removes the effect of different numbers of ratings (a book with 1000 ratings vs 10 ratings)</li>
+                <li>It removes the effect of different rating scales (a generous user vs a harsh user)</li>
+                <li>It focuses purely on the <em>direction</em> of preference, not magnitude</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>4.4 Geometric Intuition: Why Angle Matters</h3>
+        <p>The cosine similarity literally measures the <strong>angle between two vectors</strong> in the high-dimensional space. This geometric interpretation reveals why it's perfect for recommendation systems:</p>
+        
+        <div class="geometric-explanation">
+          <div class="geometric-concept">
+            <h4>Visual Understanding</h4>
+            <ul>
+              <li><strong>θ ≈ 0°</strong> (cos ≈ 1): Vectors point in the same direction → Books have identical rating patterns → <em>Highly similar</em></li>
+              <li><strong>θ ≈ 90°</strong> (cos ≈ 0): Vectors are perpendicular → No correlation in ratings → <em>Unrelated</em></li>
+              <li><strong>θ ≈ 180°</strong> (cos ≈ -1): Vectors point in opposite directions → Users who like one dislike the other → <em>Opposite preferences</em></li>
+            </ul>
+          </div>
+          
+          <div class="practical-example">
+            <h4>Real-World Example</h4>
+            <p>Consider two books:</p>
+            <ul>
+              <li><strong>Book X:</strong> Rated by users as [8, 9, 8, 0, 0]</li>
+              <li><strong>Book Y:</strong> Rated by users as [3, 4, 3, 0, 0]</li>
+            </ul>
+            <p><strong>Euclidean distance</strong> would show them as very different (large numerical differences).</p>
+            <p><strong>Cosine similarity</strong> recognizes they have the <em>same pattern</em>: users 1, 2, and 3 prefer both books similarly, and users 4 and 5 haven't rated either. The angle between these vectors is small, indicating high similarity!</p>
+          </div>
+        </div>
+
+        <h3>4.5 Implementation</h3>
+        <div class="code-example">
+          <h4>Model Training Code</h4>
+          <pre><code>from sklearn.neighbors import NearestNeighbors
+
+# Initialize model with cosine metric
+model = NearestNeighbors(metric='cosine')
+
+# Fit the model to the rating matrix
+# Each row in df.values is a book vector
+model.fit(df.values)</code></pre>
+          <p class="code-explanation">The model learns the geometric structure of the book vectors in the high-dimensional space. When we query for similar books, it finds those with the smallest angles (highest cosine similarity) to the query book.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="function-section">
+      <h2>5. Recommendation Function</h2>
+      <p class="section-description">The <code>get_recommends</code> function was implemented to generate book recommendations.</p>
+      
+      <div class="function-explanation">
+        <h3>Function Implementation</h3>
+        <div class="code-example">
+          <pre><code>def get_recommends(book_title = ""):
+    # Get the rating vector for the requested book
+    book = df.loc[book_title]
+    
+    # Find the 6 nearest neighbors (including the book itself)
+    distances, indices = model.kneighbors([book.values], n_neighbors=6)
+    
+    # Prepare the list of recommendations
+    recommended_books = pd.DataFrame({
+      'title'   : df.iloc[indices[0]].index.values,
+      'distance': distances[0]
+    }) \
+    .sort_values(by='distance', ascending=False) \
+    .head(5).values
+    
+    lista = [book_title, recommended_books]
+    return lista</code></pre>
+        </div>
+        
+        <div class="function-steps">
+          <h4>How the function works:</h4>
+          <ol>
+            <li><strong>Receives</strong> a book title as argument</li>
+            <li><strong>Obtains</strong> the book's rating vector from the matrix</li>
+            <li><strong>Searches</strong> for the 6 nearest books (including the book itself)</li>
+            <li><strong>Sorts</strong> results by distance (highest to lowest)</li>
+            <li><strong>Selects</strong> the 5 most similar books (excluding the original book)</li>
+            <li><strong>Returns</strong> a list with the queried book title and an array with the 5 recommended books along with their distances</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-section">
+      <h2>6. Results</h2>
+      <p class="section-description">The system was successfully tested with different books. Here are some examples of recommendations generated:</p>
+      
+      <div class="results-examples">
+        <div class="result-example">
+          <div class="result-header">
+            <h3>Example 1</h3>
+            <p class="result-book-title">"Where the Heart Is (Oprah's Book Club (Paperback))"</p>
+          </div>
+          <div class="recommendations-table">
+            <div class="table-header">
+              <div class="col-rank">Rank</div>
+              <div class="col-title">Recommended Book</div>
+              <div class="col-distance">Similarity</div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge rank-1">1</span></div>
+              <div class="col-title">"I'll Be Seeing You"</div>
+              <div class="col-distance"><span class="similarity-score">0.80</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">2</span></div>
+              <div class="col-title">"The Weight of Water"</div>
+              <div class="col-distance"><span class="similarity-score">0.77</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">3</span></div>
+              <div class="col-title">"The Surgeon"</div>
+              <div class="col-distance"><span class="similarity-score">0.77</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">4</span></div>
+              <div class="col-title">"I Know This Much Is True"</div>
+              <div class="col-distance"><span class="similarity-score">0.77</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">5</span></div>
+              <div class="col-title">"The Lovely Bones: A Novel"</div>
+              <div class="col-distance"><span class="similarity-score">0.72</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-example">
+          <div class="result-header">
+            <h3>Example 2</h3>
+            <p class="result-book-title">"The Queen of the Damned (Vampire Chronicles (Paperback))"</p>
+          </div>
+          <div class="recommendations-table">
+            <div class="table-header">
+              <div class="col-rank">Rank</div>
+              <div class="col-title">Recommended Book</div>
+              <div class="col-distance">Similarity</div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge rank-1">1</span></div>
+              <div class="col-title">"Catch 22"</div>
+              <div class="col-distance"><span class="similarity-score">0.79</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">2</span></div>
+              <div class="col-title">"The Witching Hour (Lives of the Mayfair Witches)"</div>
+              <div class="col-distance"><span class="similarity-score">0.74</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">3</span></div>
+              <div class="col-title">"Interview with the Vampire"</div>
+              <div class="col-distance"><span class="similarity-score">0.73</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">4</span></div>
+              <div class="col-title">"The Tale of the Body Thief (Vampire Chronicles (Paperback))"</div>
+              <div class="col-distance"><span class="similarity-score">0.54</span></div>
+            </div>
+            <div class="recommendation-row">
+              <div class="col-rank"><span class="rank-badge">5</span></div>
+              <div class="col-title">"The Vampire Lestat (Vampire Chronicles, Book II)"</div>
+              <div class="col-distance"><span class="similarity-score">0.52</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-interpretation">
+        <h3>Results Interpretation</h3>
+        <p>Higher distances indicate greater similarity (cosine distance is interpreted as similarity when close to 1). The system successfully identifies books that share similar rating patterns, meaning users who liked one book tend to like the recommended books as well.</p>
+        <p>Notice in Example 2 how the system correctly identifies other books from the same series ("Vampire Chronicles") and similar genres, demonstrating that the collaborative filtering approach effectively captures book similarities based on user preferences.</p>
+      </div>
+    </div>
+
     <div class="concepts-section">
       <h2>Key Concepts</h2>
-      <div class="concepts-grid">
-        <div class="concept-card">
+      <div class="concepts-grid-four">
+        <div class="concept-card-small">
           <i class="fas fa-users"></i>
           <h3>Collaborative Filtering</h3>
-          <p>Method that predicts a user's preferences based on the preferences of similar users.</p>
+          <p>Method that predicts a user's preferences based on the preferences of similar users. In this case, it finds books similar to a given book based on how users have rated them.</p>
         </div>
-        <div class="concept-card">
+        <div class="concept-card-small">
           <i class="fas fa-search"></i>
           <h3>K-Nearest Neighbors</h3>
-          <p>Algorithm that finds the K most similar users based on distance or similarity metrics.</p>
+          <p>Algorithm that finds the K most similar items based on distance or similarity metrics. Here, it finds books with similar rating patterns.</p>
         </div>
-        <div class="concept-card">
+        <div class="concept-card-small">
           <i class="fas fa-star"></i>
           <h3>Rating Matrix</h3>
-          <p>Representation of user-book interactions that allows calculating similarities and generating recommendations.</p>
+          <p>Representation of user-book interactions that allows calculating similarities and generating recommendations. Each cell contains a user's rating for a book.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-ruler"></i>
+          <h3>Cosine Similarity</h3>
+          <p>Distance metric that measures the angle between two vectors, ideal for sparse and high-dimensional data like rating matrices.</p>
         </div>
       </div>
     </div>
@@ -95,3 +506,429 @@ title: Book Recommendation System
 </section>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* Mathematical Section Styles */
+  .vector-representation {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+  }
+
+  .comparison-box {
+    margin: 2rem 0;
+  }
+
+  .metric-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .metric-card {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .metric-card-highlight {
+    border-color: #28a745;
+    background: #f0fff4;
+  }
+
+  .metric-card h5 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .metric-card .formula {
+    font-family: 'Courier New', monospace;
+    background: #f5f5f5;
+    padding: 0.8rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .formula-enhanced {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    padding: 1.2rem;
+    border-radius: 6px;
+    margin: 1.2rem 0;
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    letter-spacing: 0.5px;
+  }
+
+  .metric-problem {
+    color: #dc3545;
+    font-style: italic;
+  }
+
+  .metric-solution {
+    color: #28a745;
+    font-weight: 500;
+  }
+
+  .formula-breakdown {
+    margin: 2rem 0;
+  }
+
+  .formula-large {
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .formula-large strong {
+    font-family: 'Courier New', monospace;
+    font-size: 1.4rem;
+  }
+
+  .formula-components {
+    margin-top: 2rem;
+  }
+
+  .component-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .component-card h5 {
+    color: #495057;
+    margin-top: 0;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+  }
+
+  .component-card .formula {
+    font-family: 'Courier New', monospace;
+    background: #f8f9fa;
+    padding: 0.8rem;
+    border-left: 3px solid #007bff;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .example-box {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+  }
+
+  .example-box p {
+    margin: 0.5rem 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+  }
+
+  .geometric-explanation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .geometric-concept {
+    background: #e7f3ff;
+    border-left: 4px solid #0066cc;
+    padding: 1.5rem;
+    border-radius: 4px;
+  }
+
+  .geometric-concept ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .geometric-concept li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #cce5ff;
+  }
+
+  .geometric-concept li:last-child {
+    border-bottom: none;
+  }
+
+  .geometric-concept strong {
+    color: #0066cc;
+  }
+
+  .practical-example {
+    background: #fff9e6;
+    border-left: 4px solid #ff9800;
+    padding: 1.5rem;
+    border-radius: 4px;
+  }
+
+  .learning-highlights {
+    background: #f0f8ff;
+    border: 2px solid #4a90e2;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .learning-highlights ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .learning-highlights li {
+    padding: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+  }
+
+  .learning-highlights li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .code-explanation {
+    font-style: italic;
+    color: #666;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #007bff;
+  }
+
+  /* Key Concepts - 4 in a row */
+  .concepts-grid-four {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    border-color: #007bff;
+  }
+
+  .concept-card-small i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 0.8rem;
+  }
+
+  .concept-card-small h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+  }
+
+  .concept-card-small p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Professional Results Presentation */
+  .results-examples {
+    margin: 2rem 0;
+  }
+
+  .result-example {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+  }
+
+  .result-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+  }
+
+  .result-header h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.95;
+  }
+
+  .result-book-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  .recommendations-table {
+    width: 100%;
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .recommendation-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    align-items: center;
+  }
+
+  .recommendation-row:hover {
+    background-color: #f8f9fa;
+  }
+
+  .recommendation-row:last-child {
+    border-bottom: none;
+  }
+
+  .col-rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .col-title {
+    font-size: 0.95rem;
+    color: #333;
+    padding-right: 1rem;
+    line-height: 1.5;
+  }
+
+  .col-distance {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .rank-badge.rank-1 {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #333;
+    box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
+  }
+
+  .similarity-score {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: #e7f3ff;
+    color: #0066cc;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .table-header,
+    .recommendation-row {
+      grid-template-columns: 60px 1fr 100px;
+      padding: 1rem 1rem;
+    }
+
+    .result-header {
+      padding: 1.2rem 1.5rem;
+    }
+
+    .col-title {
+      font-size: 0.85rem;
+    }
+
+    .rank-badge {
+      width: 32px;
+      height: 32px;
+      font-size: 0.85rem;
+    }
+
+    .similarity-score {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .concepts-grid-four {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .metric-comparison,
+    .geometric-explanation {
+      grid-template-columns: 1fr;
+    }
+    
+    .concepts-grid-four {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
