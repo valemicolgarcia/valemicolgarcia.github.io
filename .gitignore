@@ -26,3 +26,6 @@ projects/**/__MACOSX/
 
 # Mantener solo notebooks
 !projects/**/*.ipynb
+
+# Archivos PDF confidenciales de investigación
+files/**/*.pdf

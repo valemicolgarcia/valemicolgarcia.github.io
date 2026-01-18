@@ -1,47 +1,873 @@
 ---
 layout: default
-title: Research Lab Project
+title: Research Laboratory Project
 ---
 
 <section class="project-detail-section">
   <div class="project-header">
     <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
-    <h1 class="project-detail-title">Research Laboratory Project</h1>
-    <p class="project-detail-subtitle">Applied Research and ML in the Real World</p>
+    <h1 class="project-detail-title">Physiological Signal Analysis Research</h1>
+    <p class="project-detail-subtitle">Machine Learning Engineer / Research Data Scientist</p>
     <div class="project-tags">
-      <span class="tag">Research</span>
+      <span class="tag">Machine Learning</span>
       <span class="tag">Signal Processing</span>
-      <span class="tag">Real-world ML</span>
+      <span class="tag">Data Engineering</span>
+      <span class="tag">Python</span>
+      <span class="tag">Research</span>
+    </div>
+    <div class="github-link">
+      <a href="#" target="_blank" class="github-btn" style="pointer-events: none; opacity: 0.5;">
+        <i class="fab fa-github"></i> Code available upon request
+      </a>
     </div>
   </div>
 
   <div class="project-content">
-    <div class="project-description">
-      <h2>Project Description</h2>
-      <p>As a Research Fellow at the LEICI Institute (UNLP), I work on an applied research project that analyzes physiological signals during exercise and stress episodes in people with type 1 diabetes. This project combines signal processing techniques, data analysis, and machine learning to better understand how physiological systems respond under different conditions.</p>
+    <div class="project-overview">
+      <h2>Problem to Solve</h2>
+      <p>As a <strong>Research Fellow</strong> at the LEICI Institute (Faculty of Engineering, UNLP) in collaboration with the Italian Hospital of Buenos Aires (HIBA), I developed a computational framework for analyzing physiological signals during exercise and stress episodes in individuals with Type 1 Diabetes.</p>
+      <p>The project involved processing multimodal physiological data from wearable sensors and continuous glucose monitors (CGM) to detect and classify physiological states, requiring scalable software architecture, robust signal processing pipelines, and machine learning models optimized for ambulatory monitoring.</p>
+      <p><strong>Role:</strong> Research Fellow (2025) | <strong>Focus:</strong> Machine Learning Engineering & Signal Processing</p>
+    </div>
+
+    <div class="institution-section">
+      <h2>1. Research Context</h2>
+      <p class="section-description">This project is part of an ongoing research collaboration between academic and medical institutions, focusing on computational analysis of physiological responses in clinical populations.</p>
       
-      <div class="research-details">
-        <h3>Project Objectives</h3>
+      <div class="institution-cards">
+        <div class="institution-card">
+          <h3>LEICI Institute</h3>
+          <p><strong>Institution:</strong> Universidad Nacional de La Plata (UNLP)</p>
+          <p><strong>Faculty:</strong> Faculty of Engineering</p>
+          <p><strong>Focus:</strong> Electronics, Control, and Signal Processing Research</p>
+        </div>
+
+        <div class="institution-card">
+          <h3>HIBA Collaboration</h3>
+          <p><strong>Partner:</strong> Italian Hospital of Buenos Aires</p>
+          <p><strong>Domain:</strong> Clinical Research</p>
+          <p><strong>Population:</strong> Type 1 Diabetes Patients</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="architecture-section">
+      <h2>2. Software Architecture & Framework Design</h2>
+      <p class="section-description">Developed a Python-based framework using Object-Oriented Programming (OOP) principles to manage complex multimodal physiological datasets.</p>
+      
+      <div class="preprocessing-step">
+        <h3>2.1 Object-Oriented Data Modeling</h3>
+        <p>Implemented custom data abstractions using Python classes to manage hierarchical physiological data structures. Key classes include:</p>
         <ul>
-          <li>Real-time analysis of physiological signals</li>
-          <li>Pattern identification during exercise and stress</li>
-          <li>Application of ML techniques for classification and prediction</li>
-          <li>Contribution to medical research in type 1 diabetes</li>
+          <li><strong><code>Sujeto</code> (Subject):</strong> Aggregates all physiological data for a single participant, including multimodal signals and metadata</li>
+          <li><strong><code>Dia</code> (Day):</strong> Manages temporal organization and synchronization of signals within a day</li>
+          <li><strong>Additional classes:</strong> Supporting classes for signal processing, feature extraction, and data management</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="data-engineering-section">
+      <h2>3. Data Engineering & Signal Processing Pipeline</h2>
+      <p class="section-description">Implemented an ETL pipeline to process raw sensor data into machine-learning-ready features.</p>
+      
+      <div class="preprocessing-step">
+        <h3>3.1 Data Sources</h3>
+        <p>The system processes data from multiple sensor types:</p>
         
-        <h3>Institutions</h3>
-        <p><strong>LEICI Institute</strong> - Universidad Nacional de La Plata (UNLP)</p>
-        <p><strong>Role:</strong> Research Fellow (since May 2025)</p>
-        
-        <h3>Impact</h3>
-        <p>This project demonstrates my ability to apply machine learning to real scientific research problems, working with complex data and contributing to advances in the health field.</p>
+        <div class="sensor-grid">
+          <div class="sensor-card">
+            <h4>Empatica E4</h4>
+            <p>Multi-sensor device capturing:</p>
+            <ul>
+              <li>Electrodermal Activity (EDA) - 4 Hz</li>
+              <li>Accelerometry (ACC) - 32 Hz</li>
+              <li>Heart Rate Variability</li>
+              <li>Temperature</li>
+              <li>Other physiological signals</li>
+            </ul>
+          </div>
+
+          <div class="sensor-card">
+            <h4>Continuous Glucose Monitor (CGM)</h4>
+            <p>Medical device providing:</p>
+            <ul>
+              <li>Glucose levels - 1 Hz</li>
+              <li>Continuous monitoring data</li>
+              <li>Clinical-grade measurements</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.2 Signal Synchronization & Resampling</h3>
+        <p>Synchronized signals with heterogeneous sampling frequencies:</p>
+        <ul>
+          <li><strong>ACC:</strong> 32 Hz | <strong>EDA:</strong> 4 Hz | <strong>CGM:</strong> 1 Hz</li>
+          <li>Resampled all signals to 10-second intervals using signal-specific interpolation methods</li>
+          <li>Handled missing data, sensor dropouts, and timestamp misalignments</li>
+        </ul>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>3.3 Digital Signal Processing</h3>
+        <p>Applied Butterworth filters (4th order) for signal processing:</p>
+        <ul>
+          <li><strong>EDA:</strong> Separated phasic and tonic components</li>
+          <li><strong>ACC:</strong> Bandpass filtering to isolate relevant frequency bands</li>
+        </ul>
+        <p>Extracted features including statistical measures, frequency-domain (FFT-based), time-domain (peaks, slopes), and cross-signal correlations from windowed signal segments.</p>
+      </div>
+    </div>
+
+    <div class="ml-section">
+      <h2>4. Machine Learning Implementation</h2>
+      <p class="section-description">Developed classification models to detect physiological states from multimodal sensor data.</p>
+      
+      <div class="preprocessing-step">
+        <h3>4.1 Classification Model</h3>
+        <div class="model-type">
+          <h4>Random Forest Classifier</h4>
+          <p>Implemented Random Forest models for physiological state detection:</p>
+          <ul>
+            <li>Ensemble method combining multiple decision trees</li>
+            <li>Feature importance analysis for interpretability</li>
+            <li>Handles missing values and noisy real-world data</li>
+            <li>Captures non-linear interactions between multimodal signals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>4.2 Mixed-Cohort Training</h3>
+        <p>Combined datasets from healthy subjects and Type 1 Diabetes patients:</p>
+        <ul>
+          <li>Models trained using both datasets together</li>
+          <li>Domain adaptation techniques to handle distribution differences</li>
+          <li>Increases training data size while maintaining relevance to clinical population</li>
+        </ul>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>4.3 Data Curation & Labeling</h3>
+        <p>Addressed challenges in processing real-world ambulatory data:</p>
+        <ul>
+          <li><strong>Data Quality:</strong> Validation checks for sensor malfunctions, missing data, and outliers</li>
+          <li><strong>Class Imbalance:</strong> Stratified sampling and class weighting in model training</li>
+          <li><strong>Labeling:</strong> Multi-signal analysis and temporal pattern recognition for free-living data</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pipeline-section">
+      <h2>5. End-to-End Data Pipeline</h2>
+      <p class="section-description">Complete pipeline from raw sensor data to model deployment:</p>
+      
+      <div class="pipeline-steps">
+        <div class="pipeline-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Data Ingestion</h3>
+            <p>Load and validate raw sensor data from Empatica E4 and CGM devices.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Synchronization & Resampling</h3>
+            <p>Temporal alignment and resampling to 10-second intervals.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Signal Processing</h3>
+            <p>Apply Butterworth filters for EDA decomposition and ACC bandpass filtering.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Feature Engineering</h3>
+            <p>Extract temporal, frequency-domain, and cross-signal features.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Model Training</h3>
+            <p>Train Random Forest models using combined datasets with time-series aware validation.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Research Insights & Results</h3>
+            <p>Obtain valuable insights and research findings from the processed physiological data and model predictions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="impact-section">
+      <h2>6. Engineering Impact</h2>
+      <p class="section-description">Key technical contributions:</p>
+      
+      <div class="impact-grid">
+        <div class="impact-card">
+          <h4>Scalable Architecture</h4>
+          <p>Modular OOP framework enabling easy extension to new sensor types and processing methods.</p>
+        </div>
+
+        <div class="impact-card">
+          <h4>Robust Data Pipeline</h4>
+          <p>ETL pipeline handles missing values, sensor failures, and heterogeneous sampling rates.</p>
+        </div>
+
+        <div class="impact-card">
+          <h4>Innovative ML Approach</h4>
+          <p>Mixed-cohort training addresses limited clinical data availability in medical ML.</p>
+        </div>
+
+        <div class="impact-card">
+          <h4>Research-Grade Code</h4>
+          <p>Production-ready framework with error handling and documentation.</p>
+        </div>
       </div>
     </div>
 
     <div class="research-note">
-      <p><strong>Note:</strong> This is an ongoing research project. Specific details and results are subject to academic confidentiality.</p>
+      <h3>Research Note</h3>
+      <p><strong>Confidentiality:</strong> This is an ongoing research project in collaboration with medical institutions. Specific model performance metrics, clinical findings, and detailed methodologies are subject to academic confidentiality pending publication. The focus here is on the engineering and technical implementation aspects of the work.</p>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Key Concepts</h2>
+      <div class="concepts-grid-three">
+        <div class="concept-card-small">
+          <i class="fas fa-code"></i>
+          <h3>Software Architecture</h3>
+          <p>Modular OOP design enabling scalable, maintainable systems for complex scientific computing tasks.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-wave-square"></i>
+          <h3>Signal Processing</h3>
+          <p>Digital signal processing techniques for extracting meaningful features from multimodal sensor data.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-project-diagram"></i>
+          <h3>Data Engineering</h3>
+          <p>ETL pipelines for handling heterogeneous, real-world sensor data with robust synchronization and preprocessing.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* Research Lab Project Specific Styles */
+  .project-overview h2,
+  .institution-section h2,
+  .architecture-section h2,
+  .data-engineering-section h2,
+  .ml-section h2,
+  .pipeline-section h2,
+  .impact-section h2 {
+    color: #333;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #4a90e2;
+  }
+
+  .project-overview p,
+  .section-description {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .institution-section {
+    margin: 3rem 0;
+  }
+
+  .institution-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .institution-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .institution-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-color: #4a90e2;
+  }
+
+  .institution-card h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 0.75rem;
+  }
+
+  .institution-card p {
+    color: #555;
+    margin: 0.75rem 0;
+    line-height: 1.6;
+  }
+
+  .institution-card strong {
+    color: #333;
+    font-weight: 600;
+  }
+
+  .architecture-explanation {
+    margin: 2rem 0;
+  }
+
+  .architecture-feature {
+    background: #f8f9fa;
+    border-left: 4px solid #4a90e2;
+    padding: 1.75rem;
+    margin: 1.25rem 0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .architecture-feature:hover {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+  }
+
+  .architecture-feature h4 {
+    color: #333;
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .architecture-feature p {
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .architecture-feature ul {
+    margin-top: 1rem;
+  }
+
+  .architecture-feature li {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .architecture-feature code {
+    background: #e7f3ff;
+    color: #4a90e2;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.95em;
+  }
+
+  .architecture-benefits {
+    margin: 2rem 0;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .benefit-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1.2rem;
+  }
+
+  .benefit-item h5 {
+    color: #495057;
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .optimization-details {
+    margin: 1.5rem 0;
+  }
+
+  .optimization-item {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+  }
+
+  .optimization-item h4 {
+    color: #495057;
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .sensor-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .sensor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-color: #4a90e2;
+  }
+
+  .sensor-card h4 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 0.75rem;
+  }
+
+  .sensor-card p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .sensor-card ul {
+    margin-top: 1rem;
+  }
+
+  .sensor-card li {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .synchronization-explanation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .sync-challenge, .sync-solution {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .sync-challenge {
+    border-left: 4px solid #dc3545;
+  }
+
+  .sync-solution {
+    border-left: 4px solid #28a745;
+  }
+
+  .technical-note {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+    border-left: 4px solid #ff9800;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-style: italic;
+    color: #e65100;
+    line-height: 1.7;
+    box-shadow: 0 2px 4px rgba(255, 152, 0, 0.1);
+  }
+
+  .technical-note strong {
+    color: #e65100;
+    font-weight: 600;
+  }
+
+  .dsp-techniques {
+    margin: 2rem 0;
+  }
+
+  .dsp-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .dsp-card h4 {
+    color: #495057;
+    margin-top: 0;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+  }
+
+  .dsp-formula {
+    font-family: 'Courier New', monospace;
+    background: #f8f9fa;
+    padding: 0.8rem;
+    border-left: 3px solid #007bff;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .model-type {
+    background: linear-gradient(135deg, #e7f3ff 0%, #f0f8ff 100%);
+    border-left: 4px solid #4a90e2;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
+  }
+
+  .model-type h4 {
+    color: #333;
+    margin-top: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .model-type p {
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .model-type ul {
+    margin-top: 1rem;
+  }
+
+  .model-type li {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .augmentation-strategy {
+    background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+    border: 1px solid #4caf50;
+    border-left: 4px solid #4caf50;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
+  }
+
+  .augmentation-strategy h4 {
+    color: #2e7d32;
+    margin-top: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .augmentation-strategy p {
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .augmentation-strategy ul {
+    margin-top: 1rem;
+  }
+
+  .augmentation-strategy li {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .curation-challenges {
+    margin: 1.5rem 0;
+  }
+
+  .challenge-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .challenge-card h4 {
+    color: #495057;
+    margin-top: 0;
+  }
+
+  .pipeline-steps {
+    margin: 2rem 0;
+  }
+
+  .pipeline-step {
+    display: flex;
+    align-items: flex-start;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #fff;
+    border-left: 4px solid #4a90e2;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .pipeline-step:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 24px rgba(74, 144, 226, 0.15);
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-right: 1.75rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .stack-categories {
+    margin: 2rem 0;
+  }
+
+  .stack-category {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+
+  .stack-category h3 {
+    color: #495057;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .stack-description {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .tech-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #e7f3ff;
+    color: #0066cc;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .impact-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #4a90e2;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .impact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(74, 144, 226, 0.15);
+    border-color: #4a90e2;
+  }
+
+  .impact-card h4 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .impact-card p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .research-note {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+    border: 1px solid #ffc107;
+    border-left: 4px solid #ff9800;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.1);
+  }
+
+  .research-note h3 {
+    color: #e65100;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .research-note p {
+    margin: 0.5rem 0;
+    color: #e65100;
+    line-height: 1.7;
+  }
+
+  /* Key Concepts - 3 in a row */
+  .concepts-grid-three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(74, 144, 226, 0.15);
+    border-color: #4a90e2;
+  }
+
+  .concept-card-small i {
+    font-size: 2.5rem;
+    color: #4a90e2;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .concept-card-small:hover i {
+    transform: scale(1.1);
+  }
+
+  .concept-card-small h3 {
+    font-size: 1.1rem;
+    margin: 0.75rem 0;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .concept-card-small p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+
+  @media (max-width: 1200px) {
+    .curation-challenges {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .institution-cards,
+    .sensor-grid,
+    .synchronization-explanation,
+    .curation-challenges,
+    .impact-grid,
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .concepts-grid-three {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .concepts-grid-three {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
