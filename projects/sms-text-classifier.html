@@ -1,0 +1,357 @@
+---
+layout: default
+title: SMS Text Classifier
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <h1 class="project-detail-title">SMS Text Classifier</h1>
+    <p class="project-detail-subtitle">RNN and NLP</p>
+    <div class="project-tags">
+      <span class="tag">TensorFlow</span>
+      <span class="tag">Keras</span>
+      <span class="tag">LSTM</span>
+      <span class="tag">Text Classification</span>
+    </div>
+    <div class="github-link">
+      <a href="https://github.com/valemicolgarcia/TensorFlow/blob/main/SMS%20Text%20Classifier/fcc_sms_text_classification.ipynb" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> View code on GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problem to Solve</h2>
+      <p>This project implements a binary text classification system that distinguishes between spam and legitimate (ham) SMS messages using deep learning techniques. The challenge was to create a Long Short-Term Memory (LSTM) neural network using TensorFlow and Keras that correctly classifies SMS messages with high accuracy.</p>
+      <p>Spam detection is a critical problem in modern communication systems. Unlike traditional rule-based filters, deep learning models can learn complex patterns in text that distinguish spam from legitimate messages.</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. Dataset</h2>
+      <p class="section-description">The dataset consists of SMS messages labeled as either "spam" or "ham" (legitimate messages), organized into training and test sets in TSV format.</p>
+      
+      <div class="dataset-example">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Label</th>
+                <th>Message Text</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ham</td>
+                <td>how are you doing today?</td>
+              </tr>
+              <tr>
+                <td>spam</td>
+                <td>sale today! to stop texts call 98912460324</td>
+              </tr>
+              <tr>
+                <td>ham</td>
+                <td>i dont want to go. can we try it a different day?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>2. Preprocessing</h2>
+      <p class="section-description">Text data is preprocessed to convert raw messages into numerical representations that neural networks can process.</p>
+      
+      <div class="preprocessing-step">
+        <h3>2.1 Tokenization and Padding</h3>
+        <p>Messages are tokenized into sequences of integers and padded to a fixed length of 100 tokens:</p>
+        
+        <div class="code-example">
+          <pre><code>tokenizer = Tokenizer(num_words=5000, oov_token='<OOV>')
+tokenizer.fit_on_texts(train_x)
+
+X_sequences = tokenizer.texts_to_sequences(train_x)
+X_padded = pad_sequences(X_sequences, maxlen=100)</code></pre>
+        </div>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.2 Label Encoding</h3>
+        <p>Text labels are converted to numerical values: "ham" → 0, "spam" → 1.</p>
+      </div>
+    </div>
+
+    <div class="model-section">
+      <h2>3. Model Architecture</h2>
+      <p class="section-description">The model uses an LSTM neural network architecture designed to learn sequential patterns in text.</p>
+      
+      <div class="code-example">
+        <pre><code>model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(len(tokenizer.word_index) + 1, 32),
+    tf.keras.layers.LSTM(32),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])</code></pre>
+      </div>
+
+      <div class="architecture-summary">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Embedding</td>
+                <td>Converts word indices to dense 32-dimensional vectors</td>
+              </tr>
+              <tr>
+                <td>LSTM</td>
+                <td>Learns sequential patterns and long-range dependencies</td>
+              </tr>
+              <tr>
+                <td>Dense (sigmoid)</td>
+                <td>Binary classification output (probability 0-1)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="training-section">
+      <h2>4. Training and Results</h2>
+      <p class="section-description">The model was compiled with binary cross-entropy loss and RMSprop optimizer, then trained for 10 epochs.</p>
+      
+      <div class="code-example">
+        <pre><code>model.compile(
+    loss='binary_crossentropy',
+    optimizer='rmsprop',
+    metrics=['acc']
+)
+
+history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
+      </div>
+
+      <div class="model-results-section">
+        <h3>Results</h3>
+        <div class="metrics-display-new">
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">Acc</div>
+              <div class="metric-title">Test Accuracy</div>
+            </div>
+            <div class="metric-value-new">98.6%</div>
+            <div class="metric-desc-new">Accuracy on test set</div>
+          </div>
+          
+          <div class="metric-card-new">
+            <div class="metric-header">
+              <div class="metric-icon">Loss</div>
+              <div class="metric-title">Test Loss</div>
+            </div>
+            <div class="metric-value-new">0.087</div>
+            <div class="metric-desc-new">Binary cross-entropy loss</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>5. Model Testing</h2>
+      <p class="section-description">The model was tested with various messages to verify its functionality:</p>
+      
+      <div class="test-examples">
+        <div class="test-item test-ham">
+          <div class="test-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h3>"how are you doing today"</h3>
+          <div class="test-result">
+            <span class="prediction-label">Prediction:</span>
+            <span class="prediction-ham">ham</span>
+          </div>
+        </div>
+        
+        <div class="test-item test-spam">
+          <div class="test-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>"sale today! to stop texts call 98912460324"</h3>
+          <div class="test-result">
+            <span class="prediction-label">Prediction:</span>
+            <span class="prediction-spam">spam</span>
+          </div>
+        </div>
+        
+        <div class="test-item test-spam">
+          <div class="test-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>"you have won £1000 cash! call to claim your prize."</h3>
+          <div class="test-result">
+            <span class="prediction-label">Prediction:</span>
+            <span class="prediction-spam">spam</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Key Concepts</h2>
+      <div class="concepts-grid-four">
+        <div class="concept-card-small">
+          <i class="fas fa-brain"></i>
+          <h3>LSTM Networks</h3>
+          <p>Long Short-Term Memory networks are specialized RNNs that can learn long-range dependencies in sequential data.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-language"></i>
+          <h3>Word Embeddings</h3>
+          <p>Dense vector representations of words that capture semantic meaning and relationships.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-filter"></i>
+          <h3>Text Preprocessing</h3>
+          <p>Converting raw text into numerical sequences through tokenization and padding.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  .test-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .test-item {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .test-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .test-item.test-ham {
+    border-color: #28a745;
+  }
+
+  .test-item.test-spam {
+    border-color: #dc3545;
+  }
+
+  .test-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .test-item.test-ham .test-icon {
+    color: #28a745;
+  }
+
+  .test-item.test-spam .test-icon {
+    color: #dc3545;
+  }
+
+  .test-item h3 {
+    color: #495057;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  .test-result {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+
+  .prediction-label {
+    font-weight: bold;
+    color: #666;
+  }
+
+  .prediction-ham {
+    color: #28a745;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+
+  .prediction-spam {
+    color: #dc3545;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+
+  .concepts-grid-four {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    border-color: #007bff;
+  }
+
+  .concept-card-small i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 0.8rem;
+  }
+
+  .concept-card-small h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+  }
+
+  .concept-card-small p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .concepts-grid-four {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .test-examples,
+    .concepts-grid-four {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
