@@ -21,6 +21,25 @@ footer-links:
 source: .
 destination: _site
 paginate: 5
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: null
+
+# Blog taxonomy: 5 technical domains (order preserved for blog section)
+blog_categories:
+  - name: "Deep Learning & AI"
+    description: "Neural architectures (Transformers, CNNs, LSTMs) and multimodal models (e.g. Grounding DINO)."
+  - name: "Machine Learning & Statistical Modeling"
+    description: "Tabular and biomedical modeling: Random Forest, XGBoost, regressions."
+  - name: "Software & Backend Engineering"
+    description: "Design patterns, Pydantic, dependency injection, microservices in Python."
+  - name: "Data Engineering & Signal Processing"
+    description: "Wearable sensor signal processing, ETL pipelines, Pandas/NumPy."
+  - name: "Systems & CS Fundamentals"
+    description: "Memory management, complex data structures, algorithmic optimization (C/Python)."
 
 # GitHub Pages settings
 url: https://valemicolgarcia.github.io

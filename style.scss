@@ -1039,6 +1039,411 @@ footer {
   margin-bottom: 80px;
 }
 
+/* Blog Section */
+.blog-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px 60px;
+  background: #fff;
+
+  .section-title {
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background-color: #4a90e2;
+    }
+  }
+
+  .blog-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+
+  .blog-category {
+    margin-bottom: 48px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .blog-category-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .blog-category-desc {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+  }
+
+  .blog-category-empty {
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+    margin: 0;
+    padding: 12px 0;
+  }
+
+  .posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .post-preview-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+
+      .post-preview-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      .post-preview-more {
+        color: #4a90e2;
+      }
+    }
+  }
+
+  .post-preview-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border: 1px solid #eee;
+    border-top: 4px solid #4a90e2;
+  }
+
+  .post-preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: #e8f4f8;
+    color: #4a90e2;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(74, 144, 226, 0.25);
+  }
+
+  .post-preview-title {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .post-preview-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+
+  .post-preview-excerpt {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+
+  .post-preview-more {
+    color: #4a90e2;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .blog-empty {
+    text-align: center;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+/* Post (single) - project-style like Song Popularity */
+.post-detail {
+  .post-category {
+    margin-top: 12px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .post-category-label {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .post-category-badge {
+    display: inline-block;
+    background: #e8f4f8;
+    color: #4a90e2;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(74, 144, 226, 0.3);
+  }
+
+  .post-toc {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4a90e2;
+  }
+
+  .post-toc-nav {
+    .post-toc-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .post-toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-toc-link {
+    display: block;
+    padding: 6px 0;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+
+    &:hover {
+      color: #4a90e2;
+      padding-left: 8px;
+    }
+  }
+
+  .project-content {
+    margin-top: 0;
+  }
+
+  .project-content .entry {
+    line-height: 1.75;
+    color: #333;
+
+    > h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #333;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+      scroll-margin-top: 100px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    > h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      scroll-margin-top: 100px;
+    }
+
+    > p {
+      margin: 0 0 16px 0;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    > ul,
+    > ol {
+      margin: 0 0 24px 0;
+      padding: 20px 24px 20px 28px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #4a90e2;
+      color: #555;
+      font-size: 1rem;
+
+      li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    ul ul, ol ol, ul ol, ol ul {
+      margin: 10px 0 0 0;
+      padding: 0 0 0 20px;
+      background: transparent;
+      border-left: none;
+    }
+
+    strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    blockquote {
+      margin: 24px 0;
+      padding: 18px 22px;
+      background: #e8f4f8;
+      border-radius: 6px;
+      border-left: 4px solid #4a90e2;
+      color: #555;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+      thead {
+        background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+        color: white;
+
+        th {
+          padding: 12px 15px;
+          text-align: left;
+          font-weight: 600;
+          font-size: 0.85rem;
+        }
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #e0e0e0;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: #f8f9fa;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      td {
+        padding: 12px 15px;
+        color: #555;
+      }
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #e0e0e0;
+      margin: 40px 0;
+    }
+
+    // Inline code — minimal, readable
+    code {
+      background: #f6f8fa;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: 'Consolas', 'Monaco', 'Liberation Mono', 'Courier New', monospace;
+      color: #24292e;
+      border: 1px solid #e1e4e8;
+    }
+
+    .highlight code {
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+
+    // Code blocks (Rouge) — already in _highlights; ensure spacing in post
+    .highlight {
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+
+    // Math (KaTeX) — legibility first
+    .katex {
+      font-size: 1.1em;
+    }
+
+    .katex-display {
+      margin: 1em 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .katex-display > .katex {
+      font-size: 1.21em;
+    }
+  }
+}
+
 /* Roadmap Map Container */
 .roadmap-map {
   position: relative;
@@ -1401,6 +1806,31 @@ footer {
   font-size: 1.2rem;
   color: #666;
   margin: 0 0 20px 0;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.project-tags .tag {
+  display: inline-block;
+  background: #e8f4f8;
+  color: #4a90e2;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(74, 144, 226, 0.3);
+  transition: all 0.2s ease;
+}
+
+.project-tags .tag:hover {
+  background: #4a90e2;
+  color: white;
 }
 
 .github-link {
