@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "How to add a RAG to your project — step-by-step with LlamaIndex, FastAPI, and Groq"
-date: 2026-01-31
 excerpt: "Simplified tutorial to add a RAG (Retrieval-Augmented Generation) to a project: folder structure, dependencies, env vars, LlamaIndex engine, FastAPI endpoint, and how it was done in Nutri-AI."
 categories:
   - "Deep Learning & AI"
+order: 6
 tags:
   - RAG
   - LlamaIndex

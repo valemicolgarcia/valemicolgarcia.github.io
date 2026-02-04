@@ -1,10 +1,10 @@
 ---
 layout: post
 title: FastAPI — Python backends and the Nutri-AI ingredient-detection API
-date: 2026-01-31
 excerpt: "What FastAPI is, what a Python backend is, and how FastAPI was used in the Nutri-AI food-detection API: app setup, CORS, Pydantic, routes, and documentation."
 categories:
   - "Software & Backend Engineering"
+order: 1
 tags:
   - FastAPI
   - Python

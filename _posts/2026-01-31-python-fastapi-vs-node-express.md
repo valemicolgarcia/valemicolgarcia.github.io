@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Python (FastAPI) vs Node.js (Express) — backend comparison
-date: 2026-01-31
 excerpt: "Key differences between building a backend in Python with FastAPI and in Node.js with Express: runtime, server model, validation, documentation, and when to choose each."
 categories:
   - "Software & Backend Engineering"
+order: 3
 tags:
   - Python
   - FastAPI

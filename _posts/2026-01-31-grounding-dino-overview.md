@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Grounding DINO — Model Overview and Concepts
-date: 2026-01-31
 excerpt: "How Grounding DINO is used in this project: where it comes from, how it is invoked in the code, and how it was put into practice (API, deployment)."
 categories:
   - "Deep Learning & AI"
+order: 3
 tags:
   - Object Detection
   - Transformers

@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Transformers — What they are and main architectures
-date: 2026-01-31
 excerpt: "A short overview of what a Transformer is and the main types of transformer architectures (encoder-only, decoder-only, encoder-decoder, vision, vision-language), with examples and typical use."
 categories:
   - "Deep Learning & AI"
+order: 1
 tags:
   - Transformers
   - BERT

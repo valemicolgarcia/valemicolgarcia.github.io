@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Node.js backend with Express — the basics
-date: 2026-01-31
 excerpt: "What you need to know to build a backend in Node.js with Express: server, routes, middleware, request/response, and how it compares to other backends. I learned this in the Backend Programming courses on my career timeline."
 categories:
   - "Software & Backend Engineering"
+order: 2
 tags:
   - Node.js
   - Express

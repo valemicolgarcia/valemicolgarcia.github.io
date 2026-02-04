@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "What is LlamaIndex?"
-date: 2026-01-31
 excerpt: "LlamaIndex is an open-source framework for building apps that connect your data (documents, PDFs, databases) with LLMs. It orchestrates indexing, semantic search, and context for RAG. How it is used in Nutri-AI."
 categories:
   - "Deep Learning & AI"
+order: 5
 tags:
   - LlamaIndex
   - RAG

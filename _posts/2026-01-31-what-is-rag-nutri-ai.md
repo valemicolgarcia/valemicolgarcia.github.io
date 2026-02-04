@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "What is RAG and how it is implemented in Nutri-AI"
-date: 2026-01-31
 excerpt: "What an LLM is, what RAG (Retrieval-Augmented Generation) is, why embeddings are used, and how RAG is implemented in the Nutri-AI project: indexing, chat flow, and models used."
 categories:
   - "Deep Learning & AI"
+order: 4
 tags:
   - RAG
   - LLM

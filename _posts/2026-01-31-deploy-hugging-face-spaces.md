@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Deploying a model on Hugging Face Spaces
-date: 2026-01-31
 excerpt: "How to deploy an ML app (e.g. FastAPI + Grounding DINO) on Hugging Face Spaces: what Spaces is, SDK options, concrete steps, and how Nutri-AI meets the requirements."
 categories:
   - "Software & Backend Engineering"
+order: 5
 tags:
   - Hugging Face
   - Spaces

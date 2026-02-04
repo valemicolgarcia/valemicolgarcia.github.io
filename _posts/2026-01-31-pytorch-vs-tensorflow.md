@@ -1,10 +1,10 @@
 ---
 layout: post
 title: PyTorch vs TensorFlow — main differences
-date: 2026-01-31
 excerpt: "Key differences between PyTorch and TensorFlow: execution model, API style, deployment, ecosystem, and when to choose each for deep learning."
 categories:
   - "Deep Learning & AI"
+order: 2
 tags:
   - PyTorch
   - TensorFlow

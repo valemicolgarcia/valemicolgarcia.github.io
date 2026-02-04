@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Docker — Overview, basic implementation, and use in Nutri-AI
-date: 2026-01-31
 excerpt: "What Docker is, how it is implemented at a basic level (Dockerfile, build, run, .dockerignore), and how it was used in the Nutri-AI food-detection (ingredient-detection) backend."
 categories:
   - "Software & Backend Engineering"
+order: 4
 tags:
   - Docker
   - Containers

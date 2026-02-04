@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "White Box vs. Black Box Models: The Trade-off Between Explainability and Performance"
-date: 2026-01-31
 excerpt: "In biomedical and clinical research, interpretability matters: black box vs white box models, why Random Forest and similar methods are often preferred over deep learning, and how this applies to lab work with physiological signals."
 categories:
   - "Machine Learning & Statistical Modeling"
+order: 1
 tags:
   - Interpretability
   - Random Forest
