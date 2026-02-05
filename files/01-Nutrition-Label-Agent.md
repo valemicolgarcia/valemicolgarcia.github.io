@@ -1,43 +1,43 @@
 # Nutrition Label Agent
 
-**Hábitos** · Subproyecto: *LangChain, LangGraph, Gemini Vision, Tavily, FastAPI, Pydantic*
+**Habits** · Subproject: *LangChain, LangGraph, Gemini Vision, Tavily, FastAPI, Pydantic*
 
 ---
 
-## ¿Para qué sirve?
+## What is it for?
 
-Permite al usuario de la app **Hábitos** subir una **foto de una etiqueta nutricional** (envase, tabla de información nutricional) y obtener en segundos:
+It lets **Habits** app users upload a **photo of a nutrition label** (packaging, nutrition facts panel) and get in seconds:
 
-- **Nombre del producto** e **ingredientes principales**
-- **Clasificación NOVA** (1–4) y si es **ultraprocesado**
-- **Score de salud** (1–10) y un **análisis breve**
-- Si es ultraprocesado: **alternativa más saludable** sugerida (búsqueda web)
+- **Product name** and **main ingredients**
+- **NOVA classification** (1–4) and whether it is **ultra-processed**
+- **Health score** (1–10) and a **brief analysis**
+- If ultra-processed: a suggested **healthier alternative** (web search)
 
-Así el usuario puede decidir qué comer con más información y sustituir productos ultraprocesados por opciones mejores.
-
----
-
-## ¿Cómo funciona?
-
-1. El usuario sube una imagen desde la sección **Nutrición** de Hábitos (botón “Subir foto de etiqueta nutricional”).
-2. El frontend envía la imagen al microservicio **Nutrition Label Agent** vía `POST /analyze-label`.
-3. El agente ejecuta un **grafo** (LangGraph) con tres pasos lógicos:
-   - **Analyzer:** la imagen se envía a **Gemini (visión)** con un prompt que pide un JSON: producto, categoría NOVA, si es ultraprocesado, ingredientes principales y un breve razonamiento. La respuesta se valida con **Pydantic** (`AnalysisResult`).
-   - **Decisión:** si el análisis indica “ultraprocesado”, el flujo pasa al **Searcher**; si no, va directo al **Finalizer**.
-   - **Searcher (solo si aplica):** se usa **Tavily** para buscar alternativas más saludables en la web; se filtran resultados y con **Gemini** se extrae un solo nombre de alimento sugerido.
-   - **Finalizer:** se arma el reporte final (producto, NOVA, score, análisis, alternativa si hubo búsqueda, advertencias) y se valida con **Pydantic** (`NutritionalResponse`).
-4. La API devuelve ese JSON al frontend, que muestra el resultado (NOVA, score, ingredientes, advertencias y alternativa saludable).
-
-Todo el flujo está orquestado por **LangGraph** (nodos y edges condicionales); **LangChain** se usa para conectar con Gemini y con Tavily.
+This helps users decide what to eat with better information and replace ultra-processed products with better options.
 
 ---
 
-## Cómo está implementado
+## How does it work?
 
-- **API:** **FastAPI** con un único endpoint de análisis (`POST /analyze-label`) y health check. La imagen llega como `multipart/form-data`, se convierte a base64 y se inyecta en el estado inicial del grafo.
-- **Grafo:** Definido en `graph.py` con **LangGraph** (`StateGraph`): nodos `analyzer`, `searcher`, `finalizer`; entrada en `analyzer`; edge condicional según `es_ultraprocesado`; el estado se pasa de nodo en nodo (imagen, análisis, resultados de búsqueda, reporte final).
-- **Nodos:** En `nodes.py`: `analyzer_node` llama a **Gemini** (mensaje multimodal: prompt + imagen en base64), parsea JSON y valida con **Pydantic**; `searcher_node` usa **Tavily** (LangChain) y opcionalmente Gemini para extraer el nombre de la alternativa; `finalizer_node` construye el reporte y lo valida con **Pydantic**.
-- **Modelos:** En `models.py`, **Pydantic** define `AnalysisResult` (salida del analyzer) y `NutritionalResponse` (respuesta de la API).
-- **Despliegue:** Servicio Python independiente (Docker), configurable con `GOOGLE_API_KEY` y `TAVILY_API_KEY`; el frontend usa `VITE_LABEL_ANALYZER_API_URL` para apuntar al microservicio.
+1. The user uploads an image from the **Nutrition** section of Habits (button "Upload nutrition label photo").
+2. The frontend sends the image to the **Nutrition Label Agent** microservice via `POST /analyze-label`.
+3. The agent runs a **graph** (LangGraph) with three logical steps:
+   - **Analyzer:** The image is sent to **Gemini (vision)** with a prompt that requests a JSON: product, NOVA category, whether it's ultra-processed, main ingredients, and brief reasoning. The response is validated with **Pydantic** (`AnalysisResult`).
+   - **Decision:** If the analysis says "ultra-processed", the flow goes to the **Searcher**; otherwise it goes straight to the **Finalizer**.
+   - **Searcher (only when applicable):** **Tavily** is used to search for healthier alternatives on the web; results are filtered and **Gemini** extracts a single suggested food name.
+   - **Finalizer:** The final report is built (product, NOVA, score, analysis, alternative if a search was done, warnings) and validated with **Pydantic** (`NutritionalResponse`).
+4. The API returns that JSON to the frontend, which displays the result (NOVA, score, ingredients, warnings, and healthier alternative).
 
-En conjunto: **LangChain** para Gemini y Tavily, **LangGraph** para el flujo del agente, **Gemini Vision** para analizar la etiqueta, **Tavily** para buscar alternativas, **FastAPI** para exponer la API y **Pydantic** para validar entradas y salidas.
+The whole flow is orchestrated by **LangGraph** (nodes and conditional edges); **LangChain** is used to connect to Gemini and Tavily.
+
+---
+
+## Implementation
+
+- **API:** **FastAPI** with a single analysis endpoint (`POST /analyze-label`) and health check. The image is sent as `multipart/form-data`, converted to base64, and injected into the graph's initial state.
+- **Graph:** Defined in `graph.py` with **LangGraph** (`StateGraph`): nodes `analyzer`, `searcher`, `finalizer`; entry at `analyzer`; conditional edge based on `is_ultra_processed`; state is passed from node to node (image, analysis, search results, final report).
+- **Nodes:** In `nodes.py`: `analyzer_node` calls **Gemini** (multimodal message: prompt + base64 image), parses JSON and validates with **Pydantic**; `searcher_node` uses **Tavily** (LangChain) and optionally Gemini to extract the alternative's name; `finalizer_node` builds the report and validates it with **Pydantic**.
+- **Models:** In `models.py`, **Pydantic** defines `AnalysisResult` (analyzer output) and `NutritionalResponse` (API response).
+- **Deployment:** Standalone Python service (Docker), configured with `GOOGLE_API_KEY` and `TAVILY_API_KEY`; the frontend uses `VITE_LABEL_ANALYZER_API_URL` to point to the microservice.
+
+In summary: **LangChain** for Gemini and Tavily, **LangGraph** for the agent flow, **Gemini Vision** to analyze the label, **Tavily** to search for alternatives, **FastAPI** to expose the API, and **Pydantic** to validate inputs and outputs.

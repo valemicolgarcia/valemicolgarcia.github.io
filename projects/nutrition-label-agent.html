@@ -1,0 +1,210 @@
+---
+layout: default
+title: Nutrition Label Agent
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <h1 class="project-detail-title">Nutrition Label Agent</h1>
+    <p class="project-detail-subtitle">Habits · LangChain, LangGraph, Gemini Vision, Tavily, FastAPI, Pydantic</p>
+    <div class="project-tags">
+      <span class="tag">LangChain</span>
+      <span class="tag">LangGraph</span>
+      <span class="tag">Gemini Vision</span>
+      <span class="tag">Tavily</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Pydantic</span>
+    </div>
+    <div class="github-link">
+      <a href="#" target="_blank" class="github-btn" style="pointer-events: none; opacity: 0.5;">
+        <i class="fab fa-github"></i> Code available upon request
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problem to Solve</h2>
+      <p>This microservice lets <strong>Habits</strong> app users upload a <strong>photo of a nutrition label</strong>
+        (packaging or nutrition facts panel) and get in seconds: product name and main ingredients, NOVA classification
+        (1–4), whether it is ultra-processed, a health score (1–10), a brief analysis, and—if ultra-processed—a
+        suggested healthier alternative via web search.</p>
+      <p>Users can make better food choices and replace ultra-processed products with better options. The agent is
+        implemented as a LangGraph workflow with vision (Gemini) and search (Tavily), exposed via FastAPI.</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. How does it work?</h2>
+      <p class="section-description">The user uploads an image from the Nutrition section; the frontend sends it to the
+        microservice via <code>POST /analyze-label</code>. The agent runs a LangGraph graph with analyzer, optional
+        searcher, and finalizer nodes.</p>
+
+      <div class="dataset-example">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Component</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Analyzer</td>
+                <td>Image sent to Gemini (vision); JSON with product, NOVA, ingredients; validated with Pydantic
+                  (<code>AnalysisResult</code>)</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Decision</td>
+                <td>If ultra-processed → Searcher; else → Finalizer</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Searcher</td>
+                <td>Tavily searches healthier alternatives; Gemini extracts one suggested food name</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Finalizer</td>
+                <td>Builds final report (product, NOVA, score, analysis, alternative, warnings); validated with Pydantic
+                  (<code>NutritionalResponse</code>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="section-description">The flow is orchestrated by <strong>LangGraph</strong> (nodes and conditional
+        edges); <strong>LangChain</strong> connects to Gemini and Tavily. The API returns the JSON to the frontend for
+        display.</p>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>2. Implementation</h2>
+      <p class="section-description">The service is built with FastAPI, LangGraph for the agent flow, Gemini Vision for
+        label analysis, Tavily for alternatives search, and Pydantic for validation.</p>
+
+      <div class="preprocessing-step">
+        <h3>2.1 API</h3>
+        <p><strong>FastAPI</strong> with a single analysis endpoint (<code>POST /analyze-label</code>) and health check.
+          The image is sent as <code>multipart/form-data</code>, converted to base64, and injected into the graph's
+          initial state.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.2 Graph</h3>
+        <p>Defined in <code>graph.py</code> with <strong>LangGraph</strong> (<code>StateGraph</code>): nodes
+          <code>analyzer</code>, <code>searcher</code>, <code>finalizer</code>; entry at <code>analyzer</code>;
+          conditional edge based on <code>is_ultra_processed</code>; state passed from node to node (image, analysis,
+          search results, final report).</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.3 Nodes</h3>
+        <p>In <code>nodes.py</code>: <code>analyzer_node</code> calls <strong>Gemini</strong> (multimodal: prompt +
+          base64 image), parses JSON and validates with <strong>Pydantic</strong>; <code>searcher_node</code> uses
+          <strong>Tavily</strong> (LangChain) and optionally Gemini to extract the alternative's name;
+          <code>finalizer_node</code> builds the report and validates it with <strong>Pydantic</strong>.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.4 Models & Deployment</h3>
+        <p>In <code>models.py</code>, <strong>Pydantic</strong> defines <code>AnalysisResult</code> and
+          <code>NutritionalResponse</code>. Standalone Python service (Docker), configured with
+          <code>GOOGLE_API_KEY</code> and <code>TAVILY_API_KEY</code>; frontend uses
+          <code>VITE_LABEL_ANALYZER_API_URL</code>.</p>
+      </div>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Key Concepts</h2>
+      <div class="concepts-grid-four">
+        <div class="concept-card-small">
+          <i class="fas fa-project-diagram"></i>
+          <h3>LangGraph</h3>
+          <p>Orchestrates the agent as a state graph with conditional edges (analyzer → searcher or finalizer).</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-eye"></i>
+          <h3>Gemini Vision</h3>
+          <p>Multimodal model that reads the label image and returns structured JSON (product, NOVA, ingredients).</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-search"></i>
+          <h3>Tavily</h3>
+          <p>Web search used to find healthier alternatives when the product is classified as ultra-processed.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-check-double"></i>
+          <h3>Pydantic</h3>
+          <p>Validates analyzer output (<code>AnalysisResult</code>) and API response
+            (<code>NutritionalResponse</code>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  .concepts-grid-four {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #4a90e2;
+  }
+
+  .concept-card-small i {
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 0.8rem;
+  }
+
+  .concept-card-small h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+  }
+
+  .concept-card-small p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    .concepts-grid-four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .concepts-grid-four {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

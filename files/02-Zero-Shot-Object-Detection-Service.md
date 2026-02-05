@@ -1,38 +1,38 @@
 # Zero-Shot Object Detection Service
 
-**Hábitos** · Subproyecto: *PyTorch, TorchVision, Transformers, Grounding DINO, FastAPI*
+**Habits** · Subproject: *PyTorch, TorchVision, Transformers, Grounding DINO, FastAPI*
 
 ---
 
-## ¿Para qué sirve?
+## What is it for?
 
-Permite al usuario de la app **Hábitos** subir una **foto de su comida** (plato, bandeja) y obtener de forma automática:
+It lets **Habits** app users upload a **photo of their meal** (plate, tray) and automatically get:
 
-- Una **lista de ingredientes/alimentos detectados** en la imagen (con etiqueta en inglés, traducida a español en el frontend)
-- Opcionalmente una **imagen con la segmentación** (dónde está cada ingrediente detectado)
+- A **list of detected ingredients/foods** in the image (with labels in English, translated to Spanish on the frontend)
+- Optionally an **image with segmentation** (where each detected ingredient is located)
 
-El modelo **no está entrenado específicamente** en esas comidas: usa detección **zero-shot** guiada por texto (vision–language). Así el usuario puede “registrar comida” con foto y que la app sugiera los ingredientes para confirmar o editar antes de guardar.
-
----
-
-## ¿Cómo funciona?
-
-1. El usuario, en la sección **Nutrición** de Hábitos, elige “Registrar comida” y opcionalmente “Adjuntar foto” para una comida (desayuno, almuerzo, merienda, cena).
-2. El frontend envía la imagen al microservicio **Nutri-AI Backend** (Zero-Shot Object Detection Service) en los endpoints `/detect` (solo lista de ingredientes) y/o `/detect/image` (imagen segmentada en JPEG).
-3. El backend carga **Grounding DINO** (modelo de Hugging Face **Transformers**): un modelo de detección de objetos guiado por texto que puede detectar objetos descritos en lenguaje natural sin entrenamiento específico por clase.
-4. Se define una lista de **categorías de ingredientes** (ej. arroz, huevo, pollo, lechuga, pan) en texto; el modelo recibe la imagen y esos textos y devuelve **bounding boxes** con etiqueta y score por cada detección.
-5. Se aplican umbrales (score, NMS) y se devuelve la lista de ingredientes detectados (y, si se pidió, la imagen dibujando las cajas). El frontend traduce las etiquetas al español con un mapeo fijo y las muestra para que el usuario confirme o elimine antes de guardar la comida.
-
-Todo el pipeline es **zero-shot**: no hace falta entrenar el modelo en “mis platos”; basta con describir en texto lo que se quiere detectar.
+The model **is not trained specifically** on those meals: it uses **zero-shot** text-guided detection (vision–language). So the user can "log food" with a photo and have the app suggest ingredients to confirm or edit before saving.
 
 ---
 
-## Cómo está implementado
+## How does it work?
 
-- **API:** **FastAPI** con endpoints `/detect` (JSON con lista de ingredientes: label, score, box) y `/detect/image` (respuesta con imagen JPEG segmentada). La imagen llega vía `multipart` o como body; se usa **Pillow** para abrirla y pasarla al modelo.
-- **Modelo:** **Grounding DINO** mediante la librería **Transformers** (Hugging Face): `AutoModelForZeroShotObjectDetection` y `AutoProcessor`. El modelo se carga bajo demanda (lazy) en la primera petición y se ejecuta con **PyTorch** en CPU o GPU según disponibilidad.
-- **Stack:** **PyTorch** y **TorchVision** para tensores y operaciones sobre imágenes; **Transformers** para el modelo y el processor; **Pillow** para I/O de imágenes; **FastAPI** + **Uvicorn** para el servidor; **python-multipart** para recibir archivos.
-- **Configuración:** Parámetros como `BOX_THRESHOLD`, `TEXT_THRESHOLD` y el ID del modelo en Hugging Face están centralizados en `detection/config.py`; la lista de ingredientes/categorías se construye a partir de un string o lista de textos.
-- **Despliegue:** Servicio Python independiente (Docker); el modelo se descarga desde Hugging Face la primera vez que se usa. El frontend usa `VITE_NUTRI_AI_API_URL` para llamar a este microservicio.
+1. In the **Nutrition** section of Habits, the user chooses "Log meal" and optionally "Attach photo" for a meal (breakfast, lunch, snack, dinner).
+2. The frontend sends the image to the **Nutri-AI Backend** (Zero-Shot Object Detection Service) at the `/detect` endpoint (ingredient list only) and/or `/detect/image` (segmented image as JPEG).
+3. The backend loads **Grounding DINO** (Hugging Face **Transformers** model): a text-guided object detection model that can detect objects described in natural language without class-specific training.
+4. A list of **ingredient categories** is defined in text (e.g. rice, egg, chicken, lettuce, bread); the model receives the image and those texts and returns **bounding boxes** with label and score for each detection.
+5. Thresholds (score, NMS) are applied and the list of detected ingredients is returned (and, if requested, the image with boxes drawn). The frontend translates labels to Spanish with a fixed mapping and shows them so the user can confirm or remove before saving the meal.
 
-En conjunto: **PyTorch** y **TorchVision** como backend de cálculo, **Transformers** y **Grounding DINO** para la detección zero-shot, y **FastAPI** para exponer el servicio dentro de **Hábitos**.
+The whole pipeline is **zero-shot**: no need to train the model on "my dishes"; it's enough to describe in text what you want to detect.
+
+---
+
+## Implementation
+
+- **API:** **FastAPI** with endpoints `/detect` (JSON with list of ingredients: label, score, box) and `/detect/image` (response with segmented JPEG image). The image is sent via `multipart` or as body; **Pillow** is used to open it and pass it to the model.
+- **Model:** **Grounding DINO** via the **Transformers** library (Hugging Face): `AutoModelForZeroShotObjectDetection` and `AutoProcessor`. The model is loaded on demand (lazy) on the first request and runs with **PyTorch** on CPU or GPU depending on availability.
+- **Stack:** **PyTorch** and **TorchVision** for tensors and image operations; **Transformers** for the model and processor; **Pillow** for image I/O; **FastAPI** + **Uvicorn** for the server; **python-multipart** for file uploads.
+- **Configuration:** Parameters such as `BOX_THRESHOLD`, `TEXT_THRESHOLD`, and the model ID on Hugging Face are centralized in `detection/config.py`; the ingredient/category list is built from a string or list of texts.
+- **Deployment:** Standalone Python service (Docker); the model is downloaded from Hugging Face the first time it's used. The frontend uses `VITE_NUTRI_AI_API_URL` to call this microservice.
+
+In summary: **PyTorch** and **TorchVision** as the computation backend, **Transformers** and **Grounding DINO** for zero-shot detection, and **FastAPI** to expose the service within **Habits**.

@@ -1,0 +1,202 @@
+---
+layout: default
+title: RAG Service
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <h1 class="project-detail-title">RAG Service</h1>
+    <p class="project-detail-subtitle">Habits · LlamaIndex, Groq, Llama 3.1, Hugging Face Embeddings, FastAPI</p>
+    <div class="project-tags">
+      <span class="tag">LlamaIndex</span>
+      <span class="tag">Groq</span>
+      <span class="tag">Llama 3.1</span>
+      <span class="tag">Hugging Face</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Pydantic</span>
+    </div>
+    <div class="github-link">
+      <a href="#" target="_blank" class="github-btn" style="pointer-events: none; opacity: 0.5;">
+        <i class="fab fa-github"></i> Code available upon request
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problem to Solve</h2>
+      <p>This microservice provides a <strong>question-answering assistant</strong> inside the <strong>Habits</strong>
+        app that answers about <strong>nutrition and training</strong> using <strong>your own documents</strong> (e.g.
+        PDFs): guides, articles, recipes.</p>
+      <p>Users type questions in natural language and get answers <strong>based on the content of those PDFs</strong>,
+        not only the model's built-in knowledge. The service keeps <strong>conversation history</strong> for follow-up
+        questions in the same session.</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. How does it work?</h2>
+      <p class="section-description">The dashboard has a chat bar; the frontend calls the RAG Service with
+        <code>POST /chat</code>. The backend uses LlamaIndex to index PDFs, retrieve relevant chunks, and generate
+        answers with Groq (Llama 3.1).</p>
+
+      <div class="dataset-example">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Index</td>
+                <td>PDFs in <code>data_source</code> read with <code>SimpleDirectoryReader</code> and pypdf; split into
+                  chunks; embeddings with Hugging Face model (e.g. BGE) run locally; index persisted in
+                  <code>storage</code>.</td>
+              </tr>
+              <tr>
+                <td>Retrieval</td>
+                <td>For each question, most relevant chunks are retrieved from the index (embedding similarity).</td>
+              </tr>
+              <tr>
+                <td>Generation</td>
+                <td>Retrieved context + chat history sent to LLM (Groq with Llama 3.1); model generates the answer (RAG
+                  = Retrieval-Augmented Generation).</td>
+              </tr>
+              <tr>
+                <td>Response</td>
+                <td>JSON (<code>response</code>) returned to frontend; history updated; answers grounded in uploaded
+                  documents.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>2. Implementation</h2>
+      <p class="section-description">LlamaIndex orchestrates the RAG (index, retrieval, chat engine); Groq and Llama 3.1
+        generate answers; Hugging Face Embeddings build the index locally; FastAPI and Pydantic expose the API.</p>
+
+      <div class="preprocessing-step">
+        <h3>2.1 API</h3>
+        <p><strong>FastAPI</strong> with endpoint <code>POST /chat</code>: body with <code>message</code> and optionally
+          <code>chat_history</code> (list of <code>role</code> + <code>content</code>). Request/response validated with
+          <strong>Pydantic</strong> (<code>ChatRequest</code>, <code>ChatResponse</code>, <code>ChatMessage</code>).
+          <strong>Uvicorn</strong> as ASGI server; <strong>python-dotenv</strong> for env vars.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.2 RAG with LlamaIndex</h3>
+        <p><strong>LlamaIndex</strong> (e.g. <code>llama-index-core</code>, <code>llama-index-readers-file</code>) reads
+          PDFs, builds the vector index, and exposes a <strong>chat engine</strong> with memory. The
+          <strong>retriever</strong> returns the most relevant chunks; the <strong>chat engine</strong> combines context
+          + history and calls the LLM.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.3 LLM & Embeddings</h3>
+        <p><strong>Groq</strong> with <strong>Llama 3.1</strong> (<code>llama-index-llms-groq</code>) for fast answers.
+          <strong>Hugging Face</strong> embeddings (e.g. <code>BAAI/bge-small-en-v1.5</code>) via
+          <code>llama-index-embeddings-huggingface</code>, run locally; no external embedding API.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.4 Deployment</h3>
+        <p>PDFs read with <strong>pypdf</strong> and LlamaIndex reader; <code>data_source</code> and
+          <code>storage</code> configurable via environment. Standalone Python microservice (Docker); requires
+          <code>GROQ_API_KEY</code>. Frontend uses <code>VITE_RAG_API_URL</code>.</p>
+      </div>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Key Concepts</h2>
+      <div class="concepts-grid-four">
+        <div class="concept-card-small">
+          <i class="fas fa-book-open"></i>
+          <h3>LlamaIndex</h3>
+          <p>Orchestrates RAG: document loading, vector index, retriever, and chat engine with memory.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-question-circle"></i>
+          <h3>RAG</h3>
+          <p>Retrieval-Augmented Generation: retrieve relevant chunks from your PDFs, then generate answers with the LLM
+            using that context.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-bolt"></i>
+          <h3>Groq & Llama 3.1</h3>
+          <p>Fast inference for the chat engine; no OpenAI/Anthropic cost for the end user.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-vector-square"></i>
+          <h3>Hugging Face Embeddings</h3>
+          <p>Local embedding model (e.g. BGE) builds the vector index without an external API key.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  .concepts-grid-four {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #4a90e2;
+  }
+
+  .concept-card-small i {
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 0.8rem;
+  }
+
+  .concept-card-small h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+  }
+
+  .concept-card-small p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    .concepts-grid-four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .concepts-grid-four {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

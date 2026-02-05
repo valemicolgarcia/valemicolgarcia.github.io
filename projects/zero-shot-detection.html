@@ -1,0 +1,210 @@
+---
+layout: default
+title: Zero-Shot Object Detection Service
+---
+
+<section class="project-detail-section">
+  <div class="project-header">
+    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <h1 class="project-detail-title">Zero-Shot Object Detection Service</h1>
+    <p class="project-detail-subtitle">Habits · PyTorch, TorchVision, Transformers, Grounding DINO, FastAPI</p>
+    <div class="project-tags">
+      <span class="tag">PyTorch</span>
+      <span class="tag">TorchVision</span>
+      <span class="tag">Transformers</span>
+      <span class="tag">Grounding DINO</span>
+      <span class="tag">FastAPI</span>
+    </div>
+    <div class="github-link">
+      <a href="#" target="_blank" class="github-btn" style="pointer-events: none; opacity: 0.5;">
+        <i class="fab fa-github"></i> Code available upon request
+      </a>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="project-overview">
+      <h2>Problem to Solve</h2>
+      <p>This microservice lets <strong>Habits</strong> app users upload a <strong>photo of their meal</strong> (plate
+        or tray) and automatically get a list of detected ingredients/foods (labels in English, translated to Spanish on
+        the frontend) and optionally an image with segmentation showing where each ingredient is located.</p>
+      <p>The model is <strong>not trained specifically</strong> on those meals: it uses <strong>zero-shot</strong>
+        text-guided detection (vision–language). Users can "log food" with a photo and have the app suggest ingredients
+        to confirm or edit before saving.</p>
+    </div>
+
+    <div class="dataset-section">
+      <h2>1. How does it work?</h2>
+      <p class="section-description">The user attaches a photo in the Nutrition section; the frontend calls the Nutri-AI
+        Backend at <code>/detect</code> (ingredient list) and/or <code>/detect/image</code> (segmented JPEG). The
+        backend runs Grounding DINO with text-defined ingredient categories.</p>
+
+      <div class="dataset-example">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>User chooses "Log meal" and optionally "Attach photo" in the Nutrition section.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Frontend sends the image to <code>/detect</code> (ingredient list) and/or <code>/detect/image</code>
+                  (segmented JPEG).</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Backend loads Grounding DINO (Hugging Face Transformers): text-guided object detection with
+                  natural-language categories.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Ingredient categories (e.g. rice, egg, chicken, lettuce, bread) are defined in text; model returns
+                  bounding boxes with label and score.</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Thresholds (score, NMS) are applied; list and/or image is returned; frontend translates labels and
+                  lets the user confirm or remove before saving.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="section-description">The whole pipeline is <strong>zero-shot</strong>: no need to train the model on "my
+        dishes"; it is enough to describe in text what you want to detect.</p>
+    </div>
+
+    <div class="preprocessing-section">
+      <h2>2. Implementation</h2>
+      <p class="section-description">The service uses PyTorch and TorchVision for computation, Transformers and
+        Grounding DINO for zero-shot detection, and FastAPI to expose the API.</p>
+
+      <div class="preprocessing-step">
+        <h3>2.1 API</h3>
+        <p><strong>FastAPI</strong> with endpoints <code>/detect</code> (JSON: label, score, box per ingredient) and
+          <code>/detect/image</code> (segmented JPEG). Image via <code>multipart</code> or body; <strong>Pillow</strong>
+          opens it and passes it to the model.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.2 Model</h3>
+        <p><strong>Grounding DINO</strong> via <strong>Transformers</strong> (Hugging Face):
+          <code>AutoModelForZeroShotObjectDetection</code> and <code>AutoProcessor</code>. Model is loaded on demand
+          (lazy) on the first request and runs with <strong>PyTorch</strong> on CPU or GPU.</p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.3 Stack & Configuration</h3>
+        <p><strong>PyTorch</strong> and <strong>TorchVision</strong> for tensors and images;
+          <strong>Transformers</strong> for model and processor; <strong>Pillow</strong> for I/O;
+          <strong>FastAPI</strong> + <strong>Uvicorn</strong>; <strong>python-multipart</strong>. Parameters like
+          <code>BOX_THRESHOLD</code>, <code>TEXT_THRESHOLD</code>, and model ID are in <code>detection/config.py</code>.
+        </p>
+      </div>
+
+      <div class="preprocessing-step">
+        <h3>2.4 Deployment</h3>
+        <p>Standalone Python service (Docker); model is downloaded from Hugging Face on first use. Frontend uses
+          <code>VITE_NUTRI_AI_API_URL</code> to call this microservice.</p>
+      </div>
+    </div>
+
+    <div class="concepts-section">
+      <h2>Key Concepts</h2>
+      <div class="concepts-grid-four">
+        <div class="concept-card-small">
+          <i class="fas fa-camera"></i>
+          <h3>Grounding DINO</h3>
+          <p>Text-guided object detection model that detects objects described in natural language without
+            class-specific training.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-bullseye"></i>
+          <h3>Zero-Shot</h3>
+          <p>No training on "my dishes"; ingredient categories are defined in text and the model generalizes from
+            vision–language pretraining.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-cogs"></i>
+          <h3>PyTorch & Transformers</h3>
+          <p>Model runs on PyTorch; Hugging Face Transformers provides <code>AutoModelForZeroShotObjectDetection</code>
+            and processor.</p>
+        </div>
+        <div class="concept-card-small">
+          <i class="fas fa-server"></i>
+          <h3>FastAPI</h3>
+          <p>Exposes <code>/detect</code> and <code>/detect/image</code>; receives images via multipart and returns JSON
+            or JPEG.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  .concepts-grid-four {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .concept-card-small {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-card-small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #4a90e2;
+  }
+
+  .concept-card-small i {
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 0.8rem;
+  }
+
+  .concept-card-small h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+  }
+
+  .concept-card-small p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    .concepts-grid-four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .concepts-grid-four {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
