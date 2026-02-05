@@ -5,7 +5,7 @@ title: Song Popularity Prediction
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Song Popularity Prediction</h1>
     <p class="project-detail-subtitle">Data Analysis and Feature Engineering</p>
     <div class="project-tags">
@@ -25,14 +25,18 @@ title: Song Popularity Prediction
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>This project identifies the factors that influence the number of likes a song video receives on YouTube, allowing prediction of popularity based on musical characteristics and engagement metrics. The analysis uses a dataset with 28 variables that combine information from Spotify, YouTube, and musical composition properties.</p>
+      <p>This project identifies the factors that influence the number of likes a song video receives on YouTube,
+        allowing prediction of popularity based on musical characteristics and engagement metrics. The analysis uses a
+        dataset with 28 variables that combine information from Spotify, YouTube, and musical composition properties.
+      </p>
       <p><strong>Model used:</strong> Linear Regression</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset Information</h2>
-      <p class="section-description">The dataset contains information about Spotify songs and their corresponding videos on YouTube, with 28 variables including musical characteristics, engagement metrics, and metadata.</p>
-      
+      <p class="section-description">The dataset contains information about Spotify songs and their corresponding videos
+        on YouTube, with 28 variables including musical characteristics, engagement metrics, and metadata.</p>
+
       <div class="variables-info">
         <div class="variables-category">
           <h3>Categorical Variables (object)</h3>
@@ -51,7 +55,7 @@ title: Song Popularity Prediction
             <li><strong>Licensed:</strong> Indicates if the video is licensed</li>
           </ul>
         </div>
-        
+
         <div class="variables-category">
           <h3>Numeric Variables (float64)</h3>
           <ul>
@@ -125,33 +129,39 @@ title: Song Popularity Prediction
 
     <div class="eda-section">
       <h2>2. Exploratory Data Analysis (EDA)</h2>
-      <p class="section-description">An exploratory analysis was performed focused on answering three main questions about the factors that influence song popularity.</p>
-      
+      <p class="section-description">An exploratory analysis was performed focused on answering three main questions
+        about the factors that influence song popularity.</p>
+
       <div class="eda-questions">
         <div class="eda-question">
           <h3>Is there a relationship between song duration and number of likes?</h3>
           <div class="eda-image eda-image-small">
-            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/duracionvslikes.png" alt="Relationship between duration and likes" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/duracionvslikes.png"
+              alt="Relationship between duration and likes" />
           </div>
         </div>
-        
+
         <div class="eda-question">
           <h3>Is there a relationship between likes, comments, and views?</h3>
           <div class="eda-images-grid">
             <div class="eda-image">
-              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/likes-comentarios-visualizaciones.png" alt="Relación entre likes, comentarios y visualizaciones" />
+              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/likes-comentarios-visualizaciones.png"
+                alt="Relación entre likes, comentarios y visualizaciones" />
             </div>
             <div class="eda-image">
-              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/visualizaciones-comentarios-likes.png" alt="Visualizaciones, comentarios y likes" />
+              <img src="{{ site.baseurl }}/projects/spotify-popularity-data/visualizaciones-comentarios-likes.png"
+                alt="Visualizaciones, comentarios y likes" />
             </div>
           </div>
         </div>
-        
+
         <div class="eda-question">
           <h3>Does license influence the number of likes?</h3>
-          <p class="eda-note">The relationship between video license status and their number of likes was analyzed to identify if this factor influences popularity.</p>
+          <p class="eda-note">The relationship between video license status and their number of likes was analyzed to
+            identify if this factor influences popularity.</p>
           <div class="eda-image eda-image-small">
-            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/licencia.png" alt="License influence on likes" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/licencia.png"
+              alt="License influence on likes" />
           </div>
         </div>
       </div>
@@ -159,7 +169,8 @@ title: Song Popularity Prediction
 
     <div class="normality-section">
       <h2>3. Normality Analysis of Numeric Variables</h2>
-      <p class="section-description">The distribution of numeric variables was analyzed to determine if they followed a normal distribution, which is crucial for deciding which imputation and scaling techniques to use.</p>
+      <p class="section-description">The distribution of numeric variables was analyzed to determine if they followed a
+        normal distribution, which is crucial for deciding which imputation and scaling techniques to use.</p>
       <div class="analysis-image">
         <img src="{{ site.baseurl }}/projects/spotify-popularity-data/normalidad.png" alt="Normality analysis" />
       </div>
@@ -167,8 +178,9 @@ title: Song Popularity Prediction
 
     <div class="missing-data-section">
       <h2>4. Missing Data Treatment</h2>
-      <p class="section-description">Different imputation strategies were applied according to variable type and distribution:</p>
-      
+      <p class="section-description">Different imputation strategies were applied according to variable type and
+        distribution:</p>
+
       <div class="imputation-strategies">
         <div class="strategy-card">
           <h3>Normal Variables</h3>
@@ -200,21 +212,26 @@ print(missing_count)</code></pre>
 
     <div class="outliers-section">
       <h2>5. Outlier Treatment</h2>
-      <p class="section-description">Atypical values were identified and treated using different methods according to variable distribution.</p>
-      
+      <p class="section-description">Atypical values were identified and treated using different methods according to
+        variable distribution.</p>
+
       <div class="outliers-methods">
         <div class="method-card">
           <h3>Normal Variables - Z-Score</h3>
-          <p>For variables with normal distribution, the <strong>Z-Score</strong> method was used to identify outliers. Values that are more than 3 standard deviations from the mean are considered outliers and are replaced with the <strong>mean</strong>.</p>
+          <p>For variables with normal distribution, the <strong>Z-Score</strong> method was used to identify outliers.
+            Values that are more than 3 standard deviations from the mean are considered outliers and are replaced with
+            the <strong>mean</strong>.</p>
           <div class="formula">
             <p><strong>Z-Score:</strong> z = (x - μ) / σ</p>
             <p>If |z| > 3, then x is an outlier</p>
           </div>
         </div>
-        
+
         <div class="method-card">
           <h3>Non-Normal Variables - IQR (Interquartile Range)</h3>
-          <p>For variables without normal distribution, the <strong>IQR</strong> (Interquartile Range) method was used. However, due to the large number of outliers found, it was decided to keep them in the dataset to preserve information.</p>
+          <p>For variables without normal distribution, the <strong>IQR</strong> (Interquartile Range) method was used.
+            However, due to the large number of outliers found, it was decided to keep them in the dataset to preserve
+            information.</p>
           <div class="formula">
             <p><strong>IQR:</strong> IQR = Q3 - Q1</p>
             <p><strong>Limits:</strong> Lower limit = Q1 - 1.5×IQR</p>
@@ -228,11 +245,13 @@ print(missing_count)</code></pre>
         <div class="boxplot-comparison">
           <div class="boxplot-item">
             <h4>With Outliers</h4>
-            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilityCONoutliers.png" alt="Danceability with outliers" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilityCONoutliers.png"
+              alt="Danceability with outliers" />
           </div>
           <div class="boxplot-item">
             <h4>Without Outliers</h4>
-            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilitySINoutliers.png" alt="Danceability without outliers" />
+            <img src="{{ site.baseurl }}/projects/spotify-popularity-data/danceabilitySINoutliers.png"
+              alt="Danceability without outliers" />
           </div>
         </div>
       </div>
@@ -240,10 +259,11 @@ print(missing_count)</code></pre>
 
     <div class="preprocessing-section">
       <h2>6. Data Processing</h2>
-      
+
       <div class="preprocessing-step">
         <h3>6.1 Categorical Variable Encoding</h3>
-        <p><strong>LabelEncoder</strong> from scikit-learn was used to convert categorical variables into numeric values, allowing the model to process them.</p>
+        <p><strong>LabelEncoder</strong> from scikit-learn was used to convert categorical variables into numeric
+          values, allowing the model to process them.</p>
         <div class="encoding-example">
           <div class="encoding-table">
             <h4>Before Encoding</h4>
@@ -302,7 +322,8 @@ print(missing_count)</code></pre>
         <div class="scaling-strategies">
           <div class="strategy-card">
             <h4>Standard Scaler</h4>
-            <p>For <strong>normal variables</strong>. Normalizes data by subtracting the mean and dividing by the standard deviation.</p>
+            <p>For <strong>normal variables</strong>. Normalizes data by subtracting the mean and dividing by the
+              standard deviation.</p>
             <div class="formula">
               <p>z = (x - μ) / σ</p>
             </div>
@@ -319,21 +340,26 @@ print(missing_count)</code></pre>
 
       <div class="preprocessing-step">
         <h3>6.3 Correlation Analysis</h3>
-        <p>The correlation map was analyzed to identify highly correlated variables and eliminate dependencies, avoiding the model having redundant information.</p>
+        <p>The correlation map was analyzed to identify highly correlated variables and eliminate dependencies, avoiding
+          the model having redundant information.</p>
         <div class="correlation-map">
-          <img src="{{ site.baseurl }}/projects/spotify-popularity-data/mapacorrelaciones.png" alt="Correlation map" class="correlation-image" />
+          <img src="{{ site.baseurl }}/projects/spotify-popularity-data/mapacorrelaciones.png" alt="Correlation map"
+            class="correlation-image" />
         </div>
-        <p class="correlation-note">Variables with high correlation were eliminated to avoid multicollinearity in the linear regression model.</p>
+        <p class="correlation-note">Variables with high correlation were eliminated to avoid multicollinearity in the
+          linear regression model.</p>
       </div>
     </div>
 
     <div class="model-results-section">
       <h2>7. Model Results</h2>
-      <p class="section-description">A Linear Regression model was trained and its performance was evaluated using multiple metrics.</p>
-      
+      <p class="section-description">A Linear Regression model was trained and its performance was evaluated using
+        multiple metrics.</p>
+
       <div class="important-variables">
         <h3>Most Important Variables</h3>
-        <p class="variables-intro">It was determined that the following variables are the most important for predicting likes:</p>
+        <p class="variables-intro">It was determined that the following variables are the most important for predicting
+          likes:</p>
         <div class="variables-list">
           <span class="variable-badge">Album_type</span>
           <span class="variable-badge">Valence</span>
@@ -351,7 +377,7 @@ print(missing_count)</code></pre>
           <div class="metric-value-new">0.87</div>
           <div class="metric-desc-new">The model explains 87% of the variance in likes</div>
         </div>
-        
+
         <div class="metric-card-new">
           <div class="metric-header">
             <div class="metric-icon">MAE</div>
@@ -360,7 +386,7 @@ print(missing_count)</code></pre>
           <div class="metric-value-new">0.51</div>
           <div class="metric-desc-new">Average absolute error of 0.51 units</div>
         </div>
-        
+
         <div class="metric-card-new">
           <div class="metric-header">
             <div class="metric-icon">MSE</div>
@@ -369,7 +395,7 @@ print(missing_count)</code></pre>
           <div class="metric-value-new">1.66</div>
           <div class="metric-desc-new">Mean squared error</div>
         </div>
-        
+
         <div class="metric-card-new">
           <div class="metric-header">
             <div class="metric-icon">RMSE</div>
@@ -382,11 +408,15 @@ print(missing_count)</code></pre>
 
       <div class="results-summary">
         <h3>Results Interpretation</h3>
-        <p>The Linear Regression model achieved an <strong>R² of 0.87</strong>, indicating that 87% of the variability in the number of likes can be explained by the musical and engagement characteristics included in the model. This demonstrates that:</p>
+        <p>The Linear Regression model achieved an <strong>R² of 0.87</strong>, indicating that 87% of the variability
+          in the number of likes can be explained by the musical and engagement characteristics included in the model.
+          This demonstrates that:</p>
         <ul>
-          <li>Musical characteristics (danceability, energy, tempo, etc.) have a significant influence on video popularity</li>
+          <li>Musical characteristics (danceability, energy, tempo, etc.) have a significant influence on video
+            popularity</li>
           <li>Engagement metrics (views, comments, streams) are strongly related to likes</li>
-          <li>The model is capable of predicting with good accuracy the number of likes a video will receive based on these characteristics</li>
+          <li>The model is capable of predicting with good accuracy the number of likes a video will receive based on
+            these characteristics</li>
         </ul>
       </div>
     </div>

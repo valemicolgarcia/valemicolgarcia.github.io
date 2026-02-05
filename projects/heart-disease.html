@@ -5,7 +5,7 @@ title: Heart Disease Prediction
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Heart Disease Prediction</h1>
     <p class="project-detail-subtitle">Supervised Machine Learning</p>
     <div class="project-tags">
@@ -16,7 +16,8 @@ title: Heart Disease Prediction
       <span class="tag">Decision Tree</span>
     </div>
     <div class="github-link">
-      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/heart-disease-data/EntregaFinal-ValeriaMicolGarcia.ipynb" target="_blank" class="github-btn">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/heart-disease-data/EntregaFinal-ValeriaMicolGarcia.ipynb"
+        target="_blank" class="github-btn">
         <i class="fab fa-github"></i> Ver código en GitHub
       </a>
     </div>
@@ -25,14 +26,19 @@ title: Heart Disease Prediction
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>Cardiovascular diseases are the leading cause of death worldwide, responsible for the loss of millions of lives each year. This project seeks to detect and predict the determining variables that put us at risk of heart disease, allowing awareness and preventive measures.</p>
-      <p>The objective is to identify which risk factors (age, blood pressure, cholesterol, lifestyle habits, etc.) have the greatest impact on the probability of developing heart disease, using advanced machine learning techniques to create a robust predictive model.</p>
+      <p>Cardiovascular diseases are the leading cause of death worldwide, responsible for the loss of millions of lives
+        each year. This project seeks to detect and predict the determining variables that put us at risk of heart
+        disease, allowing awareness and preventive measures.</p>
+      <p>The objective is to identify which risk factors (age, blood pressure, cholesterol, lifestyle habits, etc.) have
+        the greatest impact on the probability of developing heart disease, using advanced machine learning techniques
+        to create a robust predictive model.</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset Information</h2>
-      <p class="section-description">Two complementary datasets were used that contain information about cardiovascular risk factors and patient health conditions.</p>
-      
+      <p class="section-description">Two complementary datasets were used that contain information about cardiovascular
+        risk factors and patient health conditions.</p>
+
       <div class="datasets-info">
         <div class="dataset-card">
           <h3>Dataset 1: HEARTDISEASE</h3>
@@ -67,7 +73,8 @@ title: Heart Disease Prediction
               <li><strong>HeartDisease:</strong> Indicates if the person is at risk of heart disease</li>
               <li><strong>BMI:</strong> Body mass index</li>
               <li><strong>Smoking:</strong> Person who smokes</li>
-              <li><strong>AlcoholDrinking:</strong> Person who drinks a lot of alcohol (men +14 drinks per week, women +7 drinks per week)</li>
+              <li><strong>AlcoholDrinking:</strong> Person who drinks a lot of alcohol (men +14 drinks per week, women
+                +7 drinks per week)</li>
               <li><strong>Stroke:</strong> Person who suffered a stroke</li>
               <li><strong>PhysicalHealth:</strong> How many of the last 30 days the person exercised</li>
               <li><strong>MentalHealth:</strong> How many of the last 30 days the person was not mentally well</li>
@@ -76,7 +83,8 @@ title: Heart Disease Prediction
               <li><strong>AgeCategory:</strong> Age category</li>
               <li><strong>Race:</strong> Imputed ethnicity value</li>
               <li><strong>Diabetic:</strong> Person who was informed they have diabetes</li>
-              <li><strong>PhysicalActivity:</strong> Adult who reported having performed physical activity during the last 30 days outside their usual work</li>
+              <li><strong>PhysicalActivity:</strong> Adult who reported having performed physical activity during the
+                last 30 days outside their usual work</li>
               <li><strong>GenHealth:</strong> Genetics</li>
               <li><strong>SleepTime:</strong> Hours of sleep</li>
               <li><strong>Asthma:</strong> Person who had asthma</li>
@@ -185,8 +193,10 @@ title: Heart Disease Prediction
 
     <div class="data-wrangling-section">
       <h2>2. Data Wrangling - Dataset Concatenation</h2>
-      <p class="section-description">Both datasets were concatenated to obtain a more complete unified dataset. This process generates some additional transformations in the data and creates null values in columns that are not common between both datasets.</p>
-      
+      <p class="section-description">Both datasets were concatenated to obtain a more complete unified dataset. This
+        process generates some additional transformations in the data and creates null values in columns that are not
+        common between both datasets.</p>
+
       <div class="merged-dataset">
         <h3>Unified Dataset</h3>
         <p class="dataset-size"><strong>Final size:</strong> 323,469 rows × 20 columns</p>
@@ -239,7 +249,8 @@ title: Heart Disease Prediction
 
       <div class="histograms-section">
         <h3>Histogram Analysis</h3>
-        <p>After concatenation, variable histograms were analyzed to understand their distributions and detect possible data problems.</p>
+        <p>After concatenation, variable histograms were analyzed to understand their distributions and detect possible
+          data problems.</p>
         <div class="analysis-image">
           <img src="{{ site.baseurl }}/projects/heart-disease-data/histogramas.png" alt="Histogramas de variables" />
         </div>
@@ -248,7 +259,7 @@ title: Heart Disease Prediction
 
     <div class="preprocessing-section">
       <h2>3. Data Processing</h2>
-      
+
       <div class="preprocessing-step">
         <h3>3.1 Missing Value Treatment</h3>
         <p>Different imputation strategies were applied according to variable type and distribution:</p>
@@ -270,7 +281,8 @@ title: Heart Disease Prediction
 
       <div class="preprocessing-step">
         <h3>3.2 Categorical Variable Encoding</h3>
-        <p><strong>LabelEncoder</strong> from scikit-learn was used to convert categorical variables into numeric values.</p>
+        <p><strong>LabelEncoder</strong> from scikit-learn was used to convert categorical variables into numeric
+          values.</p>
         <div class="encoding-example">
           <div class="encoding-table">
             <h4>Before Encoding</h4>
@@ -367,7 +379,8 @@ title: Heart Disease Prediction
         <div class="scaling-strategies">
           <div class="strategy-card">
             <h4>Standard Scaler</h4>
-            <p>For <strong>normal variables</strong>. Normalizes data by subtracting the mean and dividing by the standard deviation.</p>
+            <p>For <strong>normal variables</strong>. Normalizes data by subtracting the mean and dividing by the
+              standard deviation.</p>
             <div class="formula">
               <p>z = (x - μ) / σ</p>
             </div>
@@ -384,7 +397,8 @@ title: Heart Disease Prediction
 
       <div class="preprocessing-step">
         <h3>3.4 Outlier Treatment</h3>
-        <p>Atypical values were identified and treated. For normal variables, outliers were replaced with the mean using the Z-Score method.</p>
+        <p>Atypical values were identified and treated. For normal variables, outliers were replaced with the mean using
+          the Z-Score method.</p>
         <div class="outliers-visualization">
           <h4>Visual Example - SleepTime Variable</h4>
           <div class="boxplot-comparison">
@@ -394,7 +408,8 @@ title: Heart Disease Prediction
             </div>
             <div class="boxplot-item">
               <h5>Without Outliers</h5>
-              <img src="{{ site.baseurl }}/projects/heart-disease-data/sinOutliers.png" alt="Variables without outliers" />
+              <img src="{{ site.baseurl }}/projects/heart-disease-data/sinOutliers.png"
+                alt="Variables without outliers" />
             </div>
           </div>
         </div>
@@ -402,18 +417,22 @@ title: Heart Disease Prediction
 
       <div class="preprocessing-step">
         <h3>3.5 Correlation Analysis</h3>
-        <p>The correlation map was analyzed to identify highly correlated variables and eliminate dependencies, avoiding multicollinearity in the models.</p>
+        <p>The correlation map was analyzed to identify highly correlated variables and eliminate dependencies, avoiding
+          multicollinearity in the models.</p>
         <div class="correlation-map">
-          <img src="{{ site.baseurl }}/projects/heart-disease-data/correlaciones.png" alt="Correlation map" class="correlation-image" />
+          <img src="{{ site.baseurl }}/projects/heart-disease-data/correlaciones.png" alt="Correlation map"
+            class="correlation-image" />
         </div>
-        <p class="correlation-note">Variables with high correlation were eliminated to avoid the model having redundant information.</p>
+        <p class="correlation-note">Variables with high correlation were eliminated to avoid the model having redundant
+          information.</p>
       </div>
     </div>
 
     <div class="eda-section">
       <h2>4. Exploratory Data Analysis (EDA)</h2>
-      <p class="section-description">Exploratory analyses were performed to answer key questions about cardiovascular risk factors.</p>
-      
+      <p class="section-description">Exploratory analyses were performed to answer key questions about cardiovascular
+        risk factors.</p>
+
       <div class="eda-questions">
         <div class="eda-question">
           <h3>Does age influence the possibility of developing heart disease?</h3>
@@ -421,11 +440,12 @@ title: Heart Disease Prediction
             <img src="{{ site.baseurl }}/projects/heart-disease-data/age.png" alt="Age influence on heart disease" />
           </div>
         </div>
-        
+
         <div class="eda-question">
           <h3>Is a person who smokes more prone to heart disease?</h3>
           <div class="eda-image eda-image-small eda-image-compact">
-            <img src="{{ site.baseurl }}/projects/heart-disease-data/fuma.png" alt="Smoking influence on heart disease" />
+            <img src="{{ site.baseurl }}/projects/heart-disease-data/fuma.png"
+              alt="Smoking influence on heart disease" />
           </div>
         </div>
       </div>
@@ -433,8 +453,10 @@ title: Heart Disease Prediction
 
     <div class="balancing-section">
       <h2>5. Target Variable Balancing</h2>
-      <p class="section-description">The dataset had a significant imbalance in the target variable. <strong>Oversampling</strong> technique was applied to create new synthetic samples of the minority class and balance the classes.</p>
-      
+      <p class="section-description">The dataset had a significant imbalance in the target variable.
+        <strong>Oversampling</strong> technique was applied to create new synthetic samples of the minority class and
+        balance the classes.</p>
+
       <div class="balancing-visualization">
         <div class="balance-item">
           <h3>Before Balancing</h3>
@@ -449,31 +471,38 @@ title: Heart Disease Prediction
 
     <div class="pca-section">
       <h2>6. Principal Component Analysis (PCA)</h2>
-      <p class="section-description">PCA (Principal Component Analysis) was applied to reduce dataset dimensionality and eliminate redundancies, maintaining as much information as possible with fewer variables.</p>
-      
+      <p class="section-description">PCA (Principal Component Analysis) was applied to reduce dataset dimensionality and
+        eliminate redundancies, maintaining as much information as possible with fewer variables.</p>
+
       <div class="pca-explanation">
         <h3>What is PCA?</h3>
-        <p>PCA is a dimensionality reduction technique that transforms original variables into principal components (new uncorrelated variables) that capture the maximum possible variance. This helps to:</p>
+        <p>PCA is a dimensionality reduction technique that transforms original variables into principal components (new
+          uncorrelated variables) that capture the maximum possible variance. This helps to:</p>
         <ul>
           <li>Reduce the number of features while maintaining relevant information</li>
           <li>Eliminate redundancies and correlations between variables</li>
           <li>Improve model performance when working with fewer dimensions</li>
         </ul>
-        
+
         <h3>Cumulative Explained Variance vs Components</h3>
-        <p>Cumulative explained variance shows how much information from the original data is preserved when using a certain number of principal components. A high value indicates that most of the information is being preserved.</p>
+        <p>Cumulative explained variance shows how much information from the original data is preserved when using a
+          certain number of principal components. A high value indicates that most of the information is being
+          preserved.</p>
       </div>
 
       <div class="pca-visualization">
-        <img src="{{ site.baseurl }}/projects/heart-disease-data/Varianza.png" alt="Cumulative explained variance" class="pca-image-small" />
-        <p class="pca-note">Using the elbow method, it is observed that from component 15 onwards, the variance increases minimally. Therefore, 15 principal components were selected to apply PCA.</p>
+        <img src="{{ site.baseurl }}/projects/heart-disease-data/Varianza.png" alt="Cumulative explained variance"
+          class="pca-image-small" />
+        <p class="pca-note">Using the elbow method, it is observed that from component 15 onwards, the variance
+          increases minimally. Therefore, 15 principal components were selected to apply PCA.</p>
       </div>
     </div>
 
     <div class="models-section">
       <h2>7. Model Training</h2>
-      <p class="section-description">4 different machine learning algorithms were trained and compared, applying advanced validation and optimization techniques for each.</p>
-      
+      <p class="section-description">4 different machine learning algorithms were trained and compared, applying
+        advanced validation and optimization techniques for each.</p>
+
       <div class="validation-techniques">
         <h3>Validation and Optimization Techniques Used</h3>
         <div class="techniques-grid">
@@ -483,11 +512,15 @@ title: Heart Disease Prediction
           </div>
           <div class="technique-card">
             <h4>Cross Validation</h4>
-            <p>Strategy that divides data into k subsets (folds) and trains the model k times, each time using a different fold as the test set. This helps avoid overfitting and provides a more robust performance estimate.</p>
+            <p>Strategy that divides data into k subsets (folds) and trains the model k times, each time using a
+              different fold as the test set. This helps avoid overfitting and provides a more robust performance
+              estimate.</p>
           </div>
           <div class="technique-card">
             <h4>HalvingGridSearchCV</h4>
-            <p>Hyperparameter optimization that combines GridSearch with a "halving" strategy (progressive reduction). It starts by evaluating many parameters with few resources and gradually focuses resources on the most promising combinations, being more efficient than traditional GridSearch.</p>
+            <p>Hyperparameter optimization that combines GridSearch with a "halving" strategy (progressive reduction).
+              It starts by evaluating many parameters with few resources and gradually focuses resources on the most
+              promising combinations, being more efficient than traditional GridSearch.</p>
           </div>
         </div>
       </div>
@@ -540,7 +573,11 @@ title: Heart Disease Prediction
 
         <div class="conclusion-box">
           <h4>Conclusion</h4>
-          <p>Comparing all models, it is observed that precision is quite high, reaching 90%, with DecisionTree and XGBoosting even reaching 91%. However, in terms of recall, accuracy, and F1 Score, RandomForest and the Logistic Regression model show more solid metrics. Although the differences are minimal, the final choice leans towards the <strong>Logistic Regression</strong> model, which slightly outperforms RandomForest in overall performance.</p>
+          <p>Comparing all models, it is observed that precision is quite high, reaching 90%, with DecisionTree and
+            XGBoosting even reaching 91%. However, in terms of recall, accuracy, and F1 Score, RandomForest and the
+            Logistic Regression model show more solid metrics. Although the differences are minimal, the final choice
+            leans towards the <strong>Logistic Regression</strong> model, which slightly outperforms RandomForest in
+            overall performance.</p>
           <div class="final-model-badge">
             <i class="fas fa-trophy"></i>
             <span>Final Model: Logistic Regression</span>

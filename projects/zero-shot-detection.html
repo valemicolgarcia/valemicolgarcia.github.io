@@ -5,7 +5,7 @@ title: Zero-Shot Object Detection Service
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Zero-Shot Object Detection Service</h1>
     <p class="project-detail-subtitle">Habits · PyTorch, TorchVision, Transformers, Grounding DINO, FastAPI</p>
     <div class="project-tags">
@@ -91,14 +91,16 @@ title: Zero-Shot Object Detection Service
         <h3>2.1 API</h3>
         <p><strong>FastAPI</strong> with endpoints <code>/detect</code> (JSON: label, score, box per ingredient) and
           <code>/detect/image</code> (segmented JPEG). Image via <code>multipart</code> or body; <strong>Pillow</strong>
-          opens it and passes it to the model.</p>
+          opens it and passes it to the model.
+        </p>
       </div>
 
       <div class="preprocessing-step">
         <h3>2.2 Model</h3>
         <p><strong>Grounding DINO</strong> via <strong>Transformers</strong> (Hugging Face):
           <code>AutoModelForZeroShotObjectDetection</code> and <code>AutoProcessor</code>. Model is loaded on demand
-          (lazy) on the first request and runs with <strong>PyTorch</strong> on CPU or GPU.</p>
+          (lazy) on the first request and runs with <strong>PyTorch</strong> on CPU or GPU.
+        </p>
       </div>
 
       <div class="preprocessing-step">
@@ -113,7 +115,8 @@ title: Zero-Shot Object Detection Service
       <div class="preprocessing-step">
         <h3>2.4 Deployment</h3>
         <p>Standalone Python service (Docker); model is downloaded from Hugging Face on first use. Frontend uses
-          <code>VITE_NUTRI_AI_API_URL</code> to call this microservice.</p>
+          <code>VITE_NUTRI_AI_API_URL</code> to call this microservice.
+        </p>
       </div>
     </div>
 

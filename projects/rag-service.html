@@ -5,7 +5,7 @@ title: RAG Service
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">RAG Service</h1>
     <p class="project-detail-subtitle">Habits · LlamaIndex, Groq, Llama 3.1, Hugging Face Embeddings, FastAPI</p>
     <div class="project-tags">
@@ -38,7 +38,8 @@ title: RAG Service
       <h2>1. How does it work?</h2>
       <p class="section-description">The dashboard has a chat bar; the frontend calls the RAG Service with
         <code>POST /chat</code>. The backend uses LlamaIndex to index PDFs, retrieve relevant chunks, and generate
-        answers with Groq (Llama 3.1).</p>
+        answers with Groq (Llama 3.1).
+      </p>
 
       <div class="dataset-example">
         <div class="table-container">
@@ -54,7 +55,8 @@ title: RAG Service
                 <td>Index</td>
                 <td>PDFs in <code>data_source</code> read with <code>SimpleDirectoryReader</code> and pypdf; split into
                   chunks; embeddings with Hugging Face model (e.g. BGE) run locally; index persisted in
-                  <code>storage</code>.</td>
+                  <code>storage</code>.
+                </td>
               </tr>
               <tr>
                 <td>Retrieval</td>
@@ -86,7 +88,8 @@ title: RAG Service
         <p><strong>FastAPI</strong> with endpoint <code>POST /chat</code>: body with <code>message</code> and optionally
           <code>chat_history</code> (list of <code>role</code> + <code>content</code>). Request/response validated with
           <strong>Pydantic</strong> (<code>ChatRequest</code>, <code>ChatResponse</code>, <code>ChatMessage</code>).
-          <strong>Uvicorn</strong> as ASGI server; <strong>python-dotenv</strong> for env vars.</p>
+          <strong>Uvicorn</strong> as ASGI server; <strong>python-dotenv</strong> for env vars.
+        </p>
       </div>
 
       <div class="preprocessing-step">
@@ -94,21 +97,24 @@ title: RAG Service
         <p><strong>LlamaIndex</strong> (e.g. <code>llama-index-core</code>, <code>llama-index-readers-file</code>) reads
           PDFs, builds the vector index, and exposes a <strong>chat engine</strong> with memory. The
           <strong>retriever</strong> returns the most relevant chunks; the <strong>chat engine</strong> combines context
-          + history and calls the LLM.</p>
+          + history and calls the LLM.
+        </p>
       </div>
 
       <div class="preprocessing-step">
         <h3>2.3 LLM & Embeddings</h3>
         <p><strong>Groq</strong> with <strong>Llama 3.1</strong> (<code>llama-index-llms-groq</code>) for fast answers.
           <strong>Hugging Face</strong> embeddings (e.g. <code>BAAI/bge-small-en-v1.5</code>) via
-          <code>llama-index-embeddings-huggingface</code>, run locally; no external embedding API.</p>
+          <code>llama-index-embeddings-huggingface</code>, run locally; no external embedding API.
+        </p>
       </div>
 
       <div class="preprocessing-step">
         <h3>2.4 Deployment</h3>
         <p>PDFs read with <strong>pypdf</strong> and LlamaIndex reader; <code>data_source</code> and
           <code>storage</code> configurable via environment. Standalone Python microservice (Docker); requires
-          <code>GROQ_API_KEY</code>. Frontend uses <code>VITE_RAG_API_URL</code>.</p>
+          <code>GROQ_API_KEY</code>. Frontend uses <code>VITE_RAG_API_URL</code>.
+        </p>
       </div>
     </div>
 

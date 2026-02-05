@@ -5,7 +5,7 @@ title: Nutrition Label Agent
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Nutrition Label Agent</h1>
     <p class="project-detail-subtitle">Habits · LangChain, LangGraph, Gemini Vision, Tavily, FastAPI, Pydantic</p>
     <div class="project-tags">
@@ -100,7 +100,8 @@ title: Nutrition Label Agent
         <p>Defined in <code>graph.py</code> with <strong>LangGraph</strong> (<code>StateGraph</code>): nodes
           <code>analyzer</code>, <code>searcher</code>, <code>finalizer</code>; entry at <code>analyzer</code>;
           conditional edge based on <code>is_ultra_processed</code>; state passed from node to node (image, analysis,
-          search results, final report).</p>
+          search results, final report).
+        </p>
       </div>
 
       <div class="preprocessing-step">
@@ -108,7 +109,8 @@ title: Nutrition Label Agent
         <p>In <code>nodes.py</code>: <code>analyzer_node</code> calls <strong>Gemini</strong> (multimodal: prompt +
           base64 image), parses JSON and validates with <strong>Pydantic</strong>; <code>searcher_node</code> uses
           <strong>Tavily</strong> (LangChain) and optionally Gemini to extract the alternative's name;
-          <code>finalizer_node</code> builds the report and validates it with <strong>Pydantic</strong>.</p>
+          <code>finalizer_node</code> builds the report and validates it with <strong>Pydantic</strong>.
+        </p>
       </div>
 
       <div class="preprocessing-step">
@@ -116,7 +118,8 @@ title: Nutrition Label Agent
         <p>In <code>models.py</code>, <strong>Pydantic</strong> defines <code>AnalysisResult</code> and
           <code>NutritionalResponse</code>. Standalone Python service (Docker), configured with
           <code>GOOGLE_API_KEY</code> and <code>TAVILY_API_KEY</code>; frontend uses
-          <code>VITE_LABEL_ANALYZER_API_URL</code>.</p>
+          <code>VITE_LABEL_ANALYZER_API_URL</code>.
+        </p>
       </div>
     </div>
 

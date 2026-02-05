@@ -5,7 +5,7 @@ title: SMS Text Classifier
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">SMS Text Classifier</h1>
     <p class="project-detail-subtitle">RNN and NLP</p>
     <div class="project-tags">
@@ -15,7 +15,8 @@ title: SMS Text Classifier
       <span class="tag">Text Classification</span>
     </div>
     <div class="github-link">
-      <a href="https://github.com/valemicolgarcia/TensorFlow/blob/main/SMS%20Text%20Classifier/fcc_sms_text_classification.ipynb" target="_blank" class="github-btn">
+      <a href="https://github.com/valemicolgarcia/TensorFlow/blob/main/SMS%20Text%20Classifier/fcc_sms_text_classification.ipynb"
+        target="_blank" class="github-btn">
         <i class="fab fa-github"></i> View code on GitHub
       </a>
     </div>
@@ -24,14 +25,18 @@ title: SMS Text Classifier
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>This project implements a binary text classification system that distinguishes between spam and legitimate (ham) SMS messages using deep learning techniques. The challenge was to create a Long Short-Term Memory (LSTM) neural network using TensorFlow and Keras that correctly classifies SMS messages with high accuracy.</p>
-      <p>Spam detection is a critical problem in modern communication systems. Unlike traditional rule-based filters, deep learning models can learn complex patterns in text that distinguish spam from legitimate messages.</p>
+      <p>This project implements a binary text classification system that distinguishes between spam and legitimate
+        (ham) SMS messages using deep learning techniques. The challenge was to create a Long Short-Term Memory (LSTM)
+        neural network using TensorFlow and Keras that correctly classifies SMS messages with high accuracy.</p>
+      <p>Spam detection is a critical problem in modern communication systems. Unlike traditional rule-based filters,
+        deep learning models can learn complex patterns in text that distinguish spam from legitimate messages.</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset</h2>
-      <p class="section-description">The dataset consists of SMS messages labeled as either "spam" or "ham" (legitimate messages), organized into training and test sets in TSV format.</p>
-      
+      <p class="section-description">The dataset consists of SMS messages labeled as either "spam" or "ham" (legitimate
+        messages), organized into training and test sets in TSV format.</p>
+
       <div class="dataset-example">
         <div class="table-container">
           <table class="data-table">
@@ -62,12 +67,13 @@ title: SMS Text Classifier
 
     <div class="preprocessing-section">
       <h2>2. Preprocessing</h2>
-      <p class="section-description">Text data is preprocessed to convert raw messages into numerical representations that neural networks can process.</p>
-      
+      <p class="section-description">Text data is preprocessed to convert raw messages into numerical representations
+        that neural networks can process.</p>
+
       <div class="preprocessing-step">
         <h3>2.1 Tokenization and Padding</h3>
         <p>Messages are tokenized into sequences of integers and padded to a fixed length of 100 tokens:</p>
-        
+
         <div class="code-example">
           <pre><code>tokenizer = Tokenizer(num_words=5000, oov_token='<OOV>')
 tokenizer.fit_on_texts(train_x)
@@ -85,8 +91,9 @@ X_padded = pad_sequences(X_sequences, maxlen=100)</code></pre>
 
     <div class="model-section">
       <h2>3. Model Architecture</h2>
-      <p class="section-description">The model uses an LSTM neural network architecture designed to learn sequential patterns in text.</p>
-      
+      <p class="section-description">The model uses an LSTM neural network architecture designed to learn sequential
+        patterns in text.</p>
+
       <div class="code-example">
         <pre><code>model = tf.keras.Sequential([
     tf.keras.layers.Embedding(len(tokenizer.word_index) + 1, 32),
@@ -125,8 +132,9 @@ X_padded = pad_sequences(X_sequences, maxlen=100)</code></pre>
 
     <div class="training-section">
       <h2>4. Training and Results</h2>
-      <p class="section-description">The model was compiled with binary cross-entropy loss and RMSprop optimizer, then trained for 10 epochs.</p>
-      
+      <p class="section-description">The model was compiled with binary cross-entropy loss and RMSprop optimizer, then
+        trained for 10 epochs.</p>
+
       <div class="code-example">
         <pre><code>model.compile(
     loss='binary_crossentropy',
@@ -148,7 +156,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
             <div class="metric-value-new">98.6%</div>
             <div class="metric-desc-new">Accuracy on test set</div>
           </div>
-          
+
           <div class="metric-card-new">
             <div class="metric-header">
               <div class="metric-icon">Loss</div>
@@ -164,7 +172,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
     <div class="test-section">
       <h2>5. Model Testing</h2>
       <p class="section-description">The model was tested with various messages to verify its functionality:</p>
-      
+
       <div class="test-examples">
         <div class="test-item test-ham">
           <div class="test-icon">
@@ -176,7 +184,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
             <span class="prediction-ham">ham</span>
           </div>
         </div>
-        
+
         <div class="test-item test-spam">
           <div class="test-icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -187,7 +195,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
             <span class="prediction-spam">spam</span>
           </div>
         </div>
-        
+
         <div class="test-item test-spam">
           <div class="test-icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -207,7 +215,8 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
         <div class="concept-card-small">
           <i class="fas fa-brain"></i>
           <h3>LSTM Networks</h3>
-          <p>Long Short-Term Memory networks are specialized RNNs that can learn long-range dependencies in sequential data.</p>
+          <p>Long Short-Term Memory networks are specialized RNNs that can learn long-range dependencies in sequential
+            data.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-language"></i>
@@ -244,7 +253,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
 
   .test-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .test-item.test-ham {
@@ -319,7 +328,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
 
   .concept-card-small:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     border-color: #007bff;
   }
 
@@ -349,6 +358,7 @@ history = model.fit(X_padded, train_y_encoded, epochs=10)</code></pre>
   }
 
   @media (max-width: 768px) {
+
     .test-examples,
     .concepts-grid-four {
       grid-template-columns: 1fr;

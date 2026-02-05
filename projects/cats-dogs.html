@@ -5,7 +5,7 @@ title: Cats vs Dogs Image Classifier
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Cats vs Dogs Image Classifier</h1>
     <p class="project-detail-subtitle">Deep Learning and Computer Vision</p>
     <div class="project-tags">
@@ -25,15 +25,20 @@ title: Cats vs Dogs Image Classifier
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>This project implements a binary image classification system that distinguishes between cats and dogs using deep learning techniques. The challenge was to create a convolutional neural network (CNN) using TensorFlow 2.0 and Keras that correctly classifies images of cats and dogs with at least 63% accuracy.</p>
-      <p>Image classification is a fundamental problem in computer vision. Unlike traditional machine learning approaches that require manual feature extraction, CNNs can automatically learn hierarchical features from raw pixel data, making them ideal for visual recognition tasks.</p>
+      <p>This project implements a binary image classification system that distinguishes between cats and dogs using
+        deep learning techniques. The challenge was to create a convolutional neural network (CNN) using TensorFlow 2.0
+        and Keras that correctly classifies images of cats and dogs with at least 63% accuracy.</p>
+      <p>Image classification is a fundamental problem in computer vision. Unlike traditional machine learning
+        approaches that require manual feature extraction, CNNs can automatically learn hierarchical features from raw
+        pixel data, making them ideal for visual recognition tasks.</p>
       <p><strong>Model used:</strong> Convolutional Neural Network (CNN) with data augmentation</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset Information</h2>
-      <p class="section-description">The dataset consists of images organized into three directories: training, validation, and test sets.</p>
-      
+      <p class="section-description">The dataset consists of images organized into three directories: training,
+        validation, and test sets.</p>
+
       <div class="datasets-info">
         <div class="dataset-card">
           <h3>Training Set</h3>
@@ -68,7 +73,8 @@ title: Cats vs Dogs Image Classifier
 
       <div class="preprocessing-note">
         <h3>Image Preprocessing Requirements</h3>
-        <p>All images are resized to <strong>150×150 pixels</strong> and normalized to values between 0 and 1 (originally 0-255). This standardization is crucial for neural network training as it ensures:</p>
+        <p>All images are resized to <strong>150×150 pixels</strong> and normalized to values between 0 and 1
+          (originally 0-255). This standardization is crucial for neural network training as it ensures:</p>
         <ul>
           <li>Consistent input dimensions across all images</li>
           <li>Numerical stability during training</li>
@@ -79,35 +85,40 @@ title: Cats vs Dogs Image Classifier
 
     <div class="data-generation-section">
       <h2>2. Image Data Generation</h2>
-      
+
       <div class="preprocessing-step">
         <h3>2.1 What is ImageDataGenerator?</h3>
-        <p><strong>ImageDataGenerator</strong> is a Keras utility class that provides real-time data augmentation and preprocessing for image datasets. It serves multiple critical functions:</p>
-        
+        <p><strong>ImageDataGenerator</strong> is a Keras utility class that provides real-time data augmentation and
+          preprocessing for image datasets. It serves multiple critical functions:</p>
+
         <div class="generator-explanation">
           <div class="generator-feature">
             <h4>1. Image Loading and Decoding</h4>
-            <p>Automatically reads images from directories and decodes them into tensors (multi-dimensional arrays) that neural networks can process.</p>
+            <p>Automatically reads images from directories and decodes them into tensors (multi-dimensional arrays) that
+              neural networks can process.</p>
           </div>
-          
+
           <div class="generator-feature">
             <h4>2. Data Normalization</h4>
-            <p>Converts pixel values from the range [0, 255] to [0, 1] using the <code>rescale</code> parameter. This normalization is essential because:</p>
+            <p>Converts pixel values from the range [0, 255] to [0, 1] using the <code>rescale</code> parameter. This
+              normalization is essential because:</p>
             <ul>
               <li>Neural networks train more efficiently with normalized inputs</li>
               <li>Prevents gradient explosion/vanishing issues</li>
               <li>Allows the optimizer to converge faster</li>
             </ul>
           </div>
-          
+
           <div class="generator-feature">
             <h4>3. Batch Generation</h4>
-            <p>Organizes images into batches for efficient training. Instead of loading all images into memory at once, it generates batches on-the-fly, making it memory-efficient for large datasets.</p>
+            <p>Organizes images into batches for efficient training. Instead of loading all images into memory at once,
+              it generates batches on-the-fly, making it memory-efficient for large datasets.</p>
           </div>
-          
+
           <div class="generator-feature">
             <h4>4. Data Augmentation</h4>
-            <p>Applies random transformations to images during training, effectively creating new training examples from existing ones. This helps prevent overfitting and improves model generalization.</p>
+            <p>Applies random transformations to images during training, effectively creating new training examples from
+              existing ones. This helps prevent overfitting and improves model generalization.</p>
           </div>
         </div>
 
@@ -116,14 +127,16 @@ title: Cats vs Dogs Image Classifier
           <pre><code>train_image_generator = ImageDataGenerator(
     rescale = 1./255  # Normalize pixel values to [0, 1]
 )</code></pre>
-          <p class="code-explanation">The <code>rescale</code> parameter divides each pixel value by 255, converting integers in the range [0, 255] to floats in [0, 1].</p>
+          <p class="code-explanation">The <code>rescale</code> parameter divides each pixel value by 255, converting
+            integers in the range [0, 255] to floats in [0, 1].</p>
         </div>
       </div>
 
       <div class="preprocessing-step">
         <h3>2.2 flow_from_directory Method</h3>
-        <p>The <code>flow_from_directory</code> method creates a generator that reads images from a directory structure and applies the specified transformations.</p>
-        
+        <p>The <code>flow_from_directory</code> method creates a generator that reads images from a directory structure
+          and applies the specified transformations.</p>
+
         <div class="code-example">
           <h4>Creating Data Generators</h4>
           <pre><code>train_data_gen = train_image_generator.flow_from_directory(
@@ -164,11 +177,14 @@ test_data_gen = test_image_generator.flow_from_directory(
 
     <div class="augmentation-section">
       <h2>3. Data Augmentation</h2>
-      <p class="section-description">With a relatively small training dataset (2,001 images), there's a high risk of overfitting—where the model memorizes training examples rather than learning generalizable features. Data augmentation addresses this by creating variations of existing images.</p>
-      
+      <p class="section-description">With a relatively small training dataset (2,001 images), there's a high risk of
+        overfitting—where the model memorizes training examples rather than learning generalizable features. Data
+        augmentation addresses this by creating variations of existing images.</p>
+
       <div class="augmentation-explanation">
         <h3>3.1 Why Data Augmentation?</h3>
-        <p>Data augmentation artificially increases the size and diversity of the training dataset by applying random transformations. This helps the model:</p>
+        <p>Data augmentation artificially increases the size and diversity of the training dataset by applying random
+          transformations. This helps the model:</p>
         <ul>
           <li>Learn features that are invariant to orientation, position, and scale</li>
           <li>Generalize better to new, unseen images</li>
@@ -196,55 +212,68 @@ test_data_gen = test_image_generator.flow_from_directory(
         <div class="augmentation-breakdown">
           <div class="augmentation-card">
             <h4>rotation_range = 40</h4>
-            <p>Randomly rotates images by up to ±40 degrees. This teaches the model that object orientation doesn't change the class (a cat is still a cat whether upright or slightly tilted).</p>
+            <p>Randomly rotates images by up to ±40 degrees. This teaches the model that object orientation doesn't
+              change the class (a cat is still a cat whether upright or slightly tilted).</p>
           </div>
 
           <div class="augmentation-card">
             <h4>width_shift_range = 0.2</h4>
-            <p>Randomly shifts images horizontally by up to 20% of the image width. Helps the model learn that object position within the frame doesn't affect classification.</p>
+            <p>Randomly shifts images horizontally by up to 20% of the image width. Helps the model learn that object
+              position within the frame doesn't affect classification.</p>
           </div>
 
           <div class="augmentation-card">
             <h4>height_shift_range = 0.2</h4>
-            <p>Randomly shifts images vertically by up to 20% of the image height. Similar to width shift, teaches position invariance.</p>
+            <p>Randomly shifts images vertically by up to 20% of the image height. Similar to width shift, teaches
+              position invariance.</p>
           </div>
 
           <div class="augmentation-card">
             <h4>shear_range = 0.2</h4>
-            <p>Applies a shear transformation (like tilting a rectangle into a parallelogram). Simulates perspective changes and helps with robustness to viewing angles.</p>
+            <p>Applies a shear transformation (like tilting a rectangle into a parallelogram). Simulates perspective
+              changes and helps with robustness to viewing angles.</p>
           </div>
 
           <div class="augmentation-card">
             <h4>zoom_range = 0.2</h4>
-            <p>Randomly zooms in or out by up to 20%. Teaches the model to recognize objects at different scales, which is crucial for real-world applications.</p>
+            <p>Randomly zooms in or out by up to 20%. Teaches the model to recognize objects at different scales, which
+              is crucial for real-world applications.</p>
           </div>
 
           <div class="augmentation-card">
             <h4>horizontal_flip = True</h4>
-            <p>Randomly flips images horizontally (mirror effect). This is particularly effective for animals since they're generally symmetric horizontally, effectively doubling the dataset.</p>
+            <p>Randomly flips images horizontally (mirror effect). This is particularly effective for animals since
+              they're generally symmetric horizontally, effectively doubling the dataset.</p>
           </div>
 
           <div class="augmentation-card">
             <h4>fill_mode = 'nearest'</h4>
-            <p>When transformations create empty spaces (e.g., after rotation), this fills them using the nearest pixel values. Other options include 'constant', 'reflect', and 'wrap'.</p>
+            <p>When transformations create empty spaces (e.g., after rotation), this fills them using the nearest pixel
+              values. Other options include 'constant', 'reflect', and 'wrap'.</p>
           </div>
         </div>
 
         <div class="augmentation-visualization">
           <h3>3.3 Visual Example: Data Augmentation in Action</h3>
-          <p>The following image shows how a single cat image is transformed into 5 different variations using the augmentation parameters:</p>
+          <p>The following image shows how a single cat image is transformed into 5 different variations using the
+            augmentation parameters:</p>
           <div class="augmentation-image">
-            <img src="{{ site.baseurl }}/images/cat5.png" alt="Data augmentation example showing 5 variations of a cat image" />
+            <img src="{{ site.baseurl }}/images/cat5.png"
+              alt="Data augmentation example showing 5 variations of a cat image" />
           </div>
-          <p class="image-caption">A single training image (left) transformed into 5 variations through random rotations, shifts, zooms, and flips. Each variation is treated as a new training example, effectively increasing the dataset size.</p>
+          <p class="image-caption">A single training image (left) transformed into 5 variations through random
+            rotations, shifts, zooms, and flips. Each variation is treated as a new training example, effectively
+            increasing the dataset size.</p>
         </div>
       </div>
     </div>
 
     <div class="model-section">
       <h2>4. CNN Architecture</h2>
-      <p class="section-description">The model uses a Convolutional Neural Network (CNN) architecture designed to automatically learn hierarchical features from images, progressing from simple edges to complex shapes and patterns.</p>
-      
+      <p class="section-description">The model uses a Convolutional Neural Network (CNN) architecture designed to
+        automatically learn hierarchical features from images, progressing from simple edges to complex shapes and
+        patterns.</p>
+
       <div class="model-explanation">
         <h3>4.1 Model Architecture</h3>
         <div class="code-example">
@@ -346,14 +375,18 @@ test_data_gen = test_image_generator.flow_from_directory(
         <div class="layer-explanation">
           <div class="layer-card">
             <h4>1. Conv2D(32, (3, 3)) - First Convolutional Layer</h4>
-            <p class="layer-formula"><strong>Convolution Operation:</strong> (I * K)[i,j] = Σ<sub>m</sub>Σ<sub>n</sub> I[i+m, j+n] × K[m, n]</p>
-            <p>This layer applies 32 different 3×3 filters (kernels) to the input image. Each filter learns to detect a specific feature:</p>
+            <p class="layer-formula"><strong>Convolution Operation:</strong> (I * K)[i,j] = Σ<sub>m</sub>Σ<sub>n</sub>
+              I[i+m, j+n] × K[m, n]</p>
+            <p>This layer applies 32 different 3×3 filters (kernels) to the input image. Each filter learns to detect a
+              specific feature:</p>
             <ul>
-              <li><strong>Mathematical Process:</strong> The filter slides across the image, computing dot products between filter weights and local image patches</li>
+              <li><strong>Mathematical Process:</strong> The filter slides across the image, computing dot products
+                between filter weights and local image patches</li>
               <li><strong>What it learns:</strong> Simple features like edges, corners, and basic textures</li>
               <li><strong>Why 32 filters:</strong> Allows detection of multiple feature types simultaneously</li>
               <li><strong>Why (3, 3):</strong> Small kernel size captures fine-grained local patterns</li>
-              <li><strong>ReLU activation:</strong> f(x) = max(0, x) introduces non-linearity, enabling the network to learn complex patterns</li>
+              <li><strong>ReLU activation:</strong> f(x) = max(0, x) introduces non-linearity, enabling the network to
+                learn complex patterns</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> 148×148×32 (reduced from 150×150 due to valid padding)</p>
           </div>
@@ -365,7 +398,8 @@ test_data_gen = test_image_generator.flow_from_directory(
             <ul>
               <li><strong>Purpose:</strong> Reduces computational complexity and parameters</li>
               <li><strong>Benefit:</strong> Makes the model more translation-invariant</li>
-              <li><strong>Why Max instead of Average:</strong> Preserves the strongest features, which are most informative</li>
+              <li><strong>Why Max instead of Average:</strong> Preserves the strongest features, which are most
+                informative</li>
               <li><strong>Mathematical effect:</strong> Halves both width and height: 148×148 → 74×74</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> 74×74×32 (spatial dimensions halved, depth unchanged)</p>
@@ -375,9 +409,11 @@ test_data_gen = test_image_generator.flow_from_directory(
             <h4>3. Conv2D(64, (3, 3)) - Second Convolutional Layer</h4>
             <p>Builds upon the first layer's features to detect more complex patterns:</p>
             <ul>
-              <li><strong>Why 64 filters:</strong> As we go deeper, we need more filters to capture increasing feature complexity</li>
+              <li><strong>Why 64 filters:</strong> As we go deeper, we need more filters to capture increasing feature
+                complexity</li>
               <li><strong>What it learns:</strong> Combinations of edges forming shapes, textures, and patterns</li>
-              <li><strong>Receptive field:</strong> Each neuron "sees" a larger area of the original image due to previous pooling</li>
+              <li><strong>Receptive field:</strong> Each neuron "sees" a larger area of the original image due to
+                previous pooling</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> 72×72×64</p>
           </div>
@@ -392,8 +428,10 @@ test_data_gen = test_image_generator.flow_from_directory(
             <h4>5. Conv2D(128, (3, 3)) - Third Convolutional Layer</h4>
             <p>Detects high-level semantic features:</p>
             <ul>
-              <li><strong>What it learns:</strong> Complex patterns like facial features, body parts, or distinctive markings</li>
-              <li><strong>Why 128 filters:</strong> More filters needed to capture the diversity of high-level features</li>
+              <li><strong>What it learns:</strong> Complex patterns like facial features, body parts, or distinctive
+                markings</li>
+              <li><strong>Why 128 filters:</strong> More filters needed to capture the diversity of high-level features
+              </li>
               <li><strong>Receptive field:</strong> Now covers a significant portion of the original image</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> 34×34×128</p>
@@ -407,7 +445,8 @@ test_data_gen = test_image_generator.flow_from_directory(
 
           <div class="layer-card">
             <h4>7. Flatten() - Reshaping Layer</h4>
-            <p class="layer-formula"><strong>Flattening:</strong> Converts 3D tensor (17, 17, 128) → 1D vector (36,992)</p>
+            <p class="layer-formula"><strong>Flattening:</strong> Converts 3D tensor (17, 17, 128) → 1D vector (36,992)
+            </p>
             <p>Transforms the 3D feature maps into a 1D vector to feed into fully connected layers:</p>
             <ul>
               <li><strong>Mathematical operation:</strong> Reshapes without changing values: 17 × 17 × 128 = 36,992</li>
@@ -425,7 +464,8 @@ test_data_gen = test_image_generator.flow_from_directory(
               <li><strong>Purpose:</strong> Combines all learned features for final classification</li>
               <li><strong>Why 512 neurons:</strong> Provides enough capacity to learn complex feature combinations</li>
               <li><strong>ReLU activation:</strong> Introduces non-linearity: f(x) = max(0, x)</li>
-              <li><strong>Mathematical complexity:</strong> Each of 512 neurons connects to all 36,992 inputs: 36,992 × 512 + 512 biases = 18,940,416 parameters</li>
+              <li><strong>Mathematical complexity:</strong> Each of 512 neurons connects to all 36,992 inputs: 36,992 ×
+                512 + 512 biases = 18,940,416 parameters</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> (512,) - Feature vector</p>
           </div>
@@ -435,9 +475,11 @@ test_data_gen = test_image_generator.flow_from_directory(
             <p class="layer-formula"><strong>Dropout:</strong> During training, randomly sets 50% of inputs to 0</p>
             <p>Prevents overfitting by randomly disabling neurons during training:</p>
             <ul>
-              <li><strong>How it works:</strong> Each neuron has a 50% chance of being set to 0 during each training step</li>
+              <li><strong>How it works:</strong> Each neuron has a 50% chance of being set to 0 during each training
+                step</li>
               <li><strong>Why 0.5:</strong> Common value that balances regularization strength</li>
-              <li><strong>Effect:</strong> Forces the network to learn redundant representations, improving generalization</li>
+              <li><strong>Effect:</strong> Forces the network to learn redundant representations, improving
+                generalization</li>
               <li><strong>During inference:</strong> All neurons are active, but outputs are scaled appropriately</li>
             </ul>
             <p class="output-note"><strong>Output:</strong> (512,) - Same shape, but with regularization effect</p>
@@ -462,19 +504,23 @@ test_data_gen = test_image_generator.flow_from_directory(
           <div class="insights-grid">
             <div class="insight-card">
               <h4>Progressive Feature Learning</h4>
-              <p>The architecture follows a hierarchical pattern: early layers detect simple features (edges), middle layers combine them (shapes), and later layers recognize complex patterns (faces, bodies).</p>
+              <p>The architecture follows a hierarchical pattern: early layers detect simple features (edges), middle
+                layers combine them (shapes), and later layers recognize complex patterns (faces, bodies).</p>
             </div>
             <div class="insight-card">
               <h4>Increasing Filter Depth</h4>
-              <p>Filters increase from 32 → 64 → 128 because deeper layers need more capacity to represent complex feature combinations.</p>
+              <p>Filters increase from 32 → 64 → 128 because deeper layers need more capacity to represent complex
+                feature combinations.</p>
             </div>
             <div class="insight-card">
               <h4>Pooling Strategy</h4>
-              <p>MaxPooling after each Conv2D layer reduces spatial dimensions while preserving the most important features, making the model computationally efficient.</p>
+              <p>MaxPooling after each Conv2D layer reduces spatial dimensions while preserving the most important
+                features, making the model computationally efficient.</p>
             </div>
             <div class="insight-card">
               <h4>Regularization</h4>
-              <p>Dropout prevents the large Dense layer (18.9M parameters) from overfitting to the relatively small training set.</p>
+              <p>Dropout prevents the large Dense layer (18.9M parameters) from overfitting to the relatively small
+                training set.</p>
             </div>
           </div>
         </div>
@@ -483,8 +529,9 @@ test_data_gen = test_image_generator.flow_from_directory(
 
     <div class="compilation-section">
       <h2>5. Model Compilation</h2>
-      <p class="section-description">The model is compiled with specific optimizer, loss function, and metrics chosen for binary classification.</p>
-      
+      <p class="section-description">The model is compiled with specific optimizer, loss function, and metrics chosen
+        for binary classification.</p>
+
       <div class="code-example">
         <h3>Compilation Code</h3>
         <pre><code>model.compile(
@@ -497,12 +544,15 @@ test_data_gen = test_image_generator.flow_from_directory(
       <div class="compilation-breakdown">
         <div class="compilation-card">
           <h4>Optimizer: Adam</h4>
-          <p><strong>Adam (Adaptive Moment Estimation)</strong> is an advanced optimization algorithm that combines the benefits of two other methods:</p>
+          <p><strong>Adam (Adaptive Moment Estimation)</strong> is an advanced optimization algorithm that combines the
+            benefits of two other methods:</p>
           <ul>
             <li><strong>Adaptive Learning Rates:</strong> Automatically adjusts learning rate for each parameter</li>
             <li><strong>Momentum:</strong> Uses moving averages of gradients for smoother updates</li>
-            <li><strong>Why Adam:</strong> Works well with default hyperparameters, converges faster than SGD, and handles sparse gradients effectively</li>
-            <li><strong>Mathematical advantage:</strong> Maintains per-parameter learning rates that are adapted based on average of recent gradient magnitudes</li>
+            <li><strong>Why Adam:</strong> Works well with default hyperparameters, converges faster than SGD, and
+              handles sparse gradients effectively</li>
+            <li><strong>Mathematical advantage:</strong> Maintains per-parameter learning rates that are adapted based
+              on average of recent gradient magnitudes</li>
           </ul>
         </div>
 
@@ -512,10 +562,13 @@ test_data_gen = test_image_generator.flow_from_directory(
           <p>Where y is the true label (0 or 1) and ŷ is the predicted probability.</p>
           <p>This is the standard loss function for binary classification:</p>
           <ul>
-            <li><strong>Why binary_crossentropy:</strong> Directly measures the difference between predicted probabilities and true labels</li>
+            <li><strong>Why binary_crossentropy:</strong> Directly measures the difference between predicted
+              probabilities and true labels</li>
             <li><strong>Mathematical property:</strong> Penalizes confident wrong predictions more heavily</li>
-            <li><strong>Works with sigmoid:</strong> Designed specifically for models with sigmoid output activation</li>
-            <li><strong>Gradient behavior:</strong> Provides strong gradients when predictions are wrong, weak gradients when correct</li>
+            <li><strong>Works with sigmoid:</strong> Designed specifically for models with sigmoid output activation
+            </li>
+            <li><strong>Gradient behavior:</strong> Provides strong gradients when predictions are wrong, weak gradients
+              when correct</li>
           </ul>
         </div>
 
@@ -527,7 +580,8 @@ test_data_gen = test_image_generator.flow_from_directory(
           <ul>
             <li><strong>Why accuracy:</strong> Simple, interpretable metric for balanced binary classification</li>
             <li><strong>Interpretation:</strong> 0.70 accuracy means 70% of predictions are correct</li>
-            <li><strong>Limitation:</strong> May not be ideal for imbalanced datasets, but works well here since classes are balanced</li>
+            <li><strong>Limitation:</strong> May not be ideal for imbalanced datasets, but works well here since classes
+              are balanced</li>
           </ul>
         </div>
       </div>
@@ -535,8 +589,9 @@ test_data_gen = test_image_generator.flow_from_directory(
 
     <div class="training-section">
       <h2>6. Model Training</h2>
-      <p class="section-description">The model is trained using the fit method with specified epochs, batch size, and validation monitoring.</p>
-      
+      <p class="section-description">The model is trained using the fit method with specified epochs, batch size, and
+        validation monitoring.</p>
+
       <div class="code-example">
         <h3>Training Code</h3>
         <pre><code>history = model.fit(
@@ -553,19 +608,23 @@ test_data_gen = test_image_generator.flow_from_directory(
         <div class="parameter-grid">
           <div class="parameter-card">
             <h4>steps_per_epoch = 100</h4>
-            <p>Number of batches processed per epoch. With batch_size=128, this means 100 × 128 = 12,800 images per epoch (more than the 2,001 training images due to data augmentation).</p>
+            <p>Number of batches processed per epoch. With batch_size=128, this means 100 × 128 = 12,800 images per
+              epoch (more than the 2,001 training images due to data augmentation).</p>
           </div>
           <div class="parameter-card">
             <h4>epochs = 10</h4>
-            <p>Number of complete passes through the training dataset. The model sees all training data (with augmentation) 10 times.</p>
+            <p>Number of complete passes through the training dataset. The model sees all training data (with
+              augmentation) 10 times.</p>
           </div>
           <div class="parameter-card">
             <h4>validation_data = val_data_gen</h4>
-            <p>Validation set used to monitor training progress and detect overfitting. Not used for training, only evaluation.</p>
+            <p>Validation set used to monitor training progress and detect overfitting. Not used for training, only
+              evaluation.</p>
           </div>
           <div class="parameter-card">
             <h4>validation_steps = 50</h4>
-            <p>Number of validation batches to evaluate per epoch. With batch_size=128, evaluates 50 × 128 = 6,400 validation images per epoch.</p>
+            <p>Number of validation batches to evaluate per epoch. With batch_size=128, evaluates 50 × 128 = 6,400
+              validation images per epoch.</p>
           </div>
         </div>
       </div>
@@ -575,20 +634,23 @@ test_data_gen = test_image_generator.flow_from_directory(
         <p>The following graphs show the model's performance during training:</p>
         <div class="training-graphs">
           <div class="graph-container">
-            <img src="{{ site.baseurl }}/projects/CatsAndDogs/accuracyandloss.png" alt="Training accuracy and loss curves" />
+            <img src="{{ site.baseurl }}/projects/CatsAndDogs/accuracyandloss.png"
+              alt="Training accuracy and loss curves" />
           </div>
         </div>
-        
+
         <div class="graph-interpretation">
           <h4>Interpreting the Training Curves</h4>
           <div class="interpretation-grid">
             <div class="interpretation-card">
               <h5>Training Accuracy (Blue Line)</h5>
-              <p>Shows how well the model performs on training data. Ideally, this should increase steadily and converge to a high value.</p>
+              <p>Shows how well the model performs on training data. Ideally, this should increase steadily and converge
+                to a high value.</p>
             </div>
             <div class="interpretation-card">
               <h5>Validation Accuracy (Orange Line)</h5>
-              <p>Shows how well the model generalizes to unseen validation data. Should follow training accuracy closely. Large gap indicates overfitting.</p>
+              <p>Shows how well the model generalizes to unseen validation data. Should follow training accuracy
+                closely. Large gap indicates overfitting.</p>
             </div>
             <div class="interpretation-card">
               <h5>Training Loss (Blue Line)</h5>
@@ -596,18 +658,22 @@ test_data_gen = test_image_generator.flow_from_directory(
             </div>
             <div class="interpretation-card">
               <h5>Validation Loss (Orange Line)</h5>
-              <p>Measures error on validation data. Should decrease with training loss. If it starts increasing while training loss decreases, the model is overfitting.</p>
+              <p>Measures error on validation data. Should decrease with training loss. If it starts increasing while
+                training loss decreases, the model is overfitting.</p>
             </div>
           </div>
-          <p class="graph-note"><strong>Key Observation:</strong> The close alignment between training and validation curves indicates good generalization with minimal overfitting, thanks to data augmentation and dropout regularization.</p>
+          <p class="graph-note"><strong>Key Observation:</strong> The close alignment between training and validation
+            curves indicates good generalization with minimal overfitting, thanks to data augmentation and dropout
+            regularization.</p>
         </div>
       </div>
     </div>
 
     <div class="prediction-section">
       <h2>7. Predictions and Results</h2>
-      <p class="section-description">After training, the model makes predictions on the test set and outputs probabilities for each image.</p>
-      
+      <p class="section-description">After training, the model makes predictions on the test set and outputs
+        probabilities for each image.</p>
+
       <div class="preprocessing-step">
         <h3>7.1 Making Predictions</h3>
         <div class="code-example">
@@ -621,7 +687,8 @@ probabilities = [p[0] for p in predictions]
 
         <div class="prediction-explanation">
           <h4>Understanding the Predictions</h4>
-          <p>The <code>model.predict()</code> method returns an array of probabilities, where each value represents the model's confidence that an image is a dog:</p>
+          <p>The <code>model.predict()</code> method returns an array of probabilities, where each value represents the
+            model's confidence that an image is a dog:</p>
           <ul>
             <li><strong>Values close to 0:</strong> High confidence the image is a <strong>cat</strong></li>
             <li><strong>Values close to 1:</strong> High confidence the image is a <strong>dog</strong></li>
@@ -629,20 +696,28 @@ probabilities = [p[0] for p in predictions]
           </ul>
           <p>For example:</p>
           <ul>
-            <li><code>predictions[0] = 0.15</code> → 15% dog probability → Model predicts <strong>Cat</strong> (85% confidence)</li>
-            <li><code>predictions[1] = 0.87</code> → 87% dog probability → Model predicts <strong>Dog</strong> (87% confidence)</li>
-            <li><code>predictions[2] = 0.52</code> → 52% dog probability → Model predicts <strong>Dog</strong> but with low confidence (52%)</li>
+            <li><code>predictions[0] = 0.15</code> → 15% dog probability → Model predicts <strong>Cat</strong> (85%
+              confidence)</li>
+            <li><code>predictions[1] = 0.87</code> → 87% dog probability → Model predicts <strong>Dog</strong> (87%
+              confidence)</li>
+            <li><code>predictions[2] = 0.52</code> → 52% dog probability → Model predicts <strong>Dog</strong> but with
+              low confidence (52%)</li>
           </ul>
         </div>
       </div>
 
       <div class="results-visualization">
         <h3>7.2 Visual Results</h3>
-        <p>The model's predictions were visualized by displaying test images with their predicted class and confidence percentage:</p>
+        <p>The model's predictions were visualized by displaying test images with their predicted class and confidence
+          percentage:</p>
         <div class="results-image-container">
-          <img src="{{ site.baseurl }}/projects/CatsAndDogs/resultados.png" alt="Grid of 50 test images with predictions showing confidence percentages" />
+          <img src="{{ site.baseurl }}/projects/CatsAndDogs/resultados.png"
+            alt="Grid of 50 test images with predictions showing confidence percentages" />
         </div>
-        <p class="results-caption">Grid visualization of 50 test images with predictions. Each image shows the predicted class (Cat/Dog) and the confidence percentage. Higher percentages indicate more confident predictions. The model successfully classifies most images correctly, with confidence levels typically above 70% for clear images.</p>
+        <p class="results-caption">Grid visualization of 50 test images with predictions. Each image shows the predicted
+          class (Cat/Dog) and the confidence percentage. Higher percentages indicate more confident predictions. The
+          model successfully classifies most images correctly, with confidence levels typically above 70% for clear
+          images.</p>
       </div>
 
       <div class="results-summary">
@@ -650,7 +725,8 @@ probabilities = [p[0] for p in predictions]
         <div class="summary-grid">
           <div class="summary-card">
             <h4>Model Performance</h4>
-            <p>The CNN achieved <strong>above 70% accuracy</strong> on the test set, exceeding the 63% requirement. The model demonstrates:</p>
+            <p>The CNN achieved <strong>above 70% accuracy</strong> on the test set, exceeding the 63% requirement. The
+              model demonstrates:</p>
             <ul>
               <li>Effective feature learning from raw pixel data</li>
               <li>Good generalization to unseen images</li>
@@ -676,17 +752,20 @@ probabilities = [p[0] for p in predictions]
         <div class="concept-card-small">
           <i class="fas fa-brain"></i>
           <h3>Convolutional Neural Networks</h3>
-          <p>Deep learning architecture designed for image processing, automatically learning hierarchical features through convolutional and pooling layers.</p>
+          <p>Deep learning architecture designed for image processing, automatically learning hierarchical features
+            through convolutional and pooling layers.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-images"></i>
           <h3>Data Augmentation</h3>
-          <p>Technique to artificially increase dataset size by applying random transformations, improving model generalization and reducing overfitting.</p>
+          <p>Technique to artificially increase dataset size by applying random transformations, improving model
+            generalization and reducing overfitting.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-shield-alt"></i>
           <h3>Regularization</h3>
-          <p>Techniques like dropout prevent overfitting by randomly disabling neurons during training, forcing the model to learn robust features.</p>
+          <p>Techniques like dropout prevent overfitting by randomly disabling neurons during training, forcing the
+            model to learn robust features.</p>
         </div>
       </div>
     </div>
@@ -766,7 +845,7 @@ probabilities = [p[0] for p in predictions]
 
   .augmentation-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .augmentation-card h4 {
@@ -789,7 +868,7 @@ probabilities = [p[0] for p in predictions]
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .image-caption {
@@ -809,7 +888,7 @@ probabilities = [p[0] for p in predictions]
     border-radius: 6px;
     padding: 1.5rem;
     margin: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .layer-card h4 {
@@ -871,7 +950,7 @@ probabilities = [p[0] for p in predictions]
     border-radius: 6px;
     padding: 1.5rem;
     margin: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .compilation-card h4 {
@@ -882,7 +961,8 @@ probabilities = [p[0] for p in predictions]
     padding-bottom: 0.5rem;
   }
 
-  .loss-formula, .metric-formula {
+  .loss-formula,
+  .metric-formula {
     font-family: 'Courier New', monospace;
     background: #f8f9fa;
     padding: 0.8rem;
@@ -927,7 +1007,7 @@ probabilities = [p[0] for p in predictions]
     max-width: 30%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   /* Dataset cards in a row */
@@ -948,7 +1028,7 @@ probabilities = [p[0] for p in predictions]
 
   .dataset-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .dataset-card h3 {
@@ -978,7 +1058,7 @@ probabilities = [p[0] for p in predictions]
     .datasets-info {
       grid-template-columns: 1fr;
     }
-    
+
     .graph-container img {
       max-width: 100%;
     }
@@ -1032,7 +1112,7 @@ probabilities = [p[0] for p in predictions]
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .results-caption {
@@ -1087,7 +1167,7 @@ probabilities = [p[0] for p in predictions]
 
   .concept-card-small:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     border-color: #007bff;
   }
 
@@ -1117,6 +1197,7 @@ probabilities = [p[0] for p in predictions]
   }
 
   @media (max-width: 768px) {
+
     .augmentation-breakdown,
     .insights-grid,
     .parameter-grid,
@@ -1124,7 +1205,7 @@ probabilities = [p[0] for p in predictions]
     .summary-grid {
       grid-template-columns: 1fr;
     }
-    
+
     .concepts-grid-four {
       grid-template-columns: 1fr;
     }

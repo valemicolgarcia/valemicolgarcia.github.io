@@ -5,7 +5,7 @@ title: Research Laboratory Project
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Physiological Signal Analysis Research</h1>
     <p class="project-detail-subtitle">Machine Learning Engineer / Research Data Scientist</p>
     <div class="project-tags">
@@ -25,15 +25,21 @@ title: Research Laboratory Project
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>As a <strong>Research Fellow</strong> at the LEICI Institute (Faculty of Engineering, UNLP) in collaboration with the Italian Hospital of Buenos Aires (HIBA), I developed a computational framework for analyzing physiological signals during exercise and stress episodes in individuals with Type 1 Diabetes.</p>
-      <p>The project involved processing multimodal physiological data from wearable sensors and continuous glucose monitors (CGM) to detect and classify physiological states, requiring scalable software architecture, robust signal processing pipelines, and machine learning models optimized for ambulatory monitoring.</p>
-      <p><strong>Role:</strong> Research Fellow (2025) | <strong>Focus:</strong> Machine Learning Engineering & Signal Processing</p>
+      <p>As a <strong>Research Fellow</strong> at the LEICI Institute (Faculty of Engineering, UNLP) in collaboration
+        with the Italian Hospital of Buenos Aires (HIBA), I developed a computational framework for analyzing
+        physiological signals during exercise and stress episodes in individuals with Type 1 Diabetes.</p>
+      <p>The project involved processing multimodal physiological data from wearable sensors and continuous glucose
+        monitors (CGM) to detect and classify physiological states, requiring scalable software architecture, robust
+        signal processing pipelines, and machine learning models optimized for ambulatory monitoring.</p>
+      <p><strong>Role:</strong> Research Fellow (2025) | <strong>Focus:</strong> Machine Learning Engineering & Signal
+        Processing</p>
     </div>
 
     <div class="institution-section">
       <h2>1. Research Context</h2>
-      <p class="section-description">This project is part of an ongoing research collaboration between academic and medical institutions, focusing on computational analysis of physiological responses in clinical populations.</p>
-      
+      <p class="section-description">This project is part of an ongoing research collaboration between academic and
+        medical institutions, focusing on computational analysis of physiological responses in clinical populations.</p>
+
       <div class="institution-cards">
         <div class="institution-card">
           <h3>LEICI Institute</h3>
@@ -53,27 +59,33 @@ title: Research Laboratory Project
 
     <div class="architecture-section">
       <h2>2. Software Architecture & Framework Design</h2>
-      <p class="section-description">Developed a Python-based framework using Object-Oriented Programming (OOP) principles to manage complex multimodal physiological datasets.</p>
-      
+      <p class="section-description">Developed a Python-based framework using Object-Oriented Programming (OOP)
+        principles to manage complex multimodal physiological datasets.</p>
+
       <div class="preprocessing-step">
         <h3>2.1 Object-Oriented Data Modeling</h3>
-        <p>Implemented custom data abstractions using Python classes to manage hierarchical physiological data structures. Key classes include:</p>
+        <p>Implemented custom data abstractions using Python classes to manage hierarchical physiological data
+          structures. Key classes include:</p>
         <ul>
-          <li><strong><code>Sujeto</code> (Subject):</strong> Aggregates all physiological data for a single participant, including multimodal signals and metadata</li>
-          <li><strong><code>Dia</code> (Day):</strong> Manages temporal organization and synchronization of signals within a day</li>
-          <li><strong>Additional classes:</strong> Supporting classes for signal processing, feature extraction, and data management</li>
+          <li><strong><code>Sujeto</code> (Subject):</strong> Aggregates all physiological data for a single
+            participant, including multimodal signals and metadata</li>
+          <li><strong><code>Dia</code> (Day):</strong> Manages temporal organization and synchronization of signals
+            within a day</li>
+          <li><strong>Additional classes:</strong> Supporting classes for signal processing, feature extraction, and
+            data management</li>
         </ul>
       </div>
     </div>
 
     <div class="data-engineering-section">
       <h2>3. Data Engineering & Signal Processing Pipeline</h2>
-      <p class="section-description">Implemented an ETL pipeline to process raw sensor data into machine-learning-ready features.</p>
-      
+      <p class="section-description">Implemented an ETL pipeline to process raw sensor data into machine-learning-ready
+        features.</p>
+
       <div class="preprocessing-step">
         <h3>3.1 Data Sources</h3>
         <p>The system processes data from multiple sensor types:</p>
-        
+
         <div class="sensor-grid">
           <div class="sensor-card">
             <h4>Empatica E4</h4>
@@ -116,14 +128,16 @@ title: Research Laboratory Project
           <li><strong>EDA:</strong> Separated phasic and tonic components</li>
           <li><strong>ACC:</strong> Bandpass filtering to isolate relevant frequency bands</li>
         </ul>
-        <p>Extracted features including statistical measures, frequency-domain (FFT-based), time-domain (peaks, slopes), and cross-signal correlations from windowed signal segments.</p>
+        <p>Extracted features including statistical measures, frequency-domain (FFT-based), time-domain (peaks, slopes),
+          and cross-signal correlations from windowed signal segments.</p>
       </div>
     </div>
 
     <div class="ml-section">
       <h2>4. Machine Learning Implementation</h2>
-      <p class="section-description">Developed classification models to detect physiological states from multimodal sensor data.</p>
-      
+      <p class="section-description">Developed classification models to detect physiological states from multimodal
+        sensor data.</p>
+
       <div class="preprocessing-step">
         <h3>4.1 Classification Model</h3>
         <div class="model-type">
@@ -154,7 +168,8 @@ title: Research Laboratory Project
         <ul>
           <li><strong>Data Quality:</strong> Validation checks for sensor malfunctions, missing data, and outliers</li>
           <li><strong>Class Imbalance:</strong> Stratified sampling and class weighting in model training</li>
-          <li><strong>Labeling:</strong> Multi-signal analysis and temporal pattern recognition for free-living data</li>
+          <li><strong>Labeling:</strong> Multi-signal analysis and temporal pattern recognition for free-living data
+          </li>
         </ul>
       </div>
 
@@ -163,7 +178,7 @@ title: Research Laboratory Project
     <div class="pipeline-section">
       <h2>5. End-to-End Data Pipeline</h2>
       <p class="section-description">Complete pipeline from raw sensor data to model deployment:</p>
-      
+
       <div class="pipeline-steps">
         <div class="pipeline-step">
           <div class="step-number">1</div>
@@ -209,7 +224,8 @@ title: Research Laboratory Project
           <div class="step-number">6</div>
           <div class="step-content">
             <h3>Research Insights & Results</h3>
-            <p>Obtain valuable insights and research findings from the processed physiological data and model predictions.</p>
+            <p>Obtain valuable insights and research findings from the processed physiological data and model
+              predictions.</p>
           </div>
         </div>
       </div>
@@ -218,7 +234,7 @@ title: Research Laboratory Project
     <div class="impact-section">
       <h2>6. Engineering Impact</h2>
       <p class="section-description">Key technical contributions:</p>
-      
+
       <div class="impact-grid">
         <div class="impact-card">
           <h4>Scalable Architecture</h4>
@@ -244,7 +260,10 @@ title: Research Laboratory Project
 
     <div class="research-note">
       <h3>Research Note</h3>
-      <p><strong>Confidentiality:</strong> This is an ongoing research project in collaboration with medical institutions. Specific model performance metrics, clinical findings, and detailed methodologies are subject to academic confidentiality pending publication. The focus here is on the engineering and technical implementation aspects of the work.</p>
+      <p><strong>Confidentiality:</strong> This is an ongoing research project in collaboration with medical
+        institutions. Specific model performance metrics, clinical findings, and detailed methodologies are subject to
+        academic confidentiality pending publication. The focus here is on the engineering and technical implementation
+        aspects of the work.</p>
     </div>
 
     <div class="concepts-section">
@@ -263,7 +282,8 @@ title: Research Laboratory Project
         <div class="concept-card-small">
           <i class="fas fa-project-diagram"></i>
           <h3>Data Engineering</h3>
-          <p>ETL pipelines for handling heterogeneous, real-world sensor data with robust synchronization and preprocessing.</p>
+          <p>ETL pipelines for handling heterogeneous, real-world sensor data with robust synchronization and
+            preprocessing.</p>
         </div>
       </div>
     </div>
@@ -314,12 +334,12 @@ title: Research Laboratory Project
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .institution-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     border-color: #4a90e2;
   }
 
@@ -450,12 +470,12 @@ title: Research Laboratory Project
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .sensor-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     border-color: #4a90e2;
   }
 
@@ -492,7 +512,8 @@ title: Research Laboratory Project
     margin: 2rem 0;
   }
 
-  .sync-challenge, .sync-solution {
+  .sync-challenge,
+  .sync-solution {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -534,7 +555,7 @@ title: Research Laboratory Project
     border-radius: 6px;
     padding: 1.5rem;
     margin: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .dsp-card h4 {
@@ -646,7 +667,7 @@ title: Research Laboratory Project
     background: #fff;
     border-left: 4px solid #4a90e2;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
   }
 
@@ -745,7 +766,7 @@ title: Research Laboratory Project
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .impact-card:hover {
@@ -810,7 +831,7 @@ title: Research Laboratory Project
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .concept-card-small:hover {
@@ -851,6 +872,7 @@ title: Research Laboratory Project
   }
 
   @media (max-width: 900px) {
+
     .institution-cards,
     .sensor-grid,
     .synchronization-explanation,
@@ -859,7 +881,7 @@ title: Research Laboratory Project
     .benefits-grid {
       grid-template-columns: 1fr;
     }
-    
+
     .concepts-grid-three {
       grid-template-columns: repeat(2, 1fr);
     }

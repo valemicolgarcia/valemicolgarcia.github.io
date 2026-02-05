@@ -5,7 +5,7 @@ title: Book Recommendation System
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Book Recommendation System</h1>
     <p class="project-detail-subtitle">K-Nearest Neighbors and Collaborative Filtering</p>
     <div class="project-tags">
@@ -16,7 +16,8 @@ title: Book Recommendation System
       <span class="tag">Pandas</span>
     </div>
     <div class="github-link">
-      <a href="https://github.com/valemicolgarcia/TensorFlow/tree/main/Book%20Recomendation" target="_blank" class="github-btn">
+      <a href="https://github.com/valemicolgarcia/TensorFlow/tree/main/Book%20Recomendation" target="_blank"
+        class="github-btn">
         <i class="fab fa-github"></i> Ver código en GitHub
       </a>
     </div>
@@ -25,15 +26,20 @@ title: Book Recommendation System
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>This project implements a book recommendation system that, given a specific book, suggests 5 similar books based on user rating patterns. The system uses the Book-Crossings dataset, which contains over 1.1 million ratings (scale 1-10) of 270,000 books by 90,000 users.</p>
-      <p>The objective is to develop a recommendation system using the <strong>NearestNeighbors</strong> algorithm from scikit-learn, which measures distance to determine the "closeness" between instances. The system works through collaborative filtering, analyzing how users have rated different books to find similarity patterns.</p>
+      <p>This project implements a book recommendation system that, given a specific book, suggests 5 similar books
+        based on user rating patterns. The system uses the Book-Crossings dataset, which contains over 1.1 million
+        ratings (scale 1-10) of 270,000 books by 90,000 users.</p>
+      <p>The objective is to develop a recommendation system using the <strong>NearestNeighbors</strong> algorithm from
+        scikit-learn, which measures distance to determine the "closeness" between instances. The system works through
+        collaborative filtering, analyzing how users have rated different books to find similarity patterns.</p>
       <p><strong>Model used:</strong> NearestNeighbors with cosine similarity</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset Information</h2>
-      <p class="section-description">Two CSV datasets were imported from the Book-Crossings dataset, containing information about books and user ratings.</p>
-      
+      <p class="section-description">Two CSV datasets were imported from the Book-Crossings dataset, containing
+        information about books and user ratings.</p>
+
       <div class="datasets-info">
         <div class="dataset-card">
           <h3>Dataset 1: BX-Books.csv</h3>
@@ -122,8 +128,9 @@ title: Book Recommendation System
 
     <div class="data-wrangling-section">
       <h2>2. Data Wrangling - Dataset Union</h2>
-      <p class="section-description">Both datasets were imported and merged to obtain a complete view of books and their ratings. The books dataset was joined with the ratings dataset using ISBN as the key.</p>
-      
+      <p class="section-description">Both datasets were imported and merged to obtain a complete view of books and their
+        ratings. The books dataset was joined with the ratings dataset using ISBN as the key.</p>
+
       <div class="code-example">
         <h3>Dataset Import</h3>
         <pre><code>df_books = pd.read_csv(
@@ -148,7 +155,7 @@ df_ratings = pd.read_csv(
 
     <div class="preprocessing-section">
       <h2>3. Data Processing</h2>
-      
+
       <div class="preprocessing-step">
         <h3>3.1 Missing Value Treatment</h3>
         <p>Null values were identified and removed from the books dataset to ensure data quality.</p>
@@ -161,21 +168,23 @@ df_books.dropna(inplace=True)</code></pre>
       <div class="preprocessing-step">
         <h3>3.2 Data Filtering</h3>
         <p>To improve recommendation quality and reduce noise in the data, two filters were applied:</p>
-        
+
         <div class="filtering-strategies">
           <div class="strategy-card">
             <h4>User Filter</h4>
-            <p>Only users with <strong>200 or more ratings</strong> were kept. This ensures recommendations are based on users with sufficient rating history.</p>
+            <p>Only users with <strong>200 or more ratings</strong> were kept. This ensures recommendations are based on
+              users with sufficient rating history.</p>
             <div class="code-example">
               <pre><code>user_counts = df_ratings['user'].value_counts()
 users_to_keep = user_counts[user_counts >= 200].index
 df_filtered_users = df_ratings[df_ratings['user'].isin(users_to_keep)]</code></pre>
             </div>
           </div>
-          
+
           <div class="strategy-card">
             <h4>Book Filter</h4>
-            <p>Only books with <strong>100 or more ratings</strong> were kept. This guarantees that recommended books have sufficient information to calculate reliable similarities.</p>
+            <p>Only books with <strong>100 or more ratings</strong> were kept. This guarantees that recommended books
+              have sufficient information to calculate reliable similarities.</p>
             <div class="code-example">
               <pre><code>books_counts = df_ratings['isbn'].value_counts()
 books_to_keep = books_counts[books_counts >= 100].index
@@ -187,7 +196,8 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
 
       <div class="preprocessing-step">
         <h3>3.3 Rating Matrix Construction</h3>
-        <p>A pivot matrix was created where rows represent books (indexed by ISBN) and columns represent users. Values are ratings (0 if the user didn't rate the book).</p>
+        <p>A pivot matrix was created where rows represent books (indexed by ISBN) and columns represent users. Values
+          are ratings (0 if the user didn't rate the book).</p>
         <div class="code-example">
           <pre><code>df = df_filtered.pivot_table(
     index=['user'],
@@ -195,7 +205,8 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
     values='rating'
 ).fillna(0).T</code></pre>
         </div>
-        <p class="note">The matrix is transposed (`.T`) so that books are rows and users are columns, making it easier to calculate similarities between books.</p>
+        <p class="note">The matrix is transposed (`.T`) so that books are rows and users are columns, making it easier
+          to calculate similarities between books.</p>
       </div>
 
       <div class="preprocessing-step">
@@ -204,18 +215,23 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
         <div class="code-example">
           <pre><code>df.index = df.join(df_books.set_index('isbn'))['title']</code></pre>
         </div>
-        <p class="note">This allows the recommendation function to work directly with book titles instead of ISBN codes.</p>
+        <p class="note">This allows the recommendation function to work directly with book titles instead of ISBN codes.
+        </p>
       </div>
     </div>
 
     <div class="model-section">
       <h2>4. Model Training - NearestNeighbors</h2>
-      <p class="section-description">A NearestNeighbors model was trained using cosine distance metric, which is ideal for high-dimensional and sparse data like rating matrices. This section explains the mathematical foundations of the algorithm.</p>
-      
+      <p class="section-description">A NearestNeighbors model was trained using cosine distance metric, which is ideal
+        for high-dimensional and sparse data like rating matrices. This section explains the mathematical foundations of
+        the algorithm.</p>
+
       <div class="model-explanation">
         <h3>4.1 Understanding the Vector Space Model</h3>
-        <p>In this recommendation system, each book is represented as a <strong>vector in a high-dimensional space</strong>. Each dimension corresponds to a user, and the value in that dimension is the rating that user gave to the book (0 if they didn't rate it).</p>
-        
+        <p>In this recommendation system, each book is represented as a <strong>vector in a high-dimensional
+            space</strong>. Each dimension corresponds to a user, and the value in that dimension is the rating that
+          user gave to the book (0 if they didn't rate it).</p>
+
         <div class="vector-representation">
           <h4>Book Vector Representation</h4>
           <p>For example, if we have 3 users and Book A received ratings [5, 0, 8], this means:</p>
@@ -224,32 +240,38 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
             <li>User 2 didn't rate Book A (value is <strong>0</strong>)</li>
             <li>User 3 rated Book A as <strong>8</strong></li>
           </ul>
-          <p>In our actual dataset, each book vector has <strong>thousands of dimensions</strong> (one per user), making it a high-dimensional space where most values are 0 (sparse data).</p>
+          <p>In our actual dataset, each book vector has <strong>thousands of dimensions</strong> (one per user), making
+            it a high-dimensional space where most values are 0 (sparse data).</p>
         </div>
 
         <h3>4.2 Why Cosine Similarity? The Mathematical Insight</h3>
-        <p>After analyzing different distance metrics, <strong>cosine similarity</strong> was chosen over Euclidean distance.</p>
-        
+        <p>After analyzing different distance metrics, <strong>cosine similarity</strong> was chosen over Euclidean
+          distance.</p>
+
         <div class="comparison-box">
           <h4>Cosine Distance vs Euclidean Distance</h4>
-          
+
           <div class="metric-comparison">
             <div class="metric-card">
               <h5>Euclidean Distance</h5>
               <div class="formula-enhanced">d = √[(x₁-y₁)² + (x₂-y₂)² + ... + (xₙ-yₙ)²]</div>
-              <p class="metric-problem"><strong>Problem:</strong> Measures absolute differences. If User A rates books as [8, 9, 8] and User B rates the same books as [3, 4, 3], Euclidean distance would show them as very different, even though their <em>preference patterns</em> are identical!</p>
+              <p class="metric-problem"><strong>Problem:</strong> Measures absolute differences. If User A rates books
+                as [8, 9, 8] and User B rates the same books as [3, 4, 3], Euclidean distance would show them as very
+                different, even though their <em>preference patterns</em> are identical!</p>
             </div>
-            
+
             <div class="metric-card metric-card-highlight">
               <h5>Cosine Similarity ✓</h5>
               <div class="formula-enhanced">cos(θ) = (A · B) / (||A|| × ||B||)</div>
-              <p class="metric-solution"><strong>Solution:</strong> Measures the <em>angle</em> between vectors, not their magnitude. This captures similarity in preference patterns regardless of rating scale differences between users.</p>
+              <p class="metric-solution"><strong>Solution:</strong> Measures the <em>angle</em> between vectors, not
+                their magnitude. This captures similarity in preference patterns regardless of rating scale differences
+                between users.</p>
             </div>
           </div>
         </div>
 
         <h3>4.3 Deep Dive into the Cosine Similarity Formula</h3>
-        
+
         <div class="formula-breakdown">
           <div class="formula-box">
             <h4>The Complete Formula</h4>
@@ -267,11 +289,13 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
 
           <div class="formula-components">
             <h4>Breaking Down Each Component</h4>
-            
+
             <div class="component-card">
               <h5>1. Dot Product (A · B)</h5>
               <p class="formula">A · B = Σ(aᵢ × bᵢ)</p>
-              <p>This measures how much the two books' ratings <strong>align</strong>. Higher values mean more users rated both books similarly. For sparse data (many zeros), this naturally focuses on users who rated <em>both</em> books.</p>
+              <p>This measures how much the two books' ratings <strong>align</strong>. Higher values mean more users
+                rated both books similarly. For sparse data (many zeros), this naturally focuses on users who rated
+                <em>both</em> books.</p>
               <div class="example-box">
                 <p><strong>Example:</strong></p>
                 <p>Book A: [5, 0, 8, 0, 3]</p>
@@ -284,7 +308,8 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
             <div class="component-card">
               <h5>2. Vector Magnitude (||A||)</h5>
               <p class="formula">||A|| = √(Σaᵢ²) = √(a₁² + a₂² + ... + aₙ²)</p>
-              <p>This is the <strong>length</strong> of the vector, representing the "total rating strength" of the book. It accounts for how many ratings the book received and their values.</p>
+              <p>This is the <strong>length</strong> of the vector, representing the "total rating strength" of the
+                book. It accounts for how many ratings the book received and their values.</p>
               <div class="example-box">
                 <p><strong>Example:</strong></p>
                 <p>Book A: [5, 0, 8, 0, 3]</p>
@@ -295,7 +320,8 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
             <div class="component-card">
               <h5>3. The Division: Normalization</h5>
               <p class="formula">cos(θ) = (A · B) / (||A|| × ||B||)</p>
-              <p>Dividing by the product of magnitudes <strong>normalizes</strong> the similarity. This is crucial because:</p>
+              <p>Dividing by the product of magnitudes <strong>normalizes</strong> the similarity. This is crucial
+                because:</p>
               <ul>
                 <li>It removes the effect of different numbers of ratings (a book with 1000 ratings vs 10 ratings)</li>
                 <li>It removes the effect of different rating scales (a generous user vs a harsh user)</li>
@@ -306,18 +332,22 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
         </div>
 
         <h3>4.4 Geometric Intuition: Why Angle Matters</h3>
-        <p>The cosine similarity literally measures the <strong>angle between two vectors</strong> in the high-dimensional space. This geometric interpretation reveals why it's perfect for recommendation systems:</p>
-        
+        <p>The cosine similarity literally measures the <strong>angle between two vectors</strong> in the
+          high-dimensional space. This geometric interpretation reveals why it's perfect for recommendation systems:</p>
+
         <div class="geometric-explanation">
           <div class="geometric-concept">
             <h4>Visual Understanding</h4>
             <ul>
-              <li><strong>θ ≈ 0°</strong> (cos ≈ 1): Vectors point in the same direction → Books have identical rating patterns → <em>Highly similar</em></li>
-              <li><strong>θ ≈ 90°</strong> (cos ≈ 0): Vectors are perpendicular → No correlation in ratings → <em>Unrelated</em></li>
-              <li><strong>θ ≈ 180°</strong> (cos ≈ -1): Vectors point in opposite directions → Users who like one dislike the other → <em>Opposite preferences</em></li>
+              <li><strong>θ ≈ 0°</strong> (cos ≈ 1): Vectors point in the same direction → Books have identical rating
+                patterns → <em>Highly similar</em></li>
+              <li><strong>θ ≈ 90°</strong> (cos ≈ 0): Vectors are perpendicular → No correlation in ratings →
+                <em>Unrelated</em></li>
+              <li><strong>θ ≈ 180°</strong> (cos ≈ -1): Vectors point in opposite directions → Users who like one
+                dislike the other → <em>Opposite preferences</em></li>
             </ul>
           </div>
-          
+
           <div class="practical-example">
             <h4>Real-World Example</h4>
             <p>Consider two books:</p>
@@ -326,7 +356,9 @@ df_filtered = df_filtered_users[df_filtered_users['isbn'].isin(books_to_keep)]</
               <li><strong>Book Y:</strong> Rated by users as [3, 4, 3, 0, 0]</li>
             </ul>
             <p><strong>Euclidean distance</strong> would show them as very different (large numerical differences).</p>
-            <p><strong>Cosine similarity</strong> recognizes they have the <em>same pattern</em>: users 1, 2, and 3 prefer both books similarly, and users 4 and 5 haven't rated either. The angle between these vectors is small, indicating high similarity!</p>
+            <p><strong>Cosine similarity</strong> recognizes they have the <em>same pattern</em>: users 1, 2, and 3
+              prefer both books similarly, and users 4 and 5 haven't rated either. The angle between these vectors is
+              small, indicating high similarity!</p>
           </div>
         </div>
 
@@ -341,15 +373,18 @@ model = NearestNeighbors(metric='cosine')
 # Fit the model to the rating matrix
 # Each row in df.values is a book vector
 model.fit(df.values)</code></pre>
-          <p class="code-explanation">The model learns the geometric structure of the book vectors in the high-dimensional space. When we query for similar books, it finds those with the smallest angles (highest cosine similarity) to the query book.</p>
+          <p class="code-explanation">The model learns the geometric structure of the book vectors in the
+            high-dimensional space. When we query for similar books, it finds those with the smallest angles (highest
+            cosine similarity) to the query book.</p>
         </div>
       </div>
     </div>
 
     <div class="function-section">
       <h2>5. Recommendation Function</h2>
-      <p class="section-description">The <code>get_recommends</code> function was implemented to generate book recommendations.</p>
-      
+      <p class="section-description">The <code>get_recommends</code> function was implemented to generate book
+        recommendations.</p>
+
       <div class="function-explanation">
         <h3>Function Implementation</h3>
         <div class="code-example">
@@ -371,7 +406,7 @@ model.fit(df.values)</code></pre>
     lista = [book_title, recommended_books]
     return lista</code></pre>
         </div>
-        
+
         <div class="function-steps">
           <h4>How the function works:</h4>
           <ol>
@@ -380,7 +415,8 @@ model.fit(df.values)</code></pre>
             <li><strong>Searches</strong> for the 6 nearest books (including the book itself)</li>
             <li><strong>Sorts</strong> results by distance (highest to lowest)</li>
             <li><strong>Selects</strong> the 5 most similar books (excluding the original book)</li>
-            <li><strong>Returns</strong> a list with the queried book title and an array with the 5 recommended books along with their distances</li>
+            <li><strong>Returns</strong> a list with the queried book title and an array with the 5 recommended books
+              along with their distances</li>
           </ol>
         </div>
       </div>
@@ -388,8 +424,9 @@ model.fit(df.values)</code></pre>
 
     <div class="results-section">
       <h2>6. Results</h2>
-      <p class="section-description">The system was successfully tested with different books. Here are some examples of recommendations generated:</p>
-      
+      <p class="section-description">The system was successfully tested with different books. Here are some examples of
+        recommendations generated:</p>
+
       <div class="results-examples">
         <div class="result-example">
           <div class="result-header">
@@ -472,8 +509,12 @@ model.fit(df.values)</code></pre>
 
       <div class="results-interpretation">
         <h3>Results Interpretation</h3>
-        <p>Higher distances indicate greater similarity (cosine distance is interpreted as similarity when close to 1). The system successfully identifies books that share similar rating patterns, meaning users who liked one book tend to like the recommended books as well.</p>
-        <p>Notice in Example 2 how the system correctly identifies other books from the same series ("Vampire Chronicles") and similar genres, demonstrating that the collaborative filtering approach effectively captures book similarities based on user preferences.</p>
+        <p>Higher distances indicate greater similarity (cosine distance is interpreted as similarity when close to 1).
+          The system successfully identifies books that share similar rating patterns, meaning users who liked one book
+          tend to like the recommended books as well.</p>
+        <p>Notice in Example 2 how the system correctly identifies other books from the same series ("Vampire
+          Chronicles") and similar genres, demonstrating that the collaborative filtering approach effectively captures
+          book similarities based on user preferences.</p>
       </div>
     </div>
 
@@ -483,22 +524,26 @@ model.fit(df.values)</code></pre>
         <div class="concept-card-small">
           <i class="fas fa-users"></i>
           <h3>Collaborative Filtering</h3>
-          <p>Method that predicts a user's preferences based on the preferences of similar users. In this case, it finds books similar to a given book based on how users have rated them.</p>
+          <p>Method that predicts a user's preferences based on the preferences of similar users. In this case, it finds
+            books similar to a given book based on how users have rated them.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-search"></i>
           <h3>K-Nearest Neighbors</h3>
-          <p>Algorithm that finds the K most similar items based on distance or similarity metrics. Here, it finds books with similar rating patterns.</p>
+          <p>Algorithm that finds the K most similar items based on distance or similarity metrics. Here, it finds books
+            with similar rating patterns.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-star"></i>
           <h3>Rating Matrix</h3>
-          <p>Representation of user-book interactions that allows calculating similarities and generating recommendations. Each cell contains a user's rating for a book.</p>
+          <p>Representation of user-book interactions that allows calculating similarities and generating
+            recommendations. Each cell contains a user's rating for a book.</p>
         </div>
         <div class="concept-card-small">
           <i class="fas fa-ruler"></i>
           <h3>Cosine Similarity</h3>
-          <p>Distance metric that measures the angle between two vectors, ideal for sparse and high-dimensional data like rating matrices.</p>
+          <p>Distance metric that measures the angle between two vectors, ideal for sparse and high-dimensional data
+            like rating matrices.</p>
         </div>
       </div>
     </div>
@@ -538,7 +583,7 @@ model.fit(df.values)</code></pre>
 
   .metric-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .metric-card-highlight {
@@ -598,7 +643,7 @@ model.fit(df.values)</code></pre>
     color: white;
     border-radius: 8px;
     margin: 1.5rem 0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .formula-large strong {
@@ -616,7 +661,7 @@ model.fit(df.values)</code></pre>
     border-radius: 6px;
     padding: 1.5rem;
     margin: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .component-card h5 {
@@ -747,7 +792,7 @@ model.fit(df.values)</code></pre>
 
   .concept-card-small:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     border-color: #007bff;
   }
 
@@ -778,7 +823,7 @@ model.fit(df.values)</code></pre>
   .result-example {
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-bottom: 2.5rem;
     overflow: hidden;
     border: 1px solid #e8e8e8;
@@ -889,6 +934,7 @@ model.fit(df.values)</code></pre>
   }
 
   @media (max-width: 768px) {
+
     .table-header,
     .recommendation-row {
       grid-template-columns: 60px 1fr 100px;
@@ -922,11 +968,12 @@ model.fit(df.values)</code></pre>
   }
 
   @media (max-width: 768px) {
+
     .metric-comparison,
     .geometric-explanation {
       grid-template-columns: 1fr;
     }
-    
+
     .concepts-grid-four {
       grid-template-columns: 1fr;
     }

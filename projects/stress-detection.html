@@ -5,7 +5,7 @@ title: Stress Detection from Text
 
 <section class="project-detail-section">
   <div class="project-header">
-    <a href="/roadmap.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Roadmap</a>
+    <a href="/projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
     <h1 class="project-detail-title">Stress Detection from Text</h1>
     <p class="project-detail-subtitle">Natural Language Processing (NLP)</p>
     <div class="project-tags">
@@ -16,7 +16,8 @@ title: Stress Detection from Text
       <span class="tag">NLTK</span>
     </div>
     <div class="github-link">
-      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/Estres/nlp-regresionLogistica.ipynb" target="_blank" class="github-btn">
+      <a href="https://github.com/valemicolgarcia/valemicolgarcia.github.io/blob/main/projects/Estres/nlp-regresionLogistica.ipynb"
+        target="_blank" class="github-btn">
         <i class="fab fa-github"></i> View code on GitHub
       </a>
       <a href="/projects/Estres/test-stress.html" class="test-btn">
@@ -28,13 +29,17 @@ title: Stress Detection from Text
   <div class="project-content">
     <div class="project-overview">
       <h2>Problem to Solve</h2>
-      <p>This project uses natural language processing (NLP) and machine learning techniques to detect stress levels in written texts. The system takes unstructured text as input, preprocesses it, and applies classification models to determine the probability that the text reflects stress. Interactive visualizations help explore data patterns and model results.</p>
+      <p>This project uses natural language processing (NLP) and machine learning techniques to detect stress levels in
+        written texts. The system takes unstructured text as input, preprocesses it, and applies classification models
+        to determine the probability that the text reflects stress. Interactive visualizations help explore data
+        patterns and model results.</p>
     </div>
 
     <div class="dataset-section">
       <h2>1. Dataset Information</h2>
-      <p class="section-description">The dataset contains texts extracted from different Reddit subreddits, with information about the stress level detected in each text.</p>
-      
+      <p class="section-description">The dataset contains texts extracted from different Reddit subreddits, with
+        information about the stress level detected in each text.</p>
+
       <div class="variables-info">
         <div class="variables-category">
           <h3>Dataset Columns</h3>
@@ -119,8 +124,9 @@ title: Stress Detection from Text
 
     <div class="text-analysis-section">
       <h2>2. Text Analysis</h2>
-      <p class="section-description">An exploratory analysis of the texts was performed to understand their characteristics and distributions. The average words per text is <strong>85 words</strong>.</p>
-      
+      <p class="section-description">An exploratory analysis of the texts was performed to understand their
+        characteristics and distributions. The average words per text is <strong>85 words</strong>.</p>
+
       <div class="analysis-images-grid">
         <div class="analysis-image-item">
           <h3>Words per Review</h3>
@@ -139,12 +145,14 @@ title: Stress Detection from Text
 
     <div class="nltk-section">
       <h2>3. Processing with NLTK</h2>
-      <p class="section-description">NLTK (Natural Language Toolkit) is a Python library that provides tools for working with natural language data. It was used to preprocess and normalize texts before model training.</p>
-      
+      <p class="section-description">NLTK (Natural Language Toolkit) is a Python library that provides tools for working
+        with natural language data. It was used to preprocess and normalize texts before model training.</p>
+
       <div class="preprocessing-step">
         <h3>3.1 Normalization and Tokenization</h3>
-        <p>All words were converted to lowercase and texts were tokenized (divided into individual words). By removing duplicates, the number of unique tokens was reduced by <strong>10%</strong> with normalization.</p>
-        
+        <p>All words were converted to lowercase and texts were tokenized (divided into individual words). By removing
+          duplicates, the number of unique tokens was reduced by <strong>10%</strong> with normalization.</p>
+
         <div class="code-example">
           <pre><code>from nltk import word_tokenize
 
@@ -161,24 +169,31 @@ print("Tokens únicos nuevos: ", len(set(tokens_lower)))</code></pre>
 
       <div class="preprocessing-step">
         <h3>3.2 Special Character Removal</h3>
-        <p>Special characters that do not provide information for classification were removed, such as emojis, symbols, and excessive punctuation marks.</p>
+        <p>Special characters that do not provide information for classification were removed, such as emojis, symbols,
+          and excessive punctuation marks.</p>
         <div class="special-chars-list">
-          <p><strong>Removed characters:</strong> {'"', '🐰', ''', '💕', '>', '\u200d', '+', '_', '\\', '➡', '\t', '\u200e', '🙂', ''', '·', '…', '#', '●', '🎓', '€', '(', "'", '<', '"', '^', '´', '🥕', '😔', '😦', ':', '"', '/', '?', '❤', '–', '%', '👩', '@', '️', '😇', '[', '—', '-', '!', '💸', '$', '¯', '.', ')', '&', ',', '£', '=', '•', ';', '~', ']', '*'}</p>
+          <p><strong>Removed characters:</strong> {'"', '🐰', ''', '💕', '>', '\u200d', '+', '_', '\\', '➡', '\t',
+            '\u200e', '🙂', ''', '·', '…', '#', '●', '🎓', '€', '(', "'", '<', '"' , '^' , '´' , '🥕' , '😔' , '😦'
+              , ':' , '"' , '/' , '?' , '❤' , '–' , '%' , '👩' , '@' , '️' , '😇' , '[' , '—' , '-' , '!' , '💸' , '$'
+              , '¯' , '.' , ')' , '&' , ',' , '£' , '=' , '•' , ';' , '~' , ']' , '*' }</p>
         </div>
       </div>
 
       <div class="preprocessing-step">
         <h3>3.3 Lemmatization</h3>
-        <p>Lemmatization is the process of reducing a word to its base form or lemma. For example, "running", "runs", and "ran" become "run". This helps normalize variations of the same word.</p>
-        
+        <p>Lemmatization is the process of reducing a word to its base form or lemma. For example, "running", "runs",
+          and "ran" become "run". This helps normalize variations of the same word.</p>
+
         <div class="lemmatization-example">
           <div class="example-before">
             <h4>Before:</h4>
-            <p class="example-text">"I am feeling anxious and worried. My heart is racing and I cannot stop thinking about problems."</p>
+            <p class="example-text">"I am feeling anxious and worried. My heart is racing and I cannot stop thinking
+              about problems."</p>
           </div>
           <div class="example-after">
             <h4>After:</h4>
-            <p class="example-text">"I be feel anxious and worry. My heart be race and I cannot stop think about problem."</p>
+            <p class="example-text">"I be feel anxious and worry. My heart be race and I cannot stop think about
+              problem."</p>
           </div>
         </div>
 
@@ -200,7 +215,7 @@ X_lema = X.apply(lemmatize_text)</code></pre>
       <div class="preprocessing-step">
         <h3>3.4 Removal of Stopwords and High/Low Frequency Words</h3>
         <p>Words that do not provide information for classification were removed:</p>
-        
+
         <div class="frequency-analysis">
           <div class="frequency-card">
             <h4>High Frequency Words (removed)</h4>
@@ -218,7 +233,7 @@ X_lema = X.apply(lemmatize_text)</code></pre>
               <li><strong>('me', 3036)</strong> - appears 3,036 times</li>
             </ul>
           </div>
-          
+
           <div class="frequency-card">
             <h4>Low Frequency Words (removed)</h4>
             <p>These words appear only once and also do not provide information:</p>
@@ -251,13 +266,16 @@ processed_stopwords = [word.lower() for stopword in noise_words
 
       <div class="preprocessing-step">
         <h3>3.5 Train-Test Split</h3>
-        <p>The dataset was split before vectorizing to more easily compare original texts with preprocessed ones. This allows maintaining a clear reference of the original data.</p>
+        <p>The dataset was split before vectorizing to more easily compare original texts with preprocessed ones. This
+          allows maintaining a clear reference of the original data.</p>
       </div>
 
       <div class="preprocessing-step">
         <h3>3.6 Vectorization (Bag of Words)</h3>
-        <p>Vectorization is the process of converting text into numbers that the machine learning model can process. <strong>Bag of Words (BOW)</strong> represents each text as a vector where each position corresponds to a word in the vocabulary, and the value indicates how many times that word appears in the text.</p>
-        
+        <p>Vectorization is the process of converting text into numbers that the machine learning model can process.
+          <strong>Bag of Words (BOW)</strong> represents each text as a vector where each position corresponds to a word
+          in the vocabulary, and the value indicates how many times that word appears in the text.</p>
+
         <div class="code-example">
           <pre><code>bow_counts = CountVectorizer(
     tokenizer=word_tokenize,
@@ -268,23 +286,29 @@ processed_stopwords = [word.lower() for stopword in noise_words
 X_train_bow = bow_counts.fit_transform(X_train)
 X_test_bow = bow_counts.transform(X_test)</code></pre>
         </div>
-        
+
         <div class="vectorization-explanation">
-          <p><strong>Why bigrams?</strong> Bigrams capture pairs of consecutive words (like "I am", "am stressed"), which helps capture context and relationships between words that are important for detecting stress.</p>
+          <p><strong>Why bigrams?</strong> Bigrams capture pairs of consecutive words (like "I am", "am stressed"),
+            which helps capture context and relationships between words that are important for detecting stress.</p>
         </div>
       </div>
     </div>
 
     <div class="wordcloud-section">
       <h2>4. Wordclouds Before Training</h2>
-      <p class="section-description">Wordclouds show the most frequent words in each category, revealing distinctive linguistic patterns between stressed and non-stressed texts.</p>
-      
+      <p class="section-description">Wordclouds show the most frequent words in each category, revealing distinctive
+        linguistic patterns between stressed and non-stressed texts.</p>
+
       <div class="wordcloud-container">
         <div class="wordcloud-item wordcloud-full">
           <h3>Comparison: Stressed vs Non-Stressed People</h3>
           <div class="wordcloud-image">
-            <img src="{{ site.baseurl }}/projects/Estres/stressvsNotstressed.png" alt="WordCloud stressed vs non-stressed people" />
-            <p class="wordcloud-note">The visual comparison shows differences in word patterns. In texts from stressed people, words like <strong>"anxiety"</strong>, <strong>"friend"</strong>, <strong>"work"</strong>, <strong>"need"</strong>, <strong>"back"</strong>, <strong>"time"</strong>, and <strong>"know"</strong> appear more frequently and in different contexts than in texts from non-stressed people.</p>
+            <img src="{{ site.baseurl }}/projects/Estres/stressvsNotstressed.png"
+              alt="WordCloud stressed vs non-stressed people" />
+            <p class="wordcloud-note">The visual comparison shows differences in word patterns. In texts from stressed
+              people, words like <strong>"anxiety"</strong>, <strong>"friend"</strong>, <strong>"work"</strong>,
+              <strong>"need"</strong>, <strong>"back"</strong>, <strong>"time"</strong>, and <strong>"know"</strong>
+              appear more frequently and in different contexts than in texts from non-stressed people.</p>
           </div>
         </div>
       </div>
@@ -292,8 +316,9 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
 
     <div class="model-section">
       <h2>5. Model Training</h2>
-      <p class="section-description">A Logistic Regression model was trained using stratified cross-validation (StratifiedKFold) to robustly evaluate performance.</p>
-      
+      <p class="section-description">A Logistic Regression model was trained using stratified cross-validation
+        (StratifiedKFold) to robustly evaluate performance.</p>
+
       <div class="model-results-section">
         <h3>Model Results</h3>
         <div class="metrics-display-new">
@@ -305,7 +330,7 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
             <div class="metric-value-new">0.71</div>
             <div class="metric-desc-new">Average model accuracy</div>
           </div>
-          
+
           <div class="metric-card-new">
             <div class="metric-header">
               <div class="metric-icon">Pre</div>
@@ -314,7 +339,7 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
             <div class="metric-value-new">0.71</div>
             <div class="metric-desc-new">Average precision (StratifiedKFold)</div>
           </div>
-          
+
           <div class="metric-card-new">
             <div class="metric-header">
               <div class="metric-icon">Rec</div>
@@ -323,7 +348,7 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
             <div class="metric-value-new">0.71</div>
             <div class="metric-desc-new">Average recall (StratifiedKFold)</div>
           </div>
-          
+
           <div class="metric-card-new">
             <div class="metric-header">
               <div class="metric-icon">F1</div>
@@ -339,7 +364,7 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
     <div class="test-section">
       <h2>6. Model Testing</h2>
       <p class="section-description">The model was tested with real examples to verify its functionality:</p>
-      
+
       <div class="test-examples">
         <div class="test-item test-stressed">
           <div class="test-icon">
@@ -350,9 +375,10 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
             <span class="prediction-label">Prediction:</span>
             <span class="prediction-stress">1 (Stressed)</span>
           </div>
-          <p class="test-explanation">The model correctly identifies that this phrase indicates the presence of stress.</p>
+          <p class="test-explanation">The model correctly identifies that this phrase indicates the presence of stress.
+          </p>
         </div>
-        
+
         <div class="test-item test-relaxed">
           <div class="test-icon">
             <i class="fas fa-smile"></i>
@@ -362,7 +388,8 @@ X_test_bow = bow_counts.transform(X_test)</code></pre>
             <span class="prediction-label">Prediction:</span>
             <span class="prediction-no-stress">0 (Not stressed)</span>
           </div>
-          <p class="test-explanation">The model correctly identifies that this phrase indicates the absence of stress.</p>
+          <p class="test-explanation">The model correctly identifies that this phrase indicates the absence of stress.
+          </p>
         </div>
       </div>
     </div>
