@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Grounding DINO — Model Overview and Concepts
-excerpt: "How Grounding DINO is used in this project: where it comes from, how it is invoked in the code, and how it was put into practice (API, deployment)."
+excerpt: "How Grounding DINO is used in the Zero-Shot Object Detection Service: where it comes from, how it is invoked in the code, and how it was put into practice (API, deployment)."
 categories:
   - "Deep Learning & AI"
 order: 3
@@ -12,7 +12,7 @@ tags:
   - Hugging Face
 ---
 
-This document describes how **Grounding DINO** is used in this project: what it is, where it comes from, how it is invoked in the code, and how it was put into practice (API, deployment). For an explanation of what a Transformer is and the main transformer architectures (including **vision-language**, which Grounding DINO uses), see [Transformers: what they are and main architectures]({% post_url 2026-01-31-transformers-architectures %}).
+This document describes how **Grounding DINO** is used in the [**Zero-Shot Object Detection Service**](/projects/zero-shot-detection.html): what it is, where it comes from, how it is invoked in the code, and how it was put into practice (API, deployment). For an explanation of what a Transformer is and the main transformer architectures (including **vision-language**, which Grounding DINO uses), see [Transformers: what they are and main architectures]({% post_url 2026-01-31-transformers-architectures %}).
 
 ---
 
@@ -32,13 +32,13 @@ Unlike a classical detector (which can only detect the classes it was trained on
 - **Paper:** *"Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection"* (Liu et al., 2023).  
   Link: [arXiv:2303.05499](https://arxiv.org/abs/2303.05499).
 - **Core ideas:** **DINO** (a transformer-based detector, in the spirit of DETR) is combined with **grounded pre-training**: training on data that links image regions to phrases or words.
-- **Code and models:** The authors released code and checkpoints; in this project the version integrated in **Hugging Face** (`transformers`) is used, with the model **IDEA-Research/grounding-dino-tiny** (small variant).
+- **Code and models:** The authors released code and checkpoints; in the Zero-Shot Object Detection Service the version integrated in **Hugging Face** (`transformers`) is used, with the model **IDEA-Research/grounding-dino-tiny** (small variant).
 
 In short: the model comes from the 2023 paper and is used here via the Hugging Face library and its Hub.
 
 ---
 
-## 2. How it is named and used in this project
+## 2. How it is named and used in the Zero-Shot Object Detection Service
 
 ### Where it is in the code
 
@@ -94,11 +94,11 @@ The "name" of the model in the API and in the documentation is "Grounding DINO (
 
 ## 4. Summary table
 
-| Topic | What it is / where it comes from | How it is used in this project |
-|-------|----------------------------------|---------------------------------|
+| Topic | What it is / where it comes from | How it is used in the Zero-Shot Object Detection Service |
+|-------|----------------------------------|----------------------------------------------------------|
 | **Grounding DINO** | Vision-language, zero-shot model for open-set detection (2023 paper, Hugging Face). | `GroundingDinoDetector` in `detection/grounding_dino.py`; model `grounding-dino-tiny`. |
 | **Implementation** | FastAPI + PyTorch + Hugging Face + PIL; detector singleton; Docker/Spaces. | `get_detector()` + `detector.detect()` in `/detect` and `/detect/image`; post-processing and filters in `main.py`. |
 
 ---
 
-This document summarises how Grounding DINO is used in this backend. For the underlying architecture (Transformers, vision-language), see [Transformers: what they are and main architectures]({% post_url 2026-01-31-transformers-architectures %}).
+This document summarises how Grounding DINO is used in the Zero-Shot Object Detection Service backend. For the underlying architecture (Transformers, vision-language), see [Transformers: what they are and main architectures]({% post_url 2026-01-31-transformers-architectures %}).
